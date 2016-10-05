@@ -1,5 +1,0 @@
-
-<script src="/libs/materialize/js/materialize.min.js"></script>
-<script type="text/javascript">
-    console.log("Welcome to our event manager");
-</script>

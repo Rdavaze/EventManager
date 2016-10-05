@@ -1,9 +1,0 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Event Manager</title>
-
-    <link rel="stylesheet" href="<c:url value="libs/materialize/css/materialize.min.css"/>">
-    <link rel="stylesheet" href="<c:url value="css/login.css"/>">
-</head>

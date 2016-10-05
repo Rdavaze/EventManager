@@ -1,1 +1,1 @@
-<%@include file="login/login.jsp"%>
+<%@include file="WEB-INF/login/login.jsp"%>
