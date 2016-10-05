@@ -1,16 +1,8 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Romain
-  Date: 05/10/2016
-  Time: 15:34
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
 <head>
-    <title>$Title$</title>
+    <title>Event Manager</title>
+
+    <link rel="stylesheet" href="/libs/materialize/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/login.css">
+
+    <script src="/libs/materialize/js/materialize.min.js"></script>
 </head>
-<body>
-$END$
-</body>
-</html>
