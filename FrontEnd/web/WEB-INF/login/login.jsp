@@ -3,8 +3,10 @@
 <%@include file="../commons/header.jspf"%>
 <body>
 
+<h1 id="app-title">Event Manager</h1>
 
-<div class="form">
+
+<div class="form" id="form-general" >
 
     <ul class="tab-group">
         <li class="tab active"><a href="#login">Se connecter</a></li>
