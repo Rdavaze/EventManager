@@ -5,6 +5,8 @@
 
 <h1 id="app-title">Event Manager</h1>
 
+<%@include file="../commons/menu.jspf"%>
+
 
 <div class="form" id="form-general" >
 
