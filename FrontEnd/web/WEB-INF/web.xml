@@ -4,15 +4,17 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
     
-    <!---->
-    <!--<servlet>-->
-        <!--<servlet-name>FrontController</servlet-name>-->
-        <!--<servlet-class>controller.FrontController</servlet-class>-->
-    <!--</servlet>-->
-    <!---->
-    <!--<servlet-mapping>-->
-        <!--<servlet-name>FrontController</servlet-name>-->
-        <!--<url-pattern>/*</url-pattern>-->
-    <!--</servlet-mapping>-->
+
+    <servlet>
+        <servlet-name>FrontController</servlet-name>
+        <servlet-class>controller.FrontController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>FrontController</servlet-name>
+        <url-pattern>/EventManager/*</url-pattern>
+    </servlet-mapping>
+
+
     
 </web-app>
