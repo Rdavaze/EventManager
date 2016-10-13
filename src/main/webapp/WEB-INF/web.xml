@@ -3,9 +3,14 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-    <welcome-file-list>
 
-        <welcome-file>index.jsp</welcome-file>
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>fr.glf.evtmanager.controller.LoginController</servlet-class>
+    </servlet>
 
-    </welcome-file-list>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
 </web-app>
