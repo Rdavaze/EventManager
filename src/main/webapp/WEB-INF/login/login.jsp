@@ -18,30 +18,31 @@
     <div class="tab-content">
 
         <div id="login">
-
             <form action="/" method="post">
-
-                <div class="field-wrap">
+                <!--<div class="field-wrap">
                     <label>
                         Adresse mail
                     </label>
                     <input type="email" required autocomplete="off"/>
+                </div>-->
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="email">Adresse mail</label>
+                        <input id="email" type="email" required>
+                    </div>
                 </div>
 
-                <div class="field-wrap">
-                    <label>
-                        Mot de passe
-                    </label>
-                    <input type="password" required autocomplete="off"/>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <label for="password">Mot de passe</label>
+                        <input id="password" type="password" class="validate" required autocomplete="off">
+                    </div>
+                    <p class="forgot"><a href="#">Mot de passe oublié?</a></p>
                 </div>
 
-                <p class="forgot"><a href="#">Mot de passe oublié?</a></p>
-
-                <button class="button button-block" style="margin-top:30px;">
-                    Se connecter
-                </button>
+                <button class="button button-block">Se connecter</button>
             </form>
-
         </div>
 
         <div id="signup">
@@ -64,23 +65,18 @@
                     </div>
                 </div>
 
-                <div class="field-wrap">
-                    <label>
-                        Adresse mail
-                    </label>
-                    <input type="email" required autocomplete="off"/>
+                <div class="input-field col s12">
+                    <label for="email">Adresse mail</label>
+                    <input id="email" type="email" required>
                 </div>
 
-                <div class="field-wrap">
-                    <label>
-                        Mot de passe
-                    </label>
-                    <input type="password" required autocomplete="off"/>
+
+                <div class="input-field col s12">
+                    <label for="password">Mot de passe</label>
+                    <input id="password" type="password" class="validate" required autocomplete="off">
                 </div>
 
-                <button type="submit" class="button button-block" style="margin-top: 30px">
-                    S'inscrire
-                </button>
+                <button type="submit" class="waves-effect waves-light btn">S'inscrire</button>
 
             </form>
 
@@ -94,34 +90,34 @@
 
 <script>
 
-    $('.form').find('input, textarea').on('keyup blur focus', function (e) {
+    /*$('.form').find('input, textarea').on('keyup blur focus', function (e) {
 
-        var $this = $(this),
-                label = $this.prev('label');
+     var $this = $(this),
+     label = $this.prev('label');
 
-        if (e.type === 'keyup') {
-            if ($this.val() === '') {
-                label.removeClass('active highlight');
-            } else {
-                label.addClass('active highlight');
-            }
-        } else if (e.type === 'blur') {
-            if ($this.val() === '') {
-                label.removeClass('active highlight');
-            } else {
-                label.removeClass('highlight');
-            }
-        } else if (e.type === 'focus') {
+     if (e.type === 'keyup') {
+     if ($this.val() === '') {
+     label.removeClass('active highlight');
+     } else {
+     label.addClass('active highlight');
+     }
+     } else if (e.type === 'blur') {
+     if ($this.val() === '') {
+     label.removeClass('active highlight');
+     } else {
+     label.removeClass('highlight');
+     }
+     } else if (e.type === 'focus') {
 
-            if ($this.val() === '') {
-                label.removeClass('highlight');
-            }
-            else if ($this.val() !== '') {
-                label.addClass('highlight');
-            }
-        }
+     if ($this.val() === '') {
+     label.removeClass('highlight');
+     }
+     else if ($this.val() !== '') {
+     label.addClass('highlight');
+     }
+     }
 
-    });
+     });*/
 
     $('.tab a').on('click', function (e) {
 

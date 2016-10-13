@@ -98,8 +98,8 @@ label .req {
 }
 
 label.active {
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
+    -webkit-transform: translateY(-15px);
+    transform: translateY(-15px);
     left: 2px;
     font-size: 14px;
 }
@@ -183,7 +183,6 @@ textarea {
 }
 
 #app-title{
-
   background: rgba(19, 35, 47, 0.9);
   padding: 20px;
   text-align: left;
