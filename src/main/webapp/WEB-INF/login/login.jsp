@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<%@include file="../commons/header.jspf"%>
+<%@include file="../partials/header.jspf" %>
 <body>
 
 <h1 id="app-title">Event Manager</h1>
 
-<%@include file="../commons/menu.jspf"%>
+<%@include file="../partials/menu.jspf" %>
 
 
-<div class="form" id="form-general" >
+<div class="form" id="form-general">
 
     <ul class="tab-group">
         <li class="tab active"><a href="#login">Se connecter</a></li>
@@ -25,20 +25,21 @@
                     <label>
                         Adresse mail
                     </label>
-                    <input type="email"required autocomplete="off"/>
+                    <input type="email" required autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
                     <label>
                         Mot de passe
                     </label>
-                    <input type="password"required autocomplete="off"/>
+                    <input type="password" required autocomplete="off"/>
                 </div>
 
                 <p class="forgot"><a href="#">Mot de passe oublié?</a></p>
 
-                <button class="button button-block" style="margin-top:30px;"/>Se connecter</button>
-
+                <button class="button button-block" style="margin-top:30px;">
+                    Se connecter
+                </button>
             </form>
 
         </div>
@@ -52,14 +53,14 @@
                         <label>
                             Prénom
                         </label>
-                        <input type="text" required autocomplete="off" />
+                        <input type="text" required autocomplete="off"/>
                     </div>
 
                     <div class="field-wrap">
                         <label>
                             Nom
                         </label>
-                        <input type="text"required autocomplete="off"/>
+                        <input type="text" required autocomplete="off"/>
                     </div>
                 </div>
 
@@ -67,22 +68,23 @@
                     <label>
                         Adresse mail
                     </label>
-                    <input type="email"required autocomplete="off"/>
+                    <input type="email" required autocomplete="off"/>
                 </div>
 
                 <div class="field-wrap">
                     <label>
                         Mot de passe
                     </label>
-                    <input type="password"required autocomplete="off"/>
+                    <input type="password" required autocomplete="off"/>
                 </div>
 
-                <button type="submit" class="button button-block" style="margin-top: 30px"/>S'inscrire</button>
+                <button type="submit" class="button button-block" style="margin-top: 30px">
+                    S'inscrire
+                </button>
 
             </form>
 
         </div>
-
 
 
     </div>
@@ -104,17 +106,17 @@
                 label.addClass('active highlight');
             }
         } else if (e.type === 'blur') {
-            if( $this.val() === '' ) {
+            if ($this.val() === '') {
                 label.removeClass('active highlight');
             } else {
                 label.removeClass('highlight');
             }
         } else if (e.type === 'focus') {
 
-            if( $this.val() === '' ) {
+            if ($this.val() === '') {
                 label.removeClass('highlight');
             }
-            else if( $this.val() !== '' ) {
+            else if ($this.val() !== '') {
                 label.addClass('highlight');
             }
         }
