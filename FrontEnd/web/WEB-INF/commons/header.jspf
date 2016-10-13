@@ -1,8 +1,0 @@
-<head>
-    <title>Event Manager</title>
-
-    <link rel="stylesheet" href="/libs/materialize/css/materialize.min.css">
-    <link rel="stylesheet" href="/css/login.css">
-
-    <script src="/libs/materialize/js/materialize.min.js"></script>
-</head>
