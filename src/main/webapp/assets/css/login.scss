@@ -7,7 +7,7 @@ html {
 }
 
 body {
-    background: #c1bdba;
+    background: url("../images/agenda.png");
     font-family: 'Titillium Web', sans-serif;
 }
 
@@ -21,10 +21,10 @@ a:hover {
     color: #179b77;
 }
 .forgot a {
-    color: rgba(255, 255, 255, .5);
+    color: rgb(26, 177, 136);
 }
 .forgot a:hover {
-    color: rgb(26, 177, 136);
+    color: rgba(255, 255, 255, .5);
 }
 
 .form {
@@ -39,7 +39,7 @@ a:hover {
 .tab-group {
     list-style: none;
     padding: 0;
-    margin: 0 0 40px 0;
+    margin: 0 0 20px 0;
 }
 .tab-group:after {
     content: "";
@@ -49,16 +49,18 @@ a:hover {
 .tab-group li a {
     display: block;
     text-decoration: none;
-    padding: 15px;
+    padding: 10px;
     background: rgba(160, 179, 176, 0.25);
     color: #a0b3b0;
-    font-size: 20px;
+    font-size: 14px;
     float: left;
     width: 50%;
+    height: 40px;
     text-align: center;
     cursor: pointer;
     -webkit-transition: .5s ease;
     transition: .5s ease;
+    border-radius: 2px;
 }
 .tab-group li a:hover {
     background: #179b77;
@@ -136,7 +138,7 @@ textarea {
 
 .field-wrap {
     position: relative;
-    margin-bottom: 20px;
+    //margin-bottom: 20px;
 }
 
 .top-row:after {
@@ -148,9 +150,11 @@ textarea {
     float: left;
     width: 48%;
     margin-right: 4%;
+
 }
 .top-row > div:last-child {
     margin: 0;
+  font-size: 1rem;
 }
 
 .button {
@@ -189,4 +193,20 @@ textarea {
   margin: 20px;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+  font-size: 1rem;
+}
+
+.btn{
+    margin: 5% 25% 0;
+
+}
+
+#form-general{
+    width: 30%;
+    height: 60%;
+  margin-top: 10%;
+}
+
+#sides{
+  margin:0;
 }

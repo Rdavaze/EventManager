@@ -6,7 +6,7 @@
 
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>fr.glf.evtmanager.controller.LoginController</servlet-class>
+        <servlet-class>fr.grf.evtmanager.controller.LoginController</servlet-class>
     </servlet>
 
     <servlet-mapping>
