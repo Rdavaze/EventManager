@@ -1,4 +1,4 @@
-package fr.glf.evtmanager.controller;
+package fr.grf.evtmanager.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
