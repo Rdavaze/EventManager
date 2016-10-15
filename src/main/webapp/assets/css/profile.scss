@@ -1,0 +1,67 @@
+.profile-page {
+  width: 100%;
+  height: 100%;
+}
+
+.menu {
+  height: 100%;
+  float: left;
+}
+
+.profile {
+  background: rgba(160, 179, 176, 0.25);
+  height: 100%;
+  width: auto;
+  overflow: hidden;
+}
+
+div.clear {
+  clear: both;
+  height: 1px;
+  overflow: hidden;
+  font-size: 0pt;
+  margin-top: -1px;
+}
+
+#profile-title {
+  margin: 0;
+  padding: 2% 0 0;
+  text-align: center;
+  font-family: 'Arizonia', Helvetica, sans-serif;
+  font-size: 450%;
+}
+
+#profile-content {
+  width: 50%;
+  height: 50%;
+  text-align: center;
+  margin-left: 25%;
+  margin-top: 8%;
+  background-color: rgba(19, 35, 47, 0.9);
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+}
+
+.profile-value {
+  width: 40% !important;
+  margin: 3% 2% 2% 4% !important;
+  color: white;
+
+}
+
+.btn {
+  margin-top: 3%;
+}
+
+@media only screen and (max-width: 580px) {
+  .profile {
+    width: 80%;
+  }
+}
+
+
+
+
+

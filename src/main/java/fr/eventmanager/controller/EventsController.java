@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.regex.Pattern;
 
 /**
- * Login controller to handle request to /login.
+ * Event controller to handle request to /events.
  */
 public class EventsController extends HttpServlet {
     private ServletRouter router;
