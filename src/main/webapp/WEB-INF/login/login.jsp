@@ -1,6 +1,9 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<%@include file="../partials/header.jspf" %>
+<head>
+    <%@include file="../partials/header.jspf" %>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.scss">
+</head>
+
 <body>
 
 <div>
