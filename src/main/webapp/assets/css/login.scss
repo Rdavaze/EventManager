@@ -7,8 +7,9 @@ html {
 }
 
 body {
-    background: url("../images/agenda.png");
-    font-family: 'Titillium Web', sans-serif;
+  background: url("../images/agenda.png") no-repeat;
+  background-size: cover;
+  font-family: 'Titillium Web', sans-serif;
 }
 
 a {
@@ -202,8 +203,7 @@ textarea {
 }
 
 #form-general{
-    width: 30%;
-    height: 60%;
+  width: 30%;
   margin-top: 10%;
 }
 
