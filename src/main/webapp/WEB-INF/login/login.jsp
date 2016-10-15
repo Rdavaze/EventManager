@@ -3,85 +3,89 @@
 <%@include file="../partials/header.jspf" %>
 <body>
 
-    <%--<h1 id="app-title">Event Manager</h1>--%>
+<div>
+    <h1 id="app-title">Event Manager</h1>
+</div>
 
-    <div class="form" id="form-general">
-        <ul class="tab-group">
-            <li class="tab active"><a href="#login">Se connecter</a></li>
-            <li class="tab "><a href="#signup">S'inscrire</a></li>
-        </ul>
 
-        <div class="tab-content">
+    <div class="form" id="form-main">
+        <div id="form-div">
 
-            <div id="login">
-                <form action="/" method="post">
-                    <!--<div class="field-wrap">
-                        <label>
-                            Adresse mail
-                        </label>
-                        <input type="email" required autocomplete="off"/>
-                    </div>-->
+            ${wrongCredentials}
 
-                    <div class="row">
+            <ul class="tab-group">
+                <li class="tab active"><a href="#login">Se connecter</a></li>
+                <li class="tab "><a href="#signup">S'inscrire</a></li>
+            </ul>
+
+
+            <div class="tab-content">
+
+                <div id="login">
+                    <form action="" method="post">
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="email-login">Adresse mail</label>
+                                <input class="validate " id="email-login" type="email" required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <label for="password-login">Mot de passe</label>
+                                <input id="password-login" type="password" class="validate"  required autocomplete="off">
+                            </div>
+                            <p class="forgot"><a href="#">Mot de passe oublié?</a></p>
+                        </div>
+
+                        <button type="submit" class="waves-effect waves-light btn" id="button-login" >Connexion</button>
+                    </form>
+                </div>
+
+                <div id="signup">
+
+                    <form action="" method="post">
+
+                        <div class="top-row input-field col s12">
+                            <div class="field-wrap">
+                                <label>
+                                    Prénom
+                                </label>
+                                <input type="text" class="validate" required autocomplete="off"/>
+                            </div>
+
+                            <div class="field-wrap">
+                                <label>
+                                    Nom
+                                </label>
+                                <input type="text" class="validate" required autocomplete="off"/>
+                            </div>
+                        </div>
+
                         <div class="input-field col s12">
-                            <label for="email-login">Adresse mail</label>
-                            <input id="email-login" type="email" required>
+                            <label for="email-subscribe">Adresse mail</label>
+                            <input class="validate" id="email-subscribe" type="email" required autocomplete="off">
                         </div>
-                    </div>
 
-                    <div class="row">
+
                         <div class="input-field col s12">
-                            <label for="password-login">Mot de passe</label>
-                            <input id="password-login" type="password" class="validate" required autocomplete="off">
-                        </div>
-                        <p class="forgot"><a href="#">Mot de passe oublié?</a></p>
-                    </div>
-
-                    <button class="waves-effect waves-light btn">Connexion</button>
-                </form>
-            </div>
-
-            <div id="signup">
-
-                <form action="/" method="post">
-
-                    <div class="top-row input-field col s12">
-                        <div class="field-wrap">
-                            <label>
-                                Prénom
-                            </label>
-                            <input type="text" required autocomplete="off"/>
+                            <label for="password-subscribe">Mot de passe</label>
+                            <input id="password-subscribe" type="password" class="validate" required autocomplete="off">
                         </div>
 
-                        <div class="field-wrap">
-                            <label>
-                                Nom
-                            </label>
-                            <input type="text" required autocomplete="off"/>
-                        </div>
-                    </div>
+                        <button type="submit" class="waves-effect waves-light btn" id="button-subscribe">S'inscrire</button>
 
-                    <div class="input-field col s12">
-                        <label for="email-subscribe">Adresse mail</label>
-                        <input id="email-subscribe" type="email" required>
-                    </div>
+                    </form>
 
+                </div>
 
-                    <div class="input-field col s12">
-                        <label for="password-subscribe">Mot de passe</label>
-                        <input id="password-subscribe" type="password" class="validate" required autocomplete="off">
-                    </div>
-
-                    <button type="submit" class="waves-effect waves-light btn">S'inscrire</button>
-
-                </form>
 
             </div>
-
 
         </div>
-
     </div>
+
 
 <script>
 
