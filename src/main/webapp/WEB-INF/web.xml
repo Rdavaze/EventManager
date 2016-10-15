@@ -17,7 +17,7 @@
 
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>fr.grf.evtmanager.controller.LoginController</servlet-class>
+        <servlet-class>fr.eventmanager.controller.LoginController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -27,13 +27,23 @@
 
 
     <servlet>
+        <servlet-name>EventsController</servlet-name>
+        <servlet-class>fr.eventmanager.controller.EventsController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EventsController</servlet-name>
+        <url-pattern>/events/*</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
         <servlet-name>FrontController</servlet-name>
-        <servlet-class>fr.grf.evtmanager.controller.FrontController</servlet-class>
+        <servlet-class>fr.eventmanager.controller.FrontController</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>FrontController</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
-
 </web-app>
