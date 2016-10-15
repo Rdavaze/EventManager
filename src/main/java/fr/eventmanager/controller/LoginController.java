@@ -1,4 +1,4 @@
-package fr.grf.evtmanager.controller;
+package fr.eventmanager.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
