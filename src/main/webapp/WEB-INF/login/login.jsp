@@ -14,8 +14,6 @@
     <div class="form" id="form-main">
         <div id="form-div">
 
-            ${wrongCredentials}
-
             <ul class="tab-group">
                 <li class="tab active"><a href="#login">Se connecter</a></li>
                 <li class="tab "><a href="#signup">S'inscrire</a></li>
@@ -25,6 +23,7 @@
             <div class="tab-content">
 
                 <div id="login">
+                    ${wrongCredentialsLog}
                     <form action="" method="post">
 
                         <div class="row">
@@ -47,7 +46,7 @@
                 </div>
 
                 <div id="signup">
-
+                    ${wrongCredentialsSub}
                     <form action="" method="post">
 
                         <div class="top-row input-field col s12">

@@ -19,9 +19,11 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
+        //Connection
         boolean isMailWrong = Boolean.parseBoolean(req.getParameter("wrongMail"));
         boolean isPasswordWrong = Boolean.parseBoolean(req.getParameter("wrongPwd"));
+        //Subscription
+        boolean isMailUsed = Boolean.parseBoolean(req.getParameter("usedMail"));
 
         if(isMailWrong || isPasswordWrong){
 
@@ -32,12 +34,19 @@ public class LoginController extends HttpServlet {
                 wrongCredentialsMSG += "<li>Adresse mail incorrecte</li>";
 
             if(isPasswordWrong)
-                wrongCredentialsMSG += "<li>Mot de passe incorrecte</li>";
+                wrongCredentialsMSG += "<li>Mot de passe incorrect</li>";
 
             wrongCredentialsMSG += "</ul></div>";
 
+            req.setAttribute("wrongCredentialsLog", wrongCredentialsMSG);
+        }
 
-            req.setAttribute("wrongCredentials", wrongCredentialsMSG);
+        if (isMailUsed) {
+            String wrongCredentialsSubMSG = "<div id=\"wrong-credentials\">" +
+                    "<ul><li>Adresse mail déjà utilisée</li></ul></div>";
+
+            req.setAttribute("wrongCredentialsSub", wrongCredentialsSubMSG);
+
         }
 
         getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
