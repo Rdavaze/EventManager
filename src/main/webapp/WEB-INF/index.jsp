@@ -1,7 +1,7 @@
 <html>
 <head>
     <%@include file="partials/header.jspf" %>
-    <link rel="stylesheet" href="../assets/css/menu.scss">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/menu.scss">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 

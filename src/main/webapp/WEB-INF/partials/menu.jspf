@@ -2,7 +2,7 @@
     <li class="white-text title">Event Manager</li>
     <li>
         <div class="userView">
-            <img class="circle" src="../../assets/images/mini-agenda.png" id="agenda-icon">
+            <img class="circle" src="${pageContext.request.contextPath}/assets/images/mini-agenda.png" id="agenda-icon">
             <span class="white-text name">John Doe</span>
         </div>
     </li>
