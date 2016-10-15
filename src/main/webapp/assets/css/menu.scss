@@ -1,0 +1,68 @@
+body {
+  overflow: hidden;
+}
+
+.side-nav {
+  transform: translateX(0%) !important;
+  background-color: rgba(19, 35, 47, 0.9);
+  position: relative;
+}
+
+.side-nav > li > * {
+  color: white;
+}
+
+.action {
+  padding-top: 50px !important;
+}
+
+.disconnect {
+  position: absolute;
+  bottom: 10%;
+  left: 0;
+}
+
+.material-icons {
+  color: white !important;
+}
+
+header, main, footer {
+  padding-left: 300px;
+}
+
+@media only screen and (max-width: 992px) {
+  header, main, footer {
+    padding-left: 0;
+  }
+}
+
+.userView {
+  padding: 20px !important;
+  height: 11%;
+  border-bottom: 1px white solid;
+}
+
+.title {
+  font-family: 'Arizonia', Helvetica, sans-serif;
+  font-size: 220%;
+  text-align: center;
+  padding-top: 2%;
+  padding-bottom: 6%;
+  border-bottom: 1px white solid;
+
+}
+
+.name {
+  padding-bottom: 50px;
+  text-align: center;
+  font-size: 120%;
+  font-family: "Roboto", sans-serif;
+  margin-left: 20%;
+  margin-top: 0 !important;
+  vertical-align: middle;
+  display: inline-block !important;
+}
+
+#agenda-icon {
+  display: inline-block;
+}
