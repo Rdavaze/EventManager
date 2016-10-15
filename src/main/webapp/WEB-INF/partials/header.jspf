@@ -1,11 +1,8 @@
-<head>
-    <title>Event Manager</title>
+<title>Event Manager</title>
 
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/materialize/css/materialize.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/normalize.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/login.scss">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/materialize/css/materialize.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/assets/vendors/normalize/normalize.css">
+<link href='http://fonts.googleapis.com/css?family=Arizonia' rel='stylesheet' type='text/css'>
 
-    <script src="${pageContext.request.contextPath}/assets/vendors/jquery/jquery-3.1.1.min.js"></script>
-    <script src="${pageContext.request.contextPath}/assets/vendors/materialize/js/materialize.min.js"></script>
-    
-</head>
+<script src="${pageContext.request.contextPath}/assets/vendors/jquery/jquery-3.1.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/vendors/materialize/js/materialize.min.js"></script>
