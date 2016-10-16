@@ -18,24 +18,24 @@
         <form id="profile-content">
             <div class="row ">
                 <div class="input-field col s6 profile-value">
-                    <input id="first-name" type="text" class="validate valid" value="John">
+                    <input id="first-name" type="text" class="validate valid" value="${profileFirstName}">
                     <label for="first-name">Prénom</label>
                 </div>
                 <div class="input-field col s6 profile-value">
-                    <input id="name" type="text" class="validate valid" value="Doe">
+                    <input id="name" type="text" class="validate valid" value="${profileName}">
                     <label for="name">Nom</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6 profile-value">
-                    <input id="mail" type="text" class="validate valid" value="jdoe@gmail.com">
+                    <input id="mail" type="text" class="validate valid" value="${profileMail}">
                     <label for="mail">Adresse mail</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6 profile-value">
-                    <input id="password" type="password" class="validate valid" value="doe">
+                    <input id="password" type="password" class="validate valid" value="${profilePassword}">
                     <label for="password">Mot de passe</label>
                 </div>
             </div>

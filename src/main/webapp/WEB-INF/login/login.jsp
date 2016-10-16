@@ -24,7 +24,7 @@
 
                 <div id="login">
                     ${wrongCredentialsLog}
-                    <form action="" method="post">
+                    <form action="${pageContext.request.contextPath}/login/connect" method="post">
 
                         <div class="row">
                             <div class="input-field col s12">
@@ -47,7 +47,7 @@
 
                 <div id="signup">
                     ${wrongCredentialsSub}
-                    <form action="" method="post">
+                    <form action="${pageContext.request.contextPath}/login/signup" method="post">
 
                         <div class="top-row input-field col s12">
                             <div class="field-wrap">
