@@ -20,9 +20,19 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        checkParameters(req);
+        String URI = req.getRequestURI();
 
-        getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
+        if ("/login/forgot".matches(URI)){
+            getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req,resp);
+        }
+        else{
+            checkParameters(req);
+
+            getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
+        }
+
+
+
     }
 
     @Override
