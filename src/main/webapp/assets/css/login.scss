@@ -2,6 +2,7 @@
     box-sizing: border-box;
 }
 
+
 html {
     overflow:hidden;
     background: url("../images/agenda.png") no-repeat center center fixed;
@@ -17,19 +18,17 @@ html {
   float:left;
   padding-top:0px;
   position: relative;
-  margin-left: 2%;
-  top: 10%;
+  margin-left: 5%;
   transform: translateY(-50%);
 }
 
 #form-div{
   background-color:rgba(19, 35, 47, 0.9);
-  padding: 35px 35px 50px;
-  width: 450px;
+  padding: 2% 4% 2% 4%;
+  width: 30%;
   float: left;
   left: 50%;
   position: absolute;
-  margin-top:30px;
   margin-left: -260px;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
@@ -94,12 +93,6 @@ a:hover {
     display: none;
 }
 
-//h1 {
-//    text-align: center;
-//    color: #ffffff;
-//    font-weight: 300;
-//    margin: 0 0 40px;
-//}
 
 label {
     position: absolute;
@@ -207,30 +200,23 @@ textarea {
 }
 
 #app-title{
-  //background: rgba(19, 35, 47, 0.9);
-  //border-radius: 20px;
-  //box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
-  padding: 20px;
+  padding: 1%;
   text-align: left;
   margin-left: 1.5%;
-  margin-top: 1%;
+  margin-top: 0.2%;
   color: white;
   font-size: 400%;
   font-family: 'Arizonia', Helvetica, sans-serif;
 }
 
-#button-login{
-  margin-top: 5%;
-}
-
-#button-subscribe{
+#button-login, #button-subscribe{
   margin-top: 5%;
 }
 
 #wrong-credentials {
   background-color: rgba(160, 179, 176, 0.25);
   padding: 1%;
-  margin-bottom: 8%;
+  margin-bottom: 3%;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
   border-radius: 4px;
