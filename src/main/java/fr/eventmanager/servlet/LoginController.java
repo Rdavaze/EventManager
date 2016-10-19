@@ -1,4 +1,4 @@
-package fr.eventmanager.controller;
+package fr.eventmanager.servlet;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 /**
- * Login controller to handle request to /login.
+ * Login servlet to handle request to /login.
  */
 public class LoginController extends HttpServlet {
 

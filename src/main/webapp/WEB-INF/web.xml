@@ -17,7 +17,7 @@
 
     <servlet>
         <servlet-name>LoginController</servlet-name>
-        <servlet-class>fr.eventmanager.controller.LoginController</servlet-class>
+        <servlet-class>fr.eventmanager.servlet.LoginController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -28,7 +28,7 @@
 
     <servlet>
         <servlet-name>EventsController</servlet-name>
-        <servlet-class>fr.eventmanager.controller.EventsController</servlet-class>
+        <servlet-class>fr.eventmanager.servlet.EventsServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -38,7 +38,7 @@
 
     <servlet>
         <servlet-name>ProfileController</servlet-name>
-        <servlet-class>fr.eventmanager.controller.ProfileController</servlet-class>
+        <servlet-class>fr.eventmanager.servlet.ProfileController</servlet-class>
     </servlet>
 
     <servlet-mapping>
@@ -48,7 +48,7 @@
 
     <servlet>
         <servlet-name>FrontController</servlet-name>
-        <servlet-class>fr.eventmanager.controller.FrontController</servlet-class>
+        <servlet-class>fr.eventmanager.servlet.FrontController</servlet-class>
     </servlet>
 
     <servlet-mapping>

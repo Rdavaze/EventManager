@@ -1,4 +1,4 @@
-package fr.eventmanager.controller;
+package fr.eventmanager.servlet;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -5,7 +5,6 @@ import fr.eventmanager.utils.Route;
 import fr.eventmanager.utils.ServletRouter;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -14,21 +13,17 @@ import java.util.regex.Pattern;
 /**
  * Event controller to handle request to /events.
  */
-public class EventsController extends HttpServlet {
-    private ServletRouter router;
-
+public class EventsServlet extends Servlet {
     @Override
-    public void init() throws ServletException {
-        super.init();
-
-        this.router = new ServletRouter(this);
-        this.router.registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "getEvents"));
-        this.router.registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent"));
+    public void init() {
+        super.router = new ServletRouter(this);
+        super.router.registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "getEvents"));
+        super.router.registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent"));
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.router.process(req, resp);
+    String getContextPath() {
+        return "/events";
     }
 
     public void getEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
