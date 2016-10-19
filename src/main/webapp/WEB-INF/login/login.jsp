@@ -38,10 +38,13 @@
                                 <label for="password-login">Mot de passe</label>
                                 <input id="password-login" type="password" class="validate"  required autocomplete="off">
                             </div>
-                            <p class="forgot"><a href="#">Mot de passe oublié?</a></p>
                         </div>
 
                         <button type="submit" class="waves-effect waves-light btn" id="button-login" >Connexion</button>
+
+                        <p class="forgot"><a href="${pageContext.request.contextPath}/login/forgot">Mot de passe
+                            oublié?</a></p>
+
                     </form>
                 </div>
 
