@@ -43,8 +43,8 @@
             <button type="submit" class="waves-effect waves-light btn" id="button-save-profil">Enregistrer</button>
 
         </form>
+
     </div>
-</div>
 
 </body>
 

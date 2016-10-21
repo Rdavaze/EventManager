@@ -27,7 +27,7 @@ div.clear {
   margin: 0;
   padding: 2% 0 0;
   text-align: center;
-  font-family: 'Arizonia', Helvetica, sans-serif;
+  font-family: 'Indie Flower', cursive;
   font-size: 450%;
 }
 
@@ -63,6 +63,11 @@ div > label {
 .create-event-value {
   color: white;
 }
+
+.picker__frame {
+  top: 5% !important;
+}
+
 
 @media only screen and (max-width: 580px) {
   .create-event {

@@ -29,13 +29,14 @@
                     <label for="event-place">Lieu</label>
                 </div>
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-date" type="date" class="datepicker">
+                    <input id="event-date" type="date" class="datepicker ">
                     <label for="event-date">Date</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6 create-event-value">
-                    <textarea id="event-description" type="text" class="materialize-textarea"></textarea>
+                    <textarea id="event-description" maxlength="80" type="text"
+                              class="validate materialize-textarea"></textarea>
                     <label for="event-description">Description</label>
                 </div>
             </div>
@@ -50,7 +51,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="waves-effect waves-light btn" id="button-save-profil">Enregistrer</button>
+            <button type="submit" class="waves-effect waves-light btn" id="button-save-profil">Créer</button>
 
 
         </form>
@@ -62,7 +63,10 @@
 <script>
     $('.datepicker').pickadate({
         monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        monthsShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+        weekdaysFull: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
         weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+        weekdaysLetter: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
         today: 'aujourd\'hui',
         clear: 'effacer',
         formatSubmit: 'yyyy/mm/dd',
@@ -70,7 +74,8 @@
         labelMonthNext: 'Prochain mois',
         labelMonthPrev: 'Mois précédent',
         labelMonthSelect: 'Sélectionner un mois',
-        labelYearSelect: 'Sélectionner une année'
+        labelYearSelect: 'Sélectionner une année',
+        format: 'dd mmmm yyyy'
     });
 
 </script>
