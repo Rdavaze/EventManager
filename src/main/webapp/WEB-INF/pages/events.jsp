@@ -4,6 +4,7 @@
     <%@include file="../partials/header.jspf" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/menu.scss">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/events.scss">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/eventModal.scss">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -20,12 +21,16 @@
             <div class="row">
                 <div class="col s4 event">
                     <span class="event-title">Titre</span>
+                    <button data-target="modal-event1" class="btn modal-trigger waves-effect waves-light btn-event"><i
+                            class="material-icons">library_add</i></button>
                     <p class="event-element">Date</p>
                     <p class="event-element">Lieu</p>
                     <p class="event-element">Organisateur</p>
                 </div>
                 <div class="col s4 event">
                     <span class="event-title">Titre</span>
+                    <button data-target="modal-event2" class="btn modal-trigger btn-event"><i class="material-icons">library_add</i>
+                    </button>
                     <p class="event-element">Date</p>
                     <p class="event-element">Lieu</p>
                     <p class="event-element">Organisateur</p>
@@ -34,12 +39,16 @@
             <div class="row">
                 <div class="col s4 event">
                     <span class="event-title">Titre</span>
+                    <button data-target="modal-event3" class="btn modal-trigger btn-event"><i class="material-icons">library_add</i>
+                    </button>
                     <p class="event-element">Date</p>
                     <p class="event-element">Lieu</p>
                     <p class="event-element">Organisateur</p>
                 </div>
                 <div class="col s4 event">
                     <span class="event-title">Titre</span>
+                    <button data-target="modal-event4" class="btn modal-trigger btn-event"><i class="material-icons">library_add</i>
+                    </button>
                     <p class="event-element">Date</p>
                     <p class="event-element">Lieu</p>
                     <p class="event-element">Organisateur</p>
@@ -65,6 +74,29 @@
 
     </div>
 
+
+    <div id="modal-event1" class="modal">
+        <jsp:include page="../partials/eventModal.jspf"/>
+    </div>
+    <div id="modal-event2" class="modal">
+        <jsp:include page="../partials/eventModal.jspf"/>
+    </div>
+    <div id="modal-event3" class="modal">
+        <jsp:include page="../partials/eventModal.jspf"/>
+    </div>
+    <div id="modal-event4" class="modal">
+        <jsp:include page="../partials/eventModal.jspf"/>
+    </div>
+
+</div>
+
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
+
+</script>
 </body>
 
 </html>
