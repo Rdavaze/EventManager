@@ -1,0 +1,88 @@
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow: hidden;
+  background: url("../images/agenda.png") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100%;
+}
+
+#form-main {
+  width: 100%;
+  float: left;
+  position: relative;
+  margin-left: 5%;
+  transform: translateY(-50%);
+}
+
+#form-div {
+  background-color: rgba(19, 35, 47, 0.9);
+  padding: 2% 4% 2% 4%;
+  width: 30%;
+  float: left;
+  left: 50%;
+  position: absolute;
+  margin-left: -260px;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+  text-align: center;
+
+}
+
+a {
+  text-decoration: none;
+  color: #1ab188;
+  -webkit-transition: .5s ease;
+  transition: .5s ease;
+}
+
+a:hover {
+  color: #179b77;
+}
+
+.button {
+  border: 0;
+  outline: none;
+  border-radius: 0;
+  padding: 15px 0;
+  font-size: 2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  background: #1ab188;
+  color: #ffffff;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  -webkit-appearance: none;
+}
+
+.button:hover, .button:focus {
+  background: #179b77;
+}
+
+.button-block {
+  display: block;
+  width: 100%;
+}
+
+#app-title {
+  padding: 1%;
+  text-align: left;
+  margin-left: 1.5%;
+  margin-top: 0.2%;
+  color: white;
+  font-size: 400%;
+  font-family: 'Arizonia', Helvetica, sans-serif;
+}
+
+#button-login, #button-subscribe {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
