@@ -1,44 +1,58 @@
 package fr.eventmanager.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * User entity to store user's details + credentials.
  */
 @Entity
-public class User {
-    @Id
-    @GeneratedValue
-    private int id;
+@Table(name = User.tableName)
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
+    public static final String tableName = "User";
 
-    @Basic(fetch = FetchType.LAZY, optional = false)
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false, unique = true)
+    private Integer id;
+
+    @Column(name = "label", nullable = false, length = 100, unique = true)
     private String email;
 
-    @Basic(fetch = FetchType.LAZY, optional = false)
+    @Column(name = "password", nullable = false, length = 25)
     private String password;
 
-    @Basic(fetch = FetchType.EAGER, optional = false)
+    @Column(name = "prenom", nullable = false, length = 100)
     private String prenom;
 
-    @Basic(fetch = FetchType.EAGER, optional = false)
+    @Column(name = "nom", nullable = false, length = 100)
     private String nom;
 
     @Temporal(TemporalType.DATE)
-    @Basic(fetch = FetchType.LAZY, optional = true)
+    @Column(name = "birthdate")
     private Date birthdate;
 
-    private static final long serialVersionUID = 1L;
+    @ManyToMany(mappedBy = "attendees")
+    private Set<Event> events;
 
     public User() {
-        super();
+    }
+
+    public User(String email, String password, String prenom, String nom) {
+        this.email = email;
+        this.password = password;
+        this.prenom = prenom;
+        this.nom = nom;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    private void setId(int id) {
         this.id = id;
     }
 
@@ -82,9 +96,17 @@ public class User {
         this.birthdate = birthdate;
     }
 
+    public Set<Event> getEvents() {
+        return events;
+    }
+
+    public void setEvents(Set<Event> events) {
+        this.events = events;
+    }
+
     @Override
     public int hashCode() {
-        return id;
+        return (id != null) ? id.hashCode() : 0;
     }
 
     @Override
