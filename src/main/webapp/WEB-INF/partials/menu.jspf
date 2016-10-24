@@ -13,7 +13,8 @@
     <li class="action"><a href=""><i class="material-icons">assignment</i>Mon agenda</a></li>
     <li class="action"><a href=""><i class="material-icons">note_add</i>Créer un évènement</a></li>
     <li class="action"><a href=""><i class="material-icons">view_list</i>Parcourir les évènements</a></li>
-    <li class="action"><a href=""><i class="material-icons">perm_identity</i>Mon profil</a></li>
+    <li class="action"><a href="${pageContext.request.contextPath}/profile"><i class="material-icons">perm_identity</i>Mon
+        profil</a></li>
     <li class="disconnect"><a href=""><i class="material-icons">power_settings_new</i>Déconnexion</a></li>
 
 </ul>

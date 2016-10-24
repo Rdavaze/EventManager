@@ -15,6 +15,10 @@ public class ProfileController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        setUserInfo(req);
+
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(req, resp);
+
     }
 
     @Override
