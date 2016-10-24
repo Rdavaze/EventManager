@@ -27,7 +27,7 @@ public class Event implements Serializable {
     private String description;
 
     @Temporal(TemporalType.DATE)
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     private Date date;
 
     @ManyToMany()
