@@ -10,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class UserDAOTest {
-    private static UserDAOImpl userDAO;
+    private static UserDAO userDAO;
 
     @BeforeClass
     public static void setUpClass() {

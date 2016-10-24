@@ -11,7 +11,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public class EventDAOTest {
-    private static EventDAOImpl eventDAO;
+    private static EventDAO eventDAO;
 
     @BeforeClass
     public static void setUpClass() {
