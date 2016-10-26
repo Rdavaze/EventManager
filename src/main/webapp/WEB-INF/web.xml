@@ -60,4 +60,15 @@
         <servlet-name>FrontController</servlet-name>
         <url-pattern>/index</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DisconnectServlet</servlet-name>
+        <servlet-class>fr.eventmanager.servlet.DisconnectServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DisconnectServlet</servlet-name>
+        <url-pattern>/disconnect</url-pattern>
+    </servlet-mapping>
+
 </web-app>

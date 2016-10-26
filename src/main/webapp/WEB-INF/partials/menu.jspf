@@ -10,7 +10,7 @@
             </span>
         </div>
     </li>
-    <li class="action"><a href="">
+    <li class="action"><a href="${pageContext.request.contextPath}/events/myEvents">
         <i class="material-icons">assignment</i>Mon agenda</a>
     </li>
     <li class="action"><a href="${pageContext.request.contextPath}/events/">
@@ -22,7 +22,7 @@
     <li class="action"><a href="${pageContext.request.contextPath}/profile">
         <i class="material-icons">perm_identity</i>Mon profil</a>
     </li>
-    <li class="disconnect"><a href="">
+    <li class="disconnect"><a href="${pageContext.request.contextPath}/disconnect">
         <i class="material-icons">power_settings_new</i>Déconnexion</a>
     </li>
 

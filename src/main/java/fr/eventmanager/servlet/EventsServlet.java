@@ -30,11 +30,13 @@ public class EventsServlet extends Servlet {
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent"));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent"));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent"));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)"), "getMyEvents"));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)"), "browseEvents"));
     }
 
     public void getEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("events", eventDAO.findAll());
-        getServletContext().getRequestDispatcher("/WEB-INF/pages/events.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
     }
 
     public void getEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -43,7 +45,7 @@ public class EventsServlet extends Servlet {
         event.add(eventDAO.findById(eventID));
 
         req.setAttribute("events", event);
-        getServletContext().getRequestDispatcher("/WEB-INF/pages/events.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
     }
 
     public void createEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -66,6 +68,17 @@ public class EventsServlet extends Servlet {
 
         eventDAO.persist(event);
 
-        getServletContext().getRequestDispatcher("/WEB-INF/pages/events.jsp").forward(req, resp);
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
     }
+
+    public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/myEvents.jsp").forward(req, resp);
+    }
+
+    public void browseEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
+    }
+
 }

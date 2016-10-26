@@ -3,7 +3,7 @@
 <head>
     <%@include file="../partials/header.jspf" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/menu.scss">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/events.scss">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/eventsBrowse.scss">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/eventModal.scss">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>

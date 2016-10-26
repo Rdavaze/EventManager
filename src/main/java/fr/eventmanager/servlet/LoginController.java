@@ -20,9 +20,9 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String URI = req.getRequestURI();
+        String URI = req.getPathInfo();
 
-        if ("/login/forgot".matches(URI)){
+        if ("/forgot".equals(URI)) {
             getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req,resp);
         }
         else{
@@ -38,12 +38,12 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String URI = req.getRequestURI();
+        String URI = req.getPathInfo();
 
-        if ("/login/connect".matches(URI)) {
+        if ("/connect".equals(URI)) {
             authenticate(req);
-            getServletContext().getNamedDispatcher("ProfileController").forward(req, resp);
-        } else if ("/login/subscribe".matches(URI)) {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents");
+        } else if ("/subscribe".matches(URI)) {
             register(req);
             getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
         }
