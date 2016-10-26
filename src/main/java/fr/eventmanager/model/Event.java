@@ -30,6 +30,12 @@ public class Event implements Serializable {
     @Column(name = "date")
     private Date date;
 
+    @Column(name = "location")
+    private String location;
+
+    @Column(name = "visible", nullable = false)
+    private boolean visible = false;
+
     @ManyToMany()
     @JoinTable(name = "attendees", joinColumns = @JoinColumn(name = "id_event"), inverseJoinColumns = @JoinColumn(name = "id_user"))
     private Set<User> attendees = new HashSet<>();
@@ -37,13 +43,13 @@ public class Event implements Serializable {
     public Event() {
     }
 
-    public Event(String label) {
-        this.label = label;
-    }
-
-    public Event(String label, String description) {
+    public Event(String label, String description, Date date, String location, boolean visible, Set<User> attendees) {
         this.label = label;
         this.description = description;
+        this.date = date;
+        this.location = location;
+        this.visible = visible;
+        this.attendees = attendees;
     }
 
     public Integer getId() {
@@ -76,6 +82,22 @@ public class Event implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public Set<User> getAttendees() {
