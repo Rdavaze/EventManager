@@ -1,0 +1,15 @@
+<div class="modal-content">
+
+    <h1 class="event-modal-title" style="text-align: center !important;">Titre</h1>
+    <label for="date">Date :</label>
+    <p class="event-modal-element" id="date">Date</p>
+    <label for="date">Lieu :</label>
+    <p class="event-modal-element" id="place">Lieu</p>
+    <label for="date">Organisateur :</label>
+    <p class="event-modal-element" id="owner">Organisateur</p>
+    <label for="date">Description :</label>
+    <p class="event-modal-element" id="description">Description</p>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="waves-effect waves-light btn">S'inscrire</button>
+</div>

@@ -16,7 +16,7 @@
 
             <ul class="tab-group">
                 <li class="tab active"><a href="#login">Se connecter</a></li>
-                <li class="tab "><a href="#signup">S'inscrire</a></li>
+                <li class="tab "><a href="#signup" id="signup-tab">S'inscrire</a></li>
             </ul>
 
 
@@ -24,7 +24,7 @@
 
                 <div id="login">
                     ${wrongCredentialsLog}
-                    <form action="" method="post">
+                    <form action="${pageContext.request.contextPath}/login/connect" method="post">
 
                         <div class="row">
                             <div class="input-field col s12">
@@ -38,16 +38,19 @@
                                 <label for="password-login">Mot de passe</label>
                                 <input id="password-login" type="password" class="validate"  required autocomplete="off">
                             </div>
-                            <p class="forgot"><a href="#">Mot de passe oublié?</a></p>
                         </div>
 
                         <button type="submit" class="waves-effect waves-light btn" id="button-login" >Connexion</button>
+
+                        <p class="forgot"><a href="${pageContext.request.contextPath}/login/forgot">Mot de passe
+                            oublié?</a></p>
+
                     </form>
                 </div>
 
                 <div id="signup">
                     ${wrongCredentialsSub}
-                    <form action="" method="post">
+                    <form action="${pageContext.request.contextPath}/login/signup" method="post">
 
                         <div class="top-row input-field col s12">
                             <div class="field-wrap">
@@ -120,10 +123,14 @@
 
      });*/
 
+    if ($_GET('usedMail')) {
+        changeTab('#signup-tab');
+    }
+
     $('.tab a').on('click', function (e) {
 
         e.preventDefault();
-
+        console.log($(this));
         $(this).parent().addClass('active');
         $(this).parent().siblings().removeClass('active');
 
@@ -134,6 +141,34 @@
         $(target).fadeIn(600);
 
     });
+
+    function changeTab(element) {
+
+        $(element).parent().addClass('active');
+        $(element).parent().siblings().removeClass('active');
+
+        target = $(element).attr('href');
+
+        $('.tab-content > div').not(target).hide();
+
+        $(target).fadeIn(600);
+    }
+
+
+    function $_GET(param) {
+        var vars = {};
+        window.location.href.replace(location.hash, '').replace(
+                /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                function (m, key, value) { // callback
+                    vars[key] = value !== undefined ? value : '';
+                }
+        );
+
+        if (param) {
+            return vars[param] ? vars[param] : null;
+        }
+        return vars;
+    }
 
 </script>
 

@@ -1,15 +1,16 @@
-package fr.eventmanager.controller;
+package fr.eventmanager.servlet;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 /**
- * Front controller for our application.
+ * Front servlet for our application.
  */
 public class FrontController extends HttpServlet {
     static final Logger logger = LogManager.getLogger(FrontController.class.getName());
