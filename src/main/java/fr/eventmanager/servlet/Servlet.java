@@ -9,21 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.regex.Pattern;
 
 /**
  * Abstract servlet to generify application servlets.
  */
 public abstract class Servlet extends HttpServlet {
-    ServletRouter router;
+    private ServletRouter router;
 
     protected void init(Servlet servlet) throws ServletException {
         super.init();
         this.router = new ServletRouter(this);
     }
 
-    protected void registerRoute(Route getEvents) {
-        this.router.registerRoute(HttpMethod.GET, getEvents);
+    protected void registerRoute(HttpMethod method, Route getEvents) {
+        this.router.registerRoute(method, getEvents);
     }
 
 

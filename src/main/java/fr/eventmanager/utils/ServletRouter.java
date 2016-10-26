@@ -59,7 +59,7 @@ public class ServletRouter {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
         } else {
-            resp.sendError(HttpServletResponse.SC_NOT_FOUND, "Putin");
+            resp.sendError(HttpServletResponse.SC_NOT_FOUND);
         }
     }
 }

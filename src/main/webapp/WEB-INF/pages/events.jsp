@@ -17,50 +17,17 @@
     <div class="events">
         <h1 id="events-page-title">Évènements</h1>
 
-        <div class="events-content">
-            <div class="row">
+        <div class="events-content row">
+            <c:forEach var="event" items="${pageContext.request.getAttribute(\"events\")}">
                 <div class="col s4 event">
-                    <span class="event-title">Titre</span>
+                    <span class="event-title"><c:out value="${event.getLabel()}"/></span>
                     <button data-target="modal-event1" class="btn modal-trigger waves-effect waves-light btn-event"><i
                             class="material-icons">library_add</i></button>
-                    <p class="event-element">Date</p>
-                    <p class="event-element">Lieu</p>
+                    <p class="event-element"><c:out value="${event.getDate()}"/></p>
+                    <p class="event-element"><c:out value="${event.getLocation()}"/></p>
                     <p class="event-element">Organisateur</p>
                 </div>
-                <div class="col s4 event">
-                    <span class="event-title">Titre</span>
-                    <button data-target="modal-event2" class="btn modal-trigger btn-event"><i class="material-icons">library_add</i>
-                    </button>
-                    <p class="event-element">Date</p>
-                    <p class="event-element">Lieu</p>
-                    <p class="event-element">Organisateur</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s4 event">
-                    <span class="event-title">Titre</span>
-                    <button data-target="modal-event3" class="btn modal-trigger btn-event"><i class="material-icons">library_add</i>
-                    </button>
-                    <p class="event-element">Date</p>
-                    <p class="event-element">Lieu</p>
-                    <p class="event-element">Organisateur</p>
-                </div>
-                <div class="col s4 event">
-                    <span class="event-title">Titre</span>
-                    <button data-target="modal-event4" class="btn modal-trigger btn-event"><i class="material-icons">library_add</i>
-                    </button>
-                    <p class="event-element">Date</p>
-                    <p class="event-element">Lieu</p>
-                    <p class="event-element">Organisateur</p>
-                </div>
-
-                <%--<p>--%>
-                <%--<c:forEach var="event" items="${pageContext.request.getAttribute(\"events\")}">--%>
-                <%--Event <c:out value="${event.getLabel()}"/> <br>--%>
-                <%--</c:forEach>--%>
-                <%--</p>--%>
-            </div>
-
+            </c:forEach>
         </div>
 
         <ul class="pagination changePage">
