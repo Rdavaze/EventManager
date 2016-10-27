@@ -4,6 +4,7 @@
     <%@include file="../partials/header.jspf" %>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/menu.scss">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/myEvents.scss">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/myEventModal.scss">
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
@@ -19,46 +20,45 @@
             <div class="row">
                 <div class="col s4 event">
                     <span class="event-title">Titre</span>
+                    <button class="btn waves-effect waves-light delete"><i
+                            class="material-icons">delete</i></button>
                     <p class="event-element">Date</p>
                     <p class="event-element">Lieu</p>
-                    <div class="event-element publish">
-                        <label>Publier</label>
-                        <div class="switch"><label>Non<input type="checkbox"><span class="lever"></span>Oui</label>
-                        </div>
-                    </div>
-
+                    <button data-target="modal-event1" class="btn modal-trigger waves-effect waves-light edit"><i
+                            class="material-icons left">mode_edit</i>editer
+                    </button>
                 </div>
                 <div class="col s4 event">
                     <span class="event-title">Titre</span>
+                    <button class="btn waves-effect waves-light delete"><i
+                            class="material-icons">delete</i></button>
                     <p class="event-element">Date</p>
                     <p class="event-element">Lieu</p>
-                    <div class="event-element publish">
-                        <label>Publier</label>
-                        <div class="switch"><label>Non<input type="checkbox"><span class="lever"></span>Oui</label>
-                        </div>
-                    </div>
+                    <button data-target="modal-event2" class="btn modal-trigger waves-effect waves-light edit"><i
+                            class="material-icons left">mode_edit</i>editer
+                    </button>
                 </div>
             </div>
             <div class="row">
                 <div class="col s4 event">
                     <span class="event-title">Titre</span>
+                    <button class="btn waves-effect waves-light delete"><i
+                            class="material-icons">delete</i></button>
                     <p class="event-element">Date</p>
                     <p class="event-element">Lieu</p>
-                    <div class="event-element publish">
-                        <label>Publier</label>
-                        <div class="switch"><label>Non<input type="checkbox"><span class="lever"></span>Oui</label>
-                        </div>
-                    </div>
+                    <button data-target="modal-event3" class="btn modal-trigger waves-effect waves-light edit"><i
+                            class="material-icons left">mode_edit</i>editer
+                    </button>
                 </div>
                 <div class="col s4 event">
                     <span class="event-title">Titre</span>
+                    <button class="btn waves-effect waves-light delete"><i
+                            class="material-icons">delete</i></button>
                     <p class="event-element">Date</p>
                     <p class="event-element">Lieu</p>
-                    <div class="event-element publish">
-                        <label>Publier</label>
-                        <div class="switch"><label>Non<input type="checkbox"><span class="lever"></span>Oui</label>
-                        </div>
-                    </div>
+                    <button data-target="modal-event4" class="btn modal-trigger waves-effect waves-light edit"><i
+                            class="material-icons left">mode_edit</i>editer
+                    </button>
                 </div>
 
                 <%--<p>--%>
@@ -81,7 +81,47 @@
 
     </div>
 
+    <div id="modal-event1" class="modal">
+        <jsp:include page="../partials/myEventModal.jspf"/>
+    </div>
+    <div id="modal-event2" class="modal">
+        <jsp:include page="../partials/myEventModal.jspf"/>
+    </div>
+    <div id="modal-event3" class="modal">
+        <jsp:include page="../partials/myEventModal.jspf"/>
+    </div>
+    <div id="modal-event4" class="modal">
+        <jsp:include page="../partials/myEventModal.jspf"/>
+    </div>
+
 </div>
+
+<script>
+    $(document).ready(function () {
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
+
+    $('.datepicker').pickadate({
+        monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+        monthsShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
+        weekdaysFull: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+        weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+        weekdaysLetter: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
+        today: 'aujourd\'hui',
+        clear: 'effacer',
+        formatSubmit: 'yyyy/mm/dd',
+        firstDay: 1,
+        labelMonthNext: 'Prochain mois',
+        labelMonthPrev: 'Mois précédent',
+        labelMonthSelect: 'Sélectionner un mois',
+        labelYearSelect: 'Sélectionner une année',
+        format: 'dd mmmm yyyy'
+    });
+
+
+</script>
+
 
 </body>
 

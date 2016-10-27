@@ -67,17 +67,23 @@ li.active {
   color: rgba(19, 35, 47, 0.9) !important;
 }
 
-.publish {
-  padding-bottom: 8%;
+.delete {
+  width: 15% !important;
+  height: 8%;
+  padding: 0 !important;
+  float: right;
 }
 
-.publish > label {
-  color: white;
-  font-family: sans-serif;
-  font-size: 14px;
+.edit {
+  margin-bottom: 3.5%;
+  width: 45% !important;
+  height: 8%;
+  float: right;
+  padding: 0 !important;
+  padding-left: 2% !important;
+  padding-right: 3% !important;
 }
 
-.publish > .switch {
-  text-align: center;
-  margin-top: 2%;
+.edit > i {
+  margin-right: 0;
 }
