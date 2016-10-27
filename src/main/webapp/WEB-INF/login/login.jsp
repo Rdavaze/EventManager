@@ -29,14 +29,14 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <label for="email-login">Adresse mail</label>
-                                <input class="validate " id="email-login" type="email" required autocomplete="off">
+                                <input class="validate " id="email-login" type="email" name="email" required autocomplete="on">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
                                 <label for="password-login">Mot de passe</label>
-                                <input id="password-login" type="password" class="validate"  required autocomplete="off">
+                                <input id="password-login" type="password" class="validate" name="password" required autocomplete="off">
                             </div>
                         </div>
 
@@ -70,13 +70,13 @@
 
                         <div class="input-field col s12">
                             <label for="email-subscribe">Adresse mail</label>
-                            <input class="validate" id="email-subscribe" type="email" required autocomplete="off">
+                            <input class="validate" id="email-subscribe" type="email" name="email" required autocomplete="off">
                         </div>
 
 
                         <div class="input-field col s12">
                             <label for="password-subscribe">Mot de passe</label>
-                            <input id="password-subscribe" type="password" class="validate" required autocomplete="off">
+                            <input id="password-subscribe" type="password" class="validate" name="password" required autocomplete="off">
                         </div>
 
                         <button type="submit" class="waves-effect waves-light btn" id="button-subscribe">S'inscrire</button>
