@@ -1,5 +1,6 @@
 package fr.eventmanager.servlet;
 
+import fr.eventmanager.model.User;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -23,14 +24,12 @@ public class LoginController extends HttpServlet {
         String URI = req.getPathInfo();
 
         if ("/forgot".equals(URI)) {
-            getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req,resp);
-        }
-        else{
+            getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req, resp);
+        } else {
             checkParameters(req);
 
             getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
         }
-
 
 
     }
@@ -56,24 +55,23 @@ public class LoginController extends HttpServlet {
      * @param req request
      */
     private void checkParameters(HttpServletRequest req) {
-
         //Connexion
         boolean isMailWrong = Boolean.parseBoolean(req.getParameter("wrongMail"));
         boolean isPasswordWrong = Boolean.parseBoolean(req.getParameter("wrongPwd"));
+
         //Inscription
         boolean isMailUsed = Boolean.parseBoolean(req.getParameter("usedMail"));
 
-        if(isMailWrong || isPasswordWrong){
-
+        if (isMailWrong || isPasswordWrong) {
             String wrongCredentialsMSG = "<div id=\"wrong-credentials\">" +
                     "<ul>";
 
-            if(isMailWrong)
+            if (isMailWrong) {
                 wrongCredentialsMSG += "<li>Adresse mail incorrecte</li>";
-
-            if(isPasswordWrong)
+            }
+            if (isPasswordWrong) {
                 wrongCredentialsMSG += "<li>Mot de passe incorrect</li>";
-
+            }
             wrongCredentialsMSG += "</ul></div>";
 
             req.setAttribute("wrongCredentialsLog", wrongCredentialsMSG);
@@ -95,17 +93,13 @@ public class LoginController extends HttpServlet {
      * @param req request
      */
     private void authenticate(HttpServletRequest req) {
+        final HttpSession session = req.getSession();
 
-        HttpSession session = req.getSession(true);
-
-        String mail = req.getParameter("email-login");
-        String password = req.getParameter("password-login");
+        final String mail = req.getParameter("email-login");
+        final String password = req.getParameter("password-login");
+        session.setAttribute("user", new User(mail, password, "John", "Doe"));
 
         // TODO : authenticate process in the backend & retrieve user info
-
-        session.setAttribute("firstname", "John");
-        session.setAttribute("name", "Doe");
-        session.setAttribute("mail", mail);
 
     }
 
@@ -115,7 +109,6 @@ public class LoginController extends HttpServlet {
      * @param req request
      */
     private void register(HttpServletRequest req) {
-
         // TODO : register process in the backend
 
     }
