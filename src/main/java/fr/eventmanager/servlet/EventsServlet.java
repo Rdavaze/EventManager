@@ -68,7 +68,7 @@ public class EventsServlet extends Servlet {
 
         eventDAO.persist(event);
 
-        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
+        resp.sendRedirect(getServletContext().getContextPath() + "/events");
     }
 
     public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

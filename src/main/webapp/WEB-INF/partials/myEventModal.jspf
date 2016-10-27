@@ -1,0 +1,41 @@
+<div class="modal-content">
+
+    <form method="POST" action="${pageContext.request.contextPath}/events/update">
+
+        <div class="row">
+            <div class="input-field col s6 edit-event-value">
+                <input id="event-title" type="text" class="validate" name="label" value="Titre">
+                <label for="event-title">Titre</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 edit-event-value">
+                <input id="event-place" type="text" class="validate" name="location" value="Quelque part">
+                <label for="event-place">Lieu</label>
+            </div>
+            <div class="input-field col s6 edit-event-value">
+                <input id="event-date" type="date" class="datepicker" name="date" value="2016-10-27">
+                <label for="event-date">Date</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 edit-event-value">
+                    <textarea id="event-description" maxlength="80" type="text" name="description"
+                              class="validate materialize-textarea" value="Description"></textarea>
+                <label for="event-description">Description</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="switch col s6 edit-event-value">
+                <label>
+                    <p id="publish">Publier </p> Non
+                    <input type="checkbox" name="visible">
+                    <span class="lever"></span>
+                    Oui
+                </label>
+            </div>
+            <button type="submit" class="waves-effect waves-light btn" id="button-save-event">Enregistrer</button>
+        </div>
+
+    </form>
+</div>
