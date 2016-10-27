@@ -41,11 +41,13 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String email, String password, String prenom, String nom) {
+    public User(String email, String password, String prenom, String nom, Date birthdate, Set<Event> events) {
         this.email = email;
         this.password = password;
         this.prenom = prenom;
         this.nom = nom;
+        this.birthdate = birthdate;
+        this.events = events;
     }
 
     public int getId() {
@@ -115,7 +117,7 @@ public class User implements Serializable {
 
         if (o instanceof User) {
             final User other = (User) o;
-            return this.id == other.id || this.email.equals(other.email);
+            return this.id.equals(other.id) || this.email.equals(other.email);
         }
         return false;
     }
