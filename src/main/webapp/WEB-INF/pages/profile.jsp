@@ -9,9 +9,8 @@
 <body>
 
 <div class="profile-page">
-    <div class="menu">
-        <jsp:include page="../partials/menu.jspf"/>
-    </div>
+    <jsp:include page="../partials/menu.jspf"/>
+    
     <div class="profile">
         <h1 id="profile-title">Mon profil</h1>
 

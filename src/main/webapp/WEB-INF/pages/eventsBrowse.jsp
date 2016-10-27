@@ -11,9 +11,8 @@
 <body>
 
 <div class="events-page">
-    <div class="menu">
-        <jsp:include page="../partials/menu.jspf"/>
-    </div>
+    <jsp:include page="../partials/menu.jspf"/>
+
     <div class="events">
         <h1 id="events-page-title">Évènements</h1>
 

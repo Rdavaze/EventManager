@@ -8,9 +8,7 @@
 
 <body>
 <div class="create-event-page">
-    <div class="menu">
-        <jsp:include page="../partials/menu.jspf"/>
-    </div>
+    <jsp:include page="../partials/menu.jspf"/>
 
     <div class="create-event">
         <h1 id="create-event-title">Créer un évènement</h1>
