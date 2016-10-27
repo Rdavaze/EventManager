@@ -3,6 +3,7 @@ package fr.eventmanager.dao;
 import fr.eventmanager.model.Event;
 import fr.eventmanager.model.User;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -18,4 +19,6 @@ public interface UserDAO extends DAO<Integer, User> {
     Set<Event> getUserEvents(User user);
 
     Set<Event> getUserEvents(Integer id);
+
+    Optional<User> findByCredentials(String email, String password);
 }
