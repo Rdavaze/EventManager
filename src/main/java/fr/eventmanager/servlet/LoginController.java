@@ -1,52 +1,57 @@
 package fr.eventmanager.servlet;
 
+import fr.eventmanager.builder.UserBuilder;
+import fr.eventmanager.dao.UserDAO;
+import fr.eventmanager.dao.impl.UserDAOImpl;
 import fr.eventmanager.model.User;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import fr.eventmanager.utils.HttpMethod;
+import fr.eventmanager.utils.Route;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.Optional;
+import java.util.regex.Pattern;
 
 /**
  * Login servlet to handle request to /login.
  */
-public class LoginController extends HttpServlet {
-
-    static final Logger logger = LogManager.getLogger(LoginController.class.getName());
+public class LoginController extends Servlet {
+    private UserDAO userDAO;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void init() throws ServletException {
+        super.init(this);
+        this.userDAO = UserDAOImpl.getInstance();
 
-        String URI = req.getPathInfo();
-
-        if ("/forgot".equals(URI)) {
-            getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req, resp);
-        } else {
-            checkParameters(req);
-
-            getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
-        }
-
-
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "login"));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/forgot"), "forgot"));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/connect"), "connect"));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/subscribe"), "suscribe"));
     }
 
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        checkParameters(req);
+        getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
+    }
 
-        String URI = req.getPathInfo();
+    public void forgot(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req, resp);
+    }
 
-        if ("/connect".equals(URI)) {
-            authenticate(req);
+    public void connect(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (authenticate(req)) {
             resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents");
-        } else if ("/subscribe".matches(URI)) {
-            register(req);
-            getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
+        } else {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
         }
+    }
 
+    public void suscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        register(req);
+        getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
     }
 
     /**
@@ -82,7 +87,6 @@ public class LoginController extends HttpServlet {
                     "<ul><li>Adresse mail déjà utilisée</li></ul></div>";
 
             req.setAttribute("wrongCredentialsSub", wrongCredentialsSubMSG);
-
         }
     }
 
@@ -92,15 +96,27 @@ public class LoginController extends HttpServlet {
      *
      * @param req request
      */
-    private void authenticate(HttpServletRequest req) {
+    private boolean authenticate(HttpServletRequest req) {
         final HttpSession session = req.getSession();
 
-        final String mail = req.getParameter("email-login");
-        final String password = req.getParameter("password-login");
-        session.setAttribute("user", new User(mail, password, "John", "Doe"));
+        final String email = req.getParameter("email");
+        final String password = req.getParameter("password");
 
-        // TODO : authenticate process in the backend & retrieve user info
-
+        final Optional<User> userOptional = this.userDAO.findByCredentials(email, password);
+        if (userOptional.isPresent()) {
+            session.setAttribute("user", userOptional.get());
+            session.setAttribute("logged", true);
+            System.out.println("Logging successfull");
+            return true;
+        } else {
+            session.setAttribute("user", new UserBuilder()
+                    .setEmail(email)
+                    .setPassword(password)
+                    .build());
+            session.setAttribute("logged", false);
+            System.out.println("Logging failed");
+            return false;
+        }
     }
 
     /**
