@@ -1,6 +1,5 @@
 package fr.eventmanager.dao.impl;
 
-import fr.eventmanager.builder.EventBuilder;
 import fr.eventmanager.dao.EventDAO;
 import fr.eventmanager.model.Event;
 import fr.eventmanager.model.User;
@@ -18,7 +17,6 @@ public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDA
     public static EventDAOImpl getInstance() {
         if (instance == null) {
             instance = new EventDAOImpl();
-            instance.populate();
         }
         return instance;
 
@@ -47,13 +45,5 @@ public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDA
     @Override
     public Set<User> getEventAttendees(Integer id) {
         return this.getEventAttendees(findById(id));
-    }
-
-    private void populate() {
-        getEntityManagerService().performOperation(em -> {
-            em.persist(new EventBuilder().setLabel("Premier événement").build());
-            em.persist(new EventBuilder().setLabel("Deuxième événement").build());
-            em.persist(new EventBuilder().setLabel("Troisième événement").build());
-        });
     }
 }

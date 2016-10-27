@@ -15,7 +15,6 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
     public static UserDAOImpl getInstance() {
         if (instance == null) {
             instance = new UserDAOImpl();
-            instance.populate();
         }
         return instance;
 
