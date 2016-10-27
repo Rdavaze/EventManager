@@ -4,6 +4,7 @@ import fr.eventmanager.builder.EventBuilder;
 import fr.eventmanager.dao.EventDAO;
 import fr.eventmanager.dao.impl.EventDAOImpl;
 import fr.eventmanager.model.Event;
+import fr.eventmanager.model.User;
 import fr.eventmanager.utils.HttpMethod;
 import fr.eventmanager.utils.Route;
 
@@ -59,7 +60,7 @@ public class EventsServlet extends Servlet {
         final String date = req.getParameter("date");
         final boolean visible = "on".equalsIgnoreCase(req.getParameter("visible"));
 
-        final Event event = new EventBuilder()
+        final Event event = new EventBuilder(((User) req.getSession().getAttribute("user")))
                 .setLabel(label)
                 .setDescription(description)
                 .setLocation(location)
