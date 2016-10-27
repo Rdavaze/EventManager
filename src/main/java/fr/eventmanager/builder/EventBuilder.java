@@ -10,17 +10,19 @@ import java.util.Set;
 /**
  * Created by guillaume-chs on 26/10/16.
  */
-public class EventBuilder {
+public class EventBuilder implements Builder<Event> {
     // Event parameters
     private final Set<User> attendees;
+    private final User creator;
     private String label;
     private String description;
     private Date date;
     private String location;
     private boolean visible;
 
-    public EventBuilder() {
+    public EventBuilder(User creator) {
         this.attendees = new HashSet<>();
+        this.creator = creator;
     }
 
     public EventBuilder setLabel(String label) {
@@ -53,7 +55,11 @@ public class EventBuilder {
         return this;
     }
 
+    @Override
     public Event build() {
-        return new Event(label, description, date, location, visible, attendees);
+        if (!this.attendees.contains(creator)) {
+            this.attendees.add(creator);
+        }
+        return new Event(creator, label, description, date, location, visible, attendees);
     }
 }

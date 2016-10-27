@@ -20,6 +20,10 @@ public class Event implements Serializable {
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", nullable = false)
+    private User creator;
+
     @Column(name = "label", nullable = false, length = 50, unique = true)
     private String label;
 
@@ -37,13 +41,14 @@ public class Event implements Serializable {
     private boolean visible = false;
 
     @ManyToMany()
-    @JoinTable(name = "attendees", joinColumns = @JoinColumn(name = "id_event"), inverseJoinColumns = @JoinColumn(name = "id_user"))
+    @JoinTable(name = "attendees", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> attendees = new HashSet<>();
 
     public Event() {
     }
 
-    public Event(String label, String description, Date date, String location, boolean visible, Set<User> attendees) {
+    public Event(User creator, String label, String description, Date date, String location, boolean visible, Set<User> attendees) {
+        this.creator = creator;
         this.label = label;
         this.description = description;
         this.date = date;
@@ -58,6 +63,14 @@ public class Event implements Serializable {
 
     private void setId(Integer id) {
         this.id = id;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public String getLabel() {
@@ -118,7 +131,7 @@ public class Event implements Serializable {
         if (o == this) return true;
 
         if (o instanceof Event) {
-            return this.id == ((Event) o).id;
+            return this.id.equals(((Event) o).id);
         }
         return false;
     }
