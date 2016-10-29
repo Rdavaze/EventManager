@@ -24,19 +24,19 @@
 
                 <div id="login">
                     ${wrongCredentialsLog}
-                    <form action="${pageContext.request.contextPath}/login/connect" method="post">
+                    <form action="${pageContext.request.contextPath}/login/signin" method="post">
 
                         <div class="row">
                             <div class="input-field col s12">
                                 <label for="email-login">Adresse mail</label>
-                                <input class="validate " id="email-login" type="email" name="email" required autocomplete="on">
+                                <input class="validate " id="email-login" value="${email ? email : ""}" type="email" name="login-email" required autocomplete="on">
                             </div>
                         </div>
 
                         <div class="row">
                             <div class="input-field col s12">
                                 <label for="password-login">Mot de passe</label>
-                                <input id="password-login" type="password" class="validate" name="password" required autocomplete="off">
+                                <input id="password-login" type="password" class="validate" name="login-password" required autocomplete="off">
                             </div>
                         </div>
 
@@ -57,26 +57,26 @@
                                 <label>
                                     Prénom
                                 </label>
-                                <input type="text" class="validate" required autocomplete="off"/>
+                                <input type="text" class="validate" name="subscribe-firstname" required autocomplete="off"/>
                             </div>
 
                             <div class="field-wrap">
                                 <label>
                                     Nom
                                 </label>
-                                <input type="text" class="validate" required autocomplete="off"/>
+                                <input type="text" class="validate" name="subscribe-lastname" required autocomplete="off"/>
                             </div>
                         </div>
 
                         <div class="input-field col s12">
                             <label for="email-subscribe">Adresse mail</label>
-                            <input class="validate" id="email-subscribe" type="email" name="email" required autocomplete="off">
+                            <input class="validate" id="email-subscribe" type="email" name="subscribe-email" required autocomplete="off">
                         </div>
 
 
                         <div class="input-field col s12">
                             <label for="password-subscribe">Mot de passe</label>
-                            <input id="password-subscribe" type="password" class="validate" name="password" required autocomplete="off">
+                            <input id="password-subscribe" type="password" class="validate" name="subscribe-password" required autocomplete="off">
                         </div>
 
                         <button type="submit" class="waves-effect waves-light btn" id="button-subscribe">S'inscrire</button>

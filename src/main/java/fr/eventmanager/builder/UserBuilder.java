@@ -15,9 +15,8 @@ public class UserBuilder implements Builder<User> {
     private final Set<Event> events;
     private String email;
     private String password;
-    private String prenom;
-    private String nom;
-    private Date birthdate;
+    private String firstname;
+    private String lastname;
 
     public UserBuilder() {
         this.events = new HashSet<>();
@@ -33,18 +32,13 @@ public class UserBuilder implements Builder<User> {
         return this;
     }
 
-    public UserBuilder setPrenom(String prenom) {
-        this.prenom = prenom;
+    public UserBuilder setFirstname(String firstname) {
+        this.firstname = firstname;
         return this;
     }
 
-    public UserBuilder setNom(String nom) {
-        this.nom = nom;
-        return this;
-    }
-
-    public UserBuilder setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public UserBuilder setLastname(String lastname) {
+        this.lastname = lastname;
         return this;
     }
 
@@ -55,6 +49,6 @@ public class UserBuilder implements Builder<User> {
 
     @Override
     public User build() {
-        return new User(email, password, prenom, nom, birthdate, events);
+        return new User(email, password, firstname, lastname, events);
     }
 }

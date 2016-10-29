@@ -3,6 +3,9 @@ package fr.eventmanager.servlet;
 import fr.eventmanager.builder.UserBuilder;
 import fr.eventmanager.dao.UserDAO;
 import fr.eventmanager.dao.impl.UserDAOImpl;
+import fr.eventmanager.exception.MailAlreadyExistException;
+import fr.eventmanager.exception.MailNotFoundException;
+import fr.eventmanager.exception.WrongPasswordException;
 import fr.eventmanager.model.User;
 import fr.eventmanager.utils.HttpMethod;
 import fr.eventmanager.utils.Route;
@@ -12,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -28,8 +30,8 @@ public class LoginController extends Servlet {
 
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "login"));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/forgot"), "forgot"));
-        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/connect"), "connect"));
-        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/subscribe"), "suscribe"));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/signin"), "signin"));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/signup"), "signup"));
     }
 
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,17 +43,24 @@ public class LoginController extends Servlet {
         getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req, resp);
     }
 
-    public void connect(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (authenticate(req)) {
+    public void signin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            authenticate(req);
             resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents");
-        } else {
-            resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
+        } catch (MailNotFoundException e) {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login?wrongMail=true");
+        } catch (WrongPasswordException e) {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login?wrongPwd=true");
         }
     }
 
-    public void suscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        register(req);
-        getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
+    public void signup(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        try {
+            register(req);
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents");
+        } catch (MailAlreadyExistException e) {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login?usedMail=true");
+        }
     }
 
     /**
@@ -96,26 +105,31 @@ public class LoginController extends Servlet {
      *
      * @param req request
      */
-    private boolean authenticate(HttpServletRequest req) {
+    private boolean authenticate(HttpServletRequest req) throws MailNotFoundException, WrongPasswordException {
         final HttpSession session = req.getSession();
-
-        final String email = req.getParameter("email");
-        final String password = req.getParameter("password");
-
-        final Optional<User> userOptional = this.userDAO.findByCredentials(email, password);
-        if (userOptional.isPresent()) {
-            session.setAttribute("user", userOptional.get());
-            session.setAttribute("logged", true);
-            System.out.println("Logging successfull");
+        if (isLogged(session)) {
             return true;
-        } else {
-            session.setAttribute("user", new UserBuilder()
+        }
+
+        final String email = req.getParameter("login-email");
+        final String password = req.getParameter("login-password");
+
+        try {
+            final User user = this.userDAO.findByCredentials(email, password);
+            setSessionUser(session, user);
+            setSessionLogged(session, true);
+            System.out.println("Logging succeeded");
+            return true;
+
+        } catch (MailNotFoundException | WrongPasswordException e) {
+            final User user = new UserBuilder()
                     .setEmail(email)
                     .setPassword(password)
-                    .build());
-            session.setAttribute("logged", false);
+                    .build();
+            setSessionUser(session, user);
+            setSessionLogged(session, false);
             System.out.println("Logging failed");
-            return false;
+            throw e;
         }
     }
 
@@ -124,9 +138,38 @@ public class LoginController extends Servlet {
      *
      * @param req request
      */
-    private void register(HttpServletRequest req) {
-        // TODO : register process in the backend
+    private boolean register(HttpServletRequest req) throws MailAlreadyExistException {
+        final HttpSession session = req.getSession();
+        if (isLogged(session)) {
+            return true;
+        }
 
+        final String email = req.getParameter("subscribe-email");
+        final String password = req.getParameter("subscribe-password");
+        final String firstname = req.getParameter("subscribe-firstname");
+        final String lastname = req.getParameter("subscribe-lastname");
+
+        try {
+            final User user = this.userDAO.findByCredentials(email);
+
+            // User already exists
+            setSessionLogged(session, false);
+            System.out.println("Register failed");
+            throw new MailAlreadyExistException();
+
+        } catch (MailNotFoundException ignored) {
+        }
+
+        final User user = new UserBuilder()
+                .setEmail(email)
+                .setPassword(password)
+                .setFirstname(firstname)
+                .setLastname(lastname)
+                .build();
+        userDAO.persist(user);
+        setSessionUser(session, user);
+        setSessionLogged(session, true);
+        System.out.println("Register succeeded");
+        return true;
     }
-
 }
