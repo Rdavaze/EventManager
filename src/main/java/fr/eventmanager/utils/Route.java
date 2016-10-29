@@ -8,10 +8,12 @@ import java.util.regex.Pattern;
 public class Route {
     private final Pattern pattern;
     private final String handler;
+    private final Boolean internal;
 
-    public Route(Pattern pattern, String handler) {
+    public Route(Pattern pattern, String handler, boolean internal) {
         this.pattern = pattern;
         this.handler = handler;
+        this.internal = internal;
     }
 
     public boolean matches(String path) {
@@ -27,5 +29,9 @@ public class Route {
 
     public String getHandler() {
         return handler;
+    }
+
+    public Boolean isInternal() {
+        return internal;
     }
 }

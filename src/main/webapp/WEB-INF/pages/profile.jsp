@@ -14,27 +14,31 @@
     <div class="profile">
         <h1 id="profile-title">Mon profil</h1>
 
-        <form id="profile-content">
+        <form id="profile-content" action="${pageContext.request.contextPath}/profile" method="post">
             <div class="row ">
                 <div class="input-field col s6 profile-value">
-                    <input id="first-name" type="text" class="validate valid" value="${profileFirstName}">
+                    <input id="first-name" type="text" class="validate valid" name="firstname"
+                           value="${sessionScope.user.getFirstname()}">
                     <label for="first-name">Prénom</label>
                 </div>
                 <div class="input-field col s6 profile-value">
-                    <input id="name" type="text" class="validate valid" value="${profileName}">
+                    <input id="name" type="text" class="validate valid" name="name"
+                           value="${sessionScope.user.getLastname()}">
                     <label for="name">Nom</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6 profile-value">
-                    <input id="mail" type="text" class="validate valid" value="${profileMail}">
+                    <input id="mail" type="text" class="validate valid" name="email"
+                           value="${sessionScope.user.getEmail()}">
                     <label for="mail">Adresse mail</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6 profile-value">
-                    <input id="password" type="password" class="validate valid" value="${profilePassword}">
+                    <input id="password" type="password" class="validate valid" name="password"
+                           value="${sessionScope.user.getPassword()}">
                     <label for="password">Mot de passe</label>
                 </div>
             </div>

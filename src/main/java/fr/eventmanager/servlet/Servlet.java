@@ -1,9 +1,11 @@
 package fr.eventmanager.servlet;
 
+import fr.eventmanager.exception.NotLoggedInException;
 import fr.eventmanager.model.User;
 import fr.eventmanager.utils.HttpMethod;
 import fr.eventmanager.utils.Route;
 import fr.eventmanager.utils.ServletRouter;
+import fr.eventmanager.utils.UserSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -50,11 +52,15 @@ public abstract class Servlet extends HttpServlet implements UserSession {
     }
 
     private void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.router.process(req, resp);
+        try {
+            this.router.process(req, resp);
+        } catch (NotLoggedInException e) {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
+        }
     }
 
     @Override
-    public Optional<User> getUser(HttpSession session) {
+    public Optional<User> getSessionUser(HttpSession session) {
         return Optional.ofNullable((User) session.getAttribute(USER_ATTR_NAME));
     }
 
@@ -64,7 +70,7 @@ public abstract class Servlet extends HttpServlet implements UserSession {
     }
 
     @Override
-    public Boolean isLogged(HttpSession session) {
+    public Boolean isSessionLogged(HttpSession session) {
         Boolean logged = (Boolean) session.getAttribute(LOGGED_ATTR_NAME);
         if (logged == null) {
             logged = false;

@@ -20,18 +20,22 @@ import java.util.regex.Pattern;
 /**
  * Login servlet to handle request to /login.
  */
-public class LoginController extends Servlet {
+public class LoginServlet extends Servlet {
     private UserDAO userDAO;
+
+    private String wrongCredentialsParam;
 
     @Override
     public void init() throws ServletException {
         super.init(this);
         this.userDAO = UserDAOImpl.getInstance();
 
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "login"));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/forgot"), "forgot"));
-        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/signin"), "signin"));
-        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/signup"), "signup"));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "login", false));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/forgot"), "forgot", false));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/signin"), "signin", false));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/signup"), "signup", false));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/changePwd"), "changePassword", false));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/disconnect"), "logout", false));
     }
 
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,6 +44,7 @@ public class LoginController extends Servlet {
     }
 
     public void forgot(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        checkParameters(req);
         getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req, resp);
     }
 
@@ -63,6 +68,20 @@ public class LoginController extends Servlet {
         }
     }
 
+    public void changePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (modifyPassword(req)) {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
+        } else {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login/forgot?mailNotExist=true");
+        }
+    }
+
+    public void logout(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        req.getSession().invalidate();
+        resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
+    }
+
+
     /**
      * Check if there are error parameters
      *
@@ -75,6 +94,10 @@ public class LoginController extends Servlet {
 
         //Inscription
         boolean isMailUsed = Boolean.parseBoolean(req.getParameter("usedMail"));
+
+        // Oubli
+        boolean mailNotExist = Boolean.parseBoolean(req.getParameter("mailNotExist"));
+
 
         if (isMailWrong || isPasswordWrong) {
             String wrongCredentialsMSG = "<div id=\"wrong-credentials\">" +
@@ -97,6 +120,14 @@ public class LoginController extends Servlet {
 
             req.setAttribute("wrongCredentialsSub", wrongCredentialsSubMSG);
         }
+
+        if (mailNotExist) {
+            String mailNotExistMSG = "<div id=\"mail-not-exist\"><ul><li>L'adresse mail n'existe pas</li></ul></div>";
+
+            req.setAttribute("mailNotExist", mailNotExistMSG);
+        }
+
+
     }
 
 
@@ -107,7 +138,7 @@ public class LoginController extends Servlet {
      */
     private boolean authenticate(HttpServletRequest req) throws MailNotFoundException, WrongPasswordException {
         final HttpSession session = req.getSession();
-        if (isLogged(session)) {
+        if (isSessionLogged(session)) {
             return true;
         }
 
@@ -140,7 +171,7 @@ public class LoginController extends Servlet {
      */
     private boolean register(HttpServletRequest req) throws MailAlreadyExistException {
         final HttpSession session = req.getSession();
-        if (isLogged(session)) {
+        if (isSessionLogged(session)) {
             return true;
         }
 
@@ -171,5 +202,23 @@ public class LoginController extends Servlet {
         setSessionLogged(session, true);
         System.out.println("Register succeeded");
         return true;
+    }
+
+
+    /**
+     * Modify the password corresponding to the email
+     *
+     * @param req request
+     * @return indicate if the change has been done
+     */
+    private boolean modifyPassword(HttpServletRequest req) {
+        final String email = req.getParameter("forgot-email");
+        final String password = req.getParameter("forgot-password");
+
+        if (this.userDAO.emailExists(email)) {
+            this.userDAO.updatePassword(email, password);
+            return true;
+        }
+        return false;
     }
 }

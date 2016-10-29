@@ -20,16 +20,16 @@ import java.util.Set;
 public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
     private static UserDAOImpl instance = null;
 
+    private UserDAOImpl() {
+        super();
+    }
+
     public static UserDAOImpl getInstance() {
         if (instance == null) {
             instance = new UserDAOImpl();
         }
         return instance;
 
-    }
-
-    private UserDAOImpl() {
-        super();
     }
 
     @Override
@@ -70,5 +70,70 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
             throw new WrongPasswordException("Password does not match user with email " + email);
         }
         return user;
+    }
+
+    @Override
+    public void updateUser(Integer id, User newUser) {
+
+        getEntityManagerService().performQuery(em -> {
+
+            User currentUser = em.find(getEntityClass(), id);
+
+            em.getTransaction().begin();
+
+            currentUser.setFirstname(newUser.getFirstname());
+            currentUser.setLastname(newUser.getLastname());
+            currentUser.setEmail(newUser.getEmail());
+            currentUser.setPassword(newUser.getPassword());
+
+            em.getTransaction().commit();
+
+            return null;
+        });
+    }
+
+    @Override
+    public boolean emailExists(String email) {
+        try {
+            this.findByCredentials(email);
+            return true;
+        } catch (MailNotFoundException e) {
+            return false;
+        }
+    }
+
+    @Override
+    public boolean passwordExists(String password) {
+        final List<User> results = getEntityManagerService().performQuery(em -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+
+            CriteriaQuery<User> cq = cb.createQuery(getEntityClass());
+            Root<User> root = cq.from(getEntityClass());
+
+            cq.where(cb.equal(root.get(User_.password), password));
+
+            TypedQuery<User> q = em.createQuery(cq);
+            return q.getResultList();
+        });
+
+        return !results.isEmpty();
+    }
+
+    @Override
+    public void updatePassword(String email, String password) {
+        try {
+            final User user = findByCredentials(email);
+
+            getEntityManagerService().performQuery(em -> {
+                User currentUser = em.find(getEntityClass(), user.getId());
+
+                em.getTransaction().begin();
+                currentUser.setPassword(password);
+                em.getTransaction().commit();
+
+                return null;
+            });
+        } catch (MailNotFoundException ignored) {
+        }
     }
 }

@@ -1,5 +1,6 @@
 package fr.eventmanager.utils;
 
+import fr.eventmanager.exception.NotLoggedInException;
 import fr.eventmanager.servlet.Servlet;
 
 import javax.servlet.ServletException;
@@ -32,7 +33,7 @@ public class ServletRouter {
         }
     }
 
-    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void process(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, NotLoggedInException {
         final Optional<HttpMethod> methodOptional = HttpMethod.getHttpMethod(req.getMethod());
         if (!methodOptional.isPresent()) {
             resp.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -46,8 +47,13 @@ public class ServletRouter {
                 .findFirst();
 
         if (routeOptional.isPresent()) {
+            final Route route = routeOptional.get();
+            if (route.isInternal() && !servlet.isSessionLogged(req.getSession())) {
+                throw new NotLoggedInException("You must be logged in to access " + path);
+            }
+
             try {
-                final String methodName = routeOptional.get().getHandler();
+                final String methodName = route.getHandler();
                 final Class<?>[] classes = {HttpServletRequest.class, HttpServletResponse.class};
                 final Object[] args = {req, resp};
 
