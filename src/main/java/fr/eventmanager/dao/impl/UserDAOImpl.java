@@ -8,7 +8,6 @@ import fr.eventmanager.model.User_;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
@@ -71,19 +70,18 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
 
         getEntityManagerService().performQuery(em -> {
 
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-            CriteriaUpdate<User> cu = cb.createCriteriaUpdate(getEntityClass());
+            User currentUser = em.find(getEntityClass(), id);
 
-            Root<User> root = cu.from(getEntityClass());
+            em.getTransaction().begin();
 
-            cu.set("nom", newUser.getNom());
-            cu.set("prenom", newUser.getPrenom());
-            cu.set("email", newUser.getEmail());
-            cu.set("password", newUser.getPassword());
+            currentUser.setNom(newUser.getNom());
+            currentUser.setPrenom(newUser.getPrenom());
+            currentUser.setEmail(newUser.getEmail());
+            currentUser.setPassword(newUser.getPassword());
 
-            cu.where(cb.equal(root.get("id"), id));
+            em.getTransaction().commit();
 
-            return em.createQuery(cu).executeUpdate();
+            return null;
         });
     }
 }
