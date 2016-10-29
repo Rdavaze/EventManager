@@ -84,4 +84,39 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
             return null;
         });
     }
+
+    @Override
+    public boolean emailExists(String email) {
+        final List<User> results = getEntityManagerService().performQuery(em -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+
+            CriteriaQuery<User> cq = cb.createQuery(getEntityClass());
+            Root<User> root = cq.from(getEntityClass());
+
+            cq.where(cb.equal(root.get(User_.email), email));
+
+            TypedQuery<User> q = em.createQuery(cq);
+            return q.getResultList();
+        });
+
+        return !results.isEmpty();
+
+    }
+
+    @Override
+    public boolean passwordExists(String password) {
+        final List<User> results = getEntityManagerService().performQuery(em -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+
+            CriteriaQuery<User> cq = cb.createQuery(getEntityClass());
+            Root<User> root = cq.from(getEntityClass());
+
+            cq.where(cb.equal(root.get(User_.password), password));
+
+            TypedQuery<User> q = em.createQuery(cq);
+            return q.getResultList();
+        });
+
+        return !results.isEmpty();
+    }
 }

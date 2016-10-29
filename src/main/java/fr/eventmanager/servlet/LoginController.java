@@ -21,6 +21,8 @@ import java.util.regex.Pattern;
 public class LoginController extends Servlet {
     private UserDAO userDAO;
 
+    private String wrongCredentialsParam;
+
     @Override
     public void init() throws ServletException {
         super.init(this);
@@ -45,7 +47,7 @@ public class LoginController extends Servlet {
         if (authenticate(req)) {
             resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents");
         } else {
-            resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login" + wrongCredentialsParam);
         }
     }
 
@@ -107,6 +109,7 @@ public class LoginController extends Servlet {
             session.setAttribute("user", userOptional.get());
             session.setAttribute("logged", true);
             System.out.println("Logging successfull");
+            this.wrongCredentialsParam = "";
             return true;
         } else {
             session.setAttribute("user", new UserBuilder()
@@ -115,6 +118,18 @@ public class LoginController extends Servlet {
                     .build());
             session.setAttribute("logged", false);
             System.out.println("Logging failed");
+
+            boolean emailExists = this.userDAO.emailExists(email);
+            boolean passwordExists = this.userDAO.passwordExists(password);
+
+            if (!emailExists && passwordExists)
+                wrongCredentialsParam = "?wrongMail=true";
+            else if (emailExists && !passwordExists)
+                wrongCredentialsParam = "?wrongPwd=true";
+            else
+                wrongCredentialsParam = "?wrongMail=true&wrongPwd=true";
+
+
             return false;
         }
     }
