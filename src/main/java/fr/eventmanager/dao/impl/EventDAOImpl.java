@@ -2,9 +2,14 @@ package fr.eventmanager.dao.impl;
 
 import fr.eventmanager.dao.EventDAO;
 import fr.eventmanager.model.Event;
+import fr.eventmanager.model.Event_;
 import fr.eventmanager.model.User;
 
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Set;
 
@@ -12,7 +17,12 @@ import java.util.Set;
  * Created by guillaume-chs on 21/10/16.
  */
 public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDAO {
+    private static final int NBR_EVENTS_DISPLAY = 4;
     private static EventDAOImpl instance = null;
+
+    private EventDAOImpl() {
+        super();
+    }
 
     public static EventDAOImpl getInstance() {
         if (instance == null) {
@@ -20,10 +30,6 @@ public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDA
         }
         return instance;
 
-    }
-
-    private EventDAOImpl() {
-        super();
     }
 
     @Override
@@ -45,5 +51,25 @@ public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDA
     @Override
     public Set<User> getEventAttendees(Integer id) {
         return this.getEventAttendees(findById(id));
+    }
+
+    @Override
+    public List<Event> getPageEvents(int index) {
+
+        final List<Event> results = getEntityManagerService().performQuery(em -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+
+            CriteriaQuery<Event> cq = cb.createQuery(getEntityClass());
+            Root<Event> root = cq.from(getEntityClass());
+
+            cq.where(cb.between(root.get(Event_.id), index, index + NBR_EVENTS_DISPLAY + 1));
+
+
+            TypedQuery<Event> q = em.createQuery(cq);
+            q.setMaxResults(NBR_EVENTS_DISPLAY);
+            return q.getResultList();
+        });
+
+        return results;
     }
 }

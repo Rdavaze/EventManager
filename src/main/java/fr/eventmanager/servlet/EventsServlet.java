@@ -32,7 +32,7 @@ public class EventsServlet extends Servlet {
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent"));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent"));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)"), "getMyEvents"));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)"), "browseEvents"));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents"));
     }
 
     public void getEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -79,6 +79,9 @@ public class EventsServlet extends Servlet {
 
     public void browseEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        int index = Integer.parseInt(req.getParameter("index"));
+
+        req.setAttribute("events", eventDAO.getPageEvents(index));
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
     }
 

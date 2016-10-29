@@ -31,11 +31,15 @@
 
         <ul class="pagination changePage">
             <li class="disabled"><a href="#!"><i class="material-icons chevron">chevron_left</i></a></li>
-            <li class="active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!">4</a></li>
-            <li class="waves-effect"><a href="#!"><i class="material-icons chevron">chevron_right</i></a></li>
+            <li id="page1" class="waves-effect"><a href="${pageContext.request.contextPath}/events/browse?index=1">1</a>
+            </li>
+            <li id="page2" class="waves-effect"><a href="${pageContext.request.contextPath}/events/browse?index=7">2</a>
+            </li>
+            <li id="page3" class="waves-effect"><a
+                    href="${pageContext.request.contextPath}/events/browse?index=11">3</a></li>
+            <li id="page4" class="waves-effect"><a
+                    href="${pageContext.request.contextPath}/events/browse?index=15">4</a></li>
+            <li class="disabled"><a href="#!"><i class="material-icons chevron">chevron_right</i></a></li>
         </ul>
 
     </div>
@@ -60,7 +64,44 @@
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
+
+        var index = Number($_GET('index'));
+        var id_page;
+
+        switch (index) {
+
+            case 1 :
+                id_page = 1;
+                break;
+            case 7 :
+                id_page = 2;
+                break;
+            case 11 :
+                id_page = 3;
+                break;
+            case 15 :
+                id_page = 4;
+                break;
+        }
+
+        $('#page' + id_page).addClass('active');
+
     });
+
+    function $_GET(param) {
+        var vars = {};
+        window.location.href.replace(location.hash, '').replace(
+                /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                function (m, key, value) { // callback
+                    vars[key] = value !== undefined ? value : '';
+                }
+        );
+
+        if (param) {
+            return vars[param] ? vars[param] : null;
+        }
+        return vars;
+    }
 
 </script>
 </body>
