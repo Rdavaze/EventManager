@@ -29,9 +29,10 @@ public class LoginController extends Servlet {
         this.userDAO = UserDAOImpl.getInstance();
 
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "login"));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/forgot"), "forgot"));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/forgot)?"), "forgot"));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/connect"), "connect"));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/subscribe"), "subscribe"));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/changePwd"), "changePassword"));
     }
 
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,6 +41,7 @@ public class LoginController extends Servlet {
     }
 
     public void forgot(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        checkParameters(req);
         getServletContext().getRequestDispatcher("/WEB-INF/login/forgot.jsp").forward(req, resp);
     }
 
@@ -60,6 +62,16 @@ public class LoginController extends Servlet {
 
     }
 
+    public void changePassword(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        if (modifyPassword(req)) {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
+        } else {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login/forgot?mailNotExist=true");
+        }
+    }
+
+
     /**
      * Check if there are error parameters
      *
@@ -72,6 +84,10 @@ public class LoginController extends Servlet {
 
         //Inscription
         boolean isMailUsed = Boolean.parseBoolean(req.getParameter("usedMail"));
+
+        // Oubli
+        boolean mailNotExist = Boolean.parseBoolean(req.getParameter("mailNotExist"));
+
 
         if (isMailWrong || isPasswordWrong) {
             String wrongCredentialsMSG = "<div id=\"wrong-credentials\">" +
@@ -94,6 +110,14 @@ public class LoginController extends Servlet {
 
             req.setAttribute("wrongCredentialsSub", wrongCredentialsSubMSG);
         }
+
+        if (mailNotExist) {
+            String mailNotExistMSG = "<div id=\"mail-not-exist\"><ul><li>L'adresse mail n'existe pas</li></ul></div>";
+
+            req.setAttribute("mailNotExist", mailNotExistMSG);
+        }
+
+
     }
 
 
@@ -167,4 +191,24 @@ public class LoginController extends Servlet {
         return false;
     }
 
+
+    /**
+     * Modify the password corresponding to the email
+     *
+     * @param req request
+     * @return indicate if the change has been done
+     */
+    private boolean modifyPassword(HttpServletRequest req) {
+
+        String email = req.getParameter("forgot-email");
+        String password = req.getParameter("forgot-password");
+
+        if (this.userDAO.emailExists(email)) {
+
+            this.userDAO.updatePassword(email, password);
+            return true;
+        }
+
+        return false;
+    }
 }

@@ -87,20 +87,9 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
 
     @Override
     public boolean emailExists(String email) {
-        final List<User> results = getEntityManagerService().performQuery(em -> {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
 
-            CriteriaQuery<User> cq = cb.createQuery(getEntityClass());
-            Root<User> root = cq.from(getEntityClass());
-
-            cq.where(cb.equal(root.get(User_.email), email));
-
-            TypedQuery<User> q = em.createQuery(cq);
-            return q.getResultList();
-        });
-
-        return !results.isEmpty();
-
+        Optional<User> user = findbyEmail(email);
+        return user.isPresent();
     }
 
     @Override
@@ -118,5 +107,47 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
         });
 
         return !results.isEmpty();
+    }
+
+
+    @Override
+    public Optional<User> findbyEmail(String email) {
+        final List<User> results = getEntityManagerService().performQuery(em -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+
+            CriteriaQuery<User> cq = cb.createQuery(getEntityClass());
+            Root<User> root = cq.from(getEntityClass());
+
+            cq.where(cb.equal(root.get(User_.email), email));
+
+            TypedQuery<User> q = em.createQuery(cq);
+            return q.getResultList();
+        });
+
+        if (!results.isEmpty()) {
+            return Optional.of(results.get(0));
+        } else {
+            return Optional.empty();
+        }
+    }
+
+    @Override
+    public void updatePassword(String email, String password) {
+
+        User user = findbyEmail(email).get();
+
+        getEntityManagerService().performQuery(em -> {
+
+            User currentUser = em.find(getEntityClass(), user.getId());
+
+            em.getTransaction().begin();
+
+            currentUser.setPassword(password);
+
+            em.getTransaction().commit();
+
+            return null;
+        });
+
     }
 }

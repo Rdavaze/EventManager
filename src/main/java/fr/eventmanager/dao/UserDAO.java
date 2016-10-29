@@ -27,4 +27,8 @@ public interface UserDAO extends DAO<Integer, User> {
     boolean emailExists(String email);
 
     boolean passwordExists(String password);
+
+    Optional<User> findbyEmail(String email);
+
+    void updatePassword(String email, String password);
 }
