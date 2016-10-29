@@ -52,8 +52,12 @@ public class LoginController extends Servlet {
     }
 
     public void subscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        register(req);
-        getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
+        if (register(req)) {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
+        } else {
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/login?usedMail=true");
+        }
+
     }
 
     /**
@@ -139,9 +143,28 @@ public class LoginController extends Servlet {
      *
      * @param req request
      */
-    private void register(HttpServletRequest req) {
-        // TODO : register process in the backend
+    private boolean register(HttpServletRequest req) {
 
+        String email = req.getParameter("sub-email");
+        String firstname = req.getParameter("sub-firstname");
+        String name = req.getParameter("sub-name");
+        String password = req.getParameter("sub-password");
+
+
+        if (!this.userDAO.emailExists(email)) {
+
+            this.userDAO.persist(new UserBuilder()
+                    .setEmail(email)
+                    .setPrenom(firstname)
+                    .setNom(name)
+                    .setPassword(password)
+                    .build());
+
+            return true;
+        }
+
+
+        return false;
     }
 
 }

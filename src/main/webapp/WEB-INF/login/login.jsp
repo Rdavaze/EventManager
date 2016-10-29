@@ -50,33 +50,35 @@
 
                 <div id="signup">
                     ${wrongCredentialsSub}
-                    <form action="${pageContext.request.contextPath}/login/signup" method="post">
+                    <form action="${pageContext.request.contextPath}/login/subscribe" method="post">
 
                         <div class="top-row input-field col s12">
                             <div class="field-wrap">
                                 <label>
                                     Prénom
                                 </label>
-                                <input type="text" class="validate" required autocomplete="off"/>
+                                <input type="text" class="validate" name="sub-firstname" required autocomplete="off"/>
                             </div>
 
                             <div class="field-wrap">
                                 <label>
                                     Nom
                                 </label>
-                                <input type="text" class="validate" required autocomplete="off"/>
+                                <input type="text" class="validate" name="sub-name" required autocomplete="off"/>
                             </div>
                         </div>
 
                         <div class="input-field col s12">
                             <label for="email-subscribe">Adresse mail</label>
-                            <input class="validate" id="email-subscribe" type="email" name="email" required autocomplete="off">
+                            <input class="validate" id="email-subscribe" type="email" name="sub-email" required
+                                   autocomplete="off">
                         </div>
 
 
                         <div class="input-field col s12">
                             <label for="password-subscribe">Mot de passe</label>
-                            <input id="password-subscribe" type="password" class="validate" name="password" required autocomplete="off">
+                            <input id="password-subscribe" type="password" class="validate" name="sub-password" required
+                                   autocomplete="off">
                         </div>
 
                         <button type="submit" class="waves-effect waves-light btn" id="button-subscribe">S'inscrire</button>
