@@ -31,7 +31,7 @@ public class EventsServlet extends Servlet {
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent", true));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)"), "getMyEvents", true));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents", false));
 
     }
 
