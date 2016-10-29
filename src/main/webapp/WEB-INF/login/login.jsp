@@ -50,7 +50,7 @@
 
                 <div id="signup">
                     ${wrongCredentialsSub}
-                    <form action="${pageContext.request.contextPath}/login/subscribe" method="post">
+                    <form action="${pageContext.request.contextPath}/login/signup" method="post">
 
                         <div class="top-row input-field col s12">
                             <div class="field-wrap">

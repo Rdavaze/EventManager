@@ -36,7 +36,7 @@ public class ProfileServlet extends Servlet {
 
     public void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         if (updateProfile(req)) {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(req, resp);
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/profile");
         } else {
             resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
         }
@@ -46,8 +46,8 @@ public class ProfileServlet extends Servlet {
         getSessionUser(req.getSession()).ifPresent(currUser -> {
             final User newUser = new UserBuilder()
                     .setEmail(req.getParameter("email"))
-                    .setFirstname(req.getParameter("name"))
-                    .setLastname(req.getParameter("firstname"))
+                    .setFirstname(req.getParameter("firstname"))
+                    .setLastname(req.getParameter("lastname"))
                     .setPassword(req.getParameter("password"))
                     .build();
 

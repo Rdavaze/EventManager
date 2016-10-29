@@ -14,7 +14,7 @@
     <div class="profile">
         <h1 id="profile-title">Mon profil</h1>
 
-        <form id="profile-content" action="${pageContext.request.contextPath}/profile" method="post">
+        <form id="profile-content" action="${pageContext.request.contextPath}/profile/update" method="post">
             <div class="row ">
                 <div class="input-field col s6 profile-value">
                     <input id="first-name" type="text" class="validate valid" name="firstname"
@@ -22,7 +22,7 @@
                     <label for="first-name">Prénom</label>
                 </div>
                 <div class="input-field col s6 profile-value">
-                    <input id="name" type="text" class="validate valid" name="name"
+                    <input id="name" type="text" class="validate valid" name="lastname"
                            value="${sessionScope.user.getLastname()}">
                     <label for="name">Nom</label>
                 </div>
