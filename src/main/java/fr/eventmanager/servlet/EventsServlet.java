@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -27,12 +28,21 @@ public class EventsServlet extends Servlet {
         super.init(this);
         this.eventDAO = EventDAOImpl.getInstance();
 
+<<<<<<< HEAD
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "getEvents"));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent"));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent"));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent"));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)"), "getMyEvents"));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents"));
+=======
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "getEvents", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent", true));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)"), "getMyEvents", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)"), "browseEvents", false));
+>>>>>>> e1fd68e6a416e5ff12e5dcee20399fdeec6ee77a
     }
 
     public void getEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -54,26 +64,21 @@ public class EventsServlet extends Servlet {
     }
 
     public void postEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String label = req.getParameter("label");
-        final String description = req.getParameter("description");
-        final String location = req.getParameter("location");
-        final String date = req.getParameter("date");
-        final boolean visible = "on".equalsIgnoreCase(req.getParameter("visible"));
-
-        final Event event = new EventBuilder(((User) req.getSession().getAttribute("user")))
-                .setLabel(label)
-                .setDescription(description)
-                .setLocation(location)
-                .setVisible(visible)
-                .build();
-
-        eventDAO.persist(event);
+        getSessionUser(req.getSession()).ifPresent(user -> {
+            eventDAO.persist(
+                    new EventBuilder(user)
+                            .setLabel(req.getParameter("label"))
+                            .setDescription(req.getParameter("description"))
+                            .setLocation(req.getParameter("location"))
+                            .setVisible("on".equalsIgnoreCase(req.getParameter("visible")))
+                            .build()
+            );
+        });
 
         resp.sendRedirect(getServletContext().getContextPath() + "/events");
     }
 
     public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
         getServletContext().getRequestDispatcher("/WEB-INF/pages/myEvents.jsp").forward(req, resp);
     }
 
@@ -82,7 +87,7 @@ public class EventsServlet extends Servlet {
         int index = Integer.parseInt(req.getParameter("index"));
 
         req.setAttribute("events", eventDAO.getPageEvents(index));
+
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
     }
-
 }

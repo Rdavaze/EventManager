@@ -48,15 +48,15 @@ public class EntityManagerService {
         final User johnDoe = new UserBuilder()
                 .setEmail("john.doe@gmail.com")
                 .setPassword("password")
-                .setPrenom("John")
-                .setNom("Doe")
+                .setFirstname("John")
+                .setLastname("Doe")
                 .build();
 
         final User richardRoe = new UserBuilder()
                 .setEmail("richard.roe@gmail.com")
                 .setPassword("password")
-                .setPrenom("Richard")
-                .setNom("Roe")
+                .setFirstname("Richard")
+                .setLastname("Roe")
                 .build();
 
         performOperation(em -> {

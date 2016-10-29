@@ -11,8 +11,9 @@ import java.util.Set;
 @Entity
 @Table(name = User.tableName)
 public class User implements Serializable {
-    public static final String tableName = "User";
     private static final long serialVersionUID = 1L;
+    static final String tableName = "User";
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, unique = true)
@@ -24,15 +25,11 @@ public class User implements Serializable {
     @Column(name = "password", nullable = false, length = 25)
     private String password;
 
-    @Column(name = "prenom", nullable = false, length = 100)
-    private String prenom;
+    @Column(name = "firstname", nullable = false, length = 100)
+    private String firstname;
 
-    @Column(name = "nom", nullable = false, length = 100)
-    private String nom;
-
-    @Temporal(TemporalType.DATE)
-    @Column(name = "birthdate")
-    private Date birthdate;
+    @Column(name = "lastname", nullable = false, length = 100)
+    private String lastname;
 
     @ManyToMany(mappedBy = "attendees")
     private Set<Event> events;
@@ -40,12 +37,11 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String email, String password, String prenom, String nom, Date birthdate, Set<Event> events) {
+    public User(String email, String password, String firstname, String lastname, Set<Event> events) {
         this.email = email;
         this.password = password;
-        this.prenom = prenom;
-        this.nom = nom;
-        this.birthdate = birthdate;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.events = events;
     }
 
@@ -73,28 +69,20 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getNom() {
-        return nom;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Set<Event> getEvents() {

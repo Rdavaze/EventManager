@@ -1,6 +1,8 @@
 package fr.eventmanager.dao.impl;
 
 import fr.eventmanager.dao.UserDAO;
+import fr.eventmanager.exception.MailNotFoundException;
+import fr.eventmanager.exception.WrongPasswordException;
 import fr.eventmanager.model.Event;
 import fr.eventmanager.model.User;
 import fr.eventmanager.model.User_;
@@ -10,7 +12,6 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -42,31 +43,37 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
     }
 
     @Override
-    public Optional<User> findByCredentials(String email, String password) {
-        findAll().forEach(u -> System.out.println(u.getId() + " - " + u.getPrenom() + u.getNom() + " - " + u.getEmail() + " : " + u.getPassword()));
-
+    public User findByCredentials(String email) throws MailNotFoundException {
         final List<User> results = getEntityManagerService().performQuery(em -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
 
             CriteriaQuery<User> cq = cb.createQuery(getEntityClass());
             Root<User> root = cq.from(getEntityClass());
 
-            cq.where(cb.and(cb.equal(root.get(User_.email), email),
-                    cb.equal(root.get(User_.password), password)));
+            cq.where(cb.and(cb.equal(root.get(User_.email), email)));
 
             TypedQuery<User> q = em.createQuery(cq);
             return q.getResultList();
         });
 
-        if (!results.isEmpty()) {
-            return Optional.of(results.get(0));
-        } else {
-            return Optional.empty();
+        if (results.isEmpty()) {
+            throw new MailNotFoundException(email + " does not exist in the database");
         }
+        return results.get(0);
     }
 
     @Override
-    public void updateUserInfo(Integer id, User newUser) {
+    public User findByCredentials(String email, String password) throws MailNotFoundException, WrongPasswordException {
+        final User user = this.findByCredentials(email);
+
+        if (!user.getPassword().equals(password)) {
+            throw new WrongPasswordException("Password does not match user with email " + email);
+        }
+        return user;
+    }
+
+    @Override
+    public void updateUser(Integer id, User newUser) {
 
         getEntityManagerService().performQuery(em -> {
 
@@ -74,8 +81,8 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
 
             em.getTransaction().begin();
 
-            currentUser.setNom(newUser.getNom());
-            currentUser.setPrenom(newUser.getPrenom());
+            currentUser.setFirstname(newUser.getFirstname());
+            currentUser.setLastname(newUser.getLastname());
             currentUser.setEmail(newUser.getEmail());
             currentUser.setPassword(newUser.getPassword());
 
@@ -87,9 +94,12 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
 
     @Override
     public boolean emailExists(String email) {
-
-        Optional<User> user = findbyEmail(email);
-        return user.isPresent();
+        try {
+            this.findByCredentials(email);
+            return true;
+        } catch (MailNotFoundException e) {
+            return false;
+        }
     }
 
     @Override
@@ -109,45 +119,21 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
         return !results.isEmpty();
     }
 
-
-    @Override
-    public Optional<User> findbyEmail(String email) {
-        final List<User> results = getEntityManagerService().performQuery(em -> {
-            CriteriaBuilder cb = em.getCriteriaBuilder();
-
-            CriteriaQuery<User> cq = cb.createQuery(getEntityClass());
-            Root<User> root = cq.from(getEntityClass());
-
-            cq.where(cb.equal(root.get(User_.email), email));
-
-            TypedQuery<User> q = em.createQuery(cq);
-            return q.getResultList();
-        });
-
-        if (!results.isEmpty()) {
-            return Optional.of(results.get(0));
-        } else {
-            return Optional.empty();
-        }
-    }
-
     @Override
     public void updatePassword(String email, String password) {
+        try {
+            final User user = findByCredentials(email);
 
-        User user = findbyEmail(email).get();
+            getEntityManagerService().performQuery(em -> {
+                User currentUser = em.find(getEntityClass(), user.getId());
 
-        getEntityManagerService().performQuery(em -> {
+                em.getTransaction().begin();
+                currentUser.setPassword(password);
+                em.getTransaction().commit();
 
-            User currentUser = em.find(getEntityClass(), user.getId());
-
-            em.getTransaction().begin();
-
-            currentUser.setPassword(password);
-
-            em.getTransaction().commit();
-
-            return null;
-        });
-
+                return null;
+            });
+        } catch (MailNotFoundException ignored) {
+        }
     }
 }
