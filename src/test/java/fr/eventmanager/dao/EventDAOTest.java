@@ -21,6 +21,6 @@ public class EventDAOTest {
     @Test
     public void testEventDAOImpl() {
         final List<Event> events = eventDAO.findAll();
-        assertEquals(events.size(), 3);
+        assertEquals(events.size(), 15);
     }
 }

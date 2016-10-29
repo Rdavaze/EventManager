@@ -21,17 +21,17 @@ public class EntityManagerService {
     private final EntityManagerFactory factory;
     private final EntityManager manager;
 
+    private EntityManagerService(String persistenceUnit) {
+        this.factory = Persistence.createEntityManagerFactory(persistenceUnit);
+        this.manager = factory.createEntityManager();
+    }
+
     public static EntityManagerService getInstance() {
         if (instance == null) {
             instance = new EntityManagerService(PERSISTENCE_UNIT);
             instance.populate();
         }
         return instance;
-    }
-
-    private EntityManagerService(String persistenceUnit) {
-        this.factory = Persistence.createEntityManagerFactory(persistenceUnit);
-        this.manager = factory.createEntityManager();
     }
 
     public synchronized <T> T performQuery(Function<EntityManager, T> query) {
@@ -68,6 +68,18 @@ public class EntityManagerService {
             em.persist(new EventBuilder(johnDoe).setLabel("Premier événement").build());
             em.persist(new EventBuilder(johnDoe).setLabel("Deuxième événement").build());
             em.persist(new EventBuilder(richardRoe).setLabel("Troisième événement").build());
+            em.persist(new EventBuilder(johnDoe).setLabel("Quatre événement").build());
+            em.persist(new EventBuilder(johnDoe).setLabel("Cinq événement").build());
+            em.persist(new EventBuilder(richardRoe).setLabel("Sixieme événement").build());
+            em.persist(new EventBuilder(johnDoe).setLabel("Sept événement").build());
+            em.persist(new EventBuilder(johnDoe).setLabel("Huit événement").build());
+            em.persist(new EventBuilder(richardRoe).setLabel("Neuf événement").build());
+            em.persist(new EventBuilder(johnDoe).setLabel("Dix événement").build());
+            em.persist(new EventBuilder(johnDoe).setLabel("Onze événement").build());
+            em.persist(new EventBuilder(richardRoe).setLabel("Douze événement").build());
+            em.persist(new EventBuilder(johnDoe).setLabel("Treize événement").build());
+            em.persist(new EventBuilder(johnDoe).setLabel("Quatorze événement").build());
+            em.persist(new EventBuilder(richardRoe).setLabel("Quinze événement").build());
         });
 
     }
