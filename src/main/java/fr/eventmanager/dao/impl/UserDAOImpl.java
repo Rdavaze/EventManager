@@ -8,6 +8,7 @@ import fr.eventmanager.model.User_;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 import java.util.Optional;
@@ -19,16 +20,16 @@ import java.util.Set;
 public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
     private static UserDAOImpl instance = null;
 
+    private UserDAOImpl() {
+        super();
+    }
+
     public static UserDAOImpl getInstance() {
         if (instance == null) {
             instance = new UserDAOImpl();
         }
         return instance;
 
-    }
-
-    private UserDAOImpl() {
-        super();
     }
 
     @Override
@@ -43,7 +44,7 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
 
     @Override
     public Optional<User> findByCredentials(String email, String password) {
-        findAll().forEach(u -> System.out.println(u.getId() + " - " + u.getPrenom() + u.getNom() + " - " + u.getEmail() + ":" + u.getPassword()));
+        findAll().forEach(u -> System.out.println(u.getId() + " - " + u.getPrenom() + u.getNom() + " - " + u.getEmail() + " : " + u.getPassword()));
 
         final List<User> results = getEntityManagerService().performQuery(em -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -63,5 +64,26 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
         } else {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public void updateUserInfo(Integer id, User newUser) {
+
+        getEntityManagerService().performQuery(em -> {
+
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+            CriteriaUpdate<User> cu = cb.createCriteriaUpdate(getEntityClass());
+
+            Root<User> root = cu.from(getEntityClass());
+
+            cu.set("nom", newUser.getNom());
+            cu.set("prenom", newUser.getPrenom());
+            cu.set("email", newUser.getEmail());
+            cu.set("password", newUser.getPassword());
+
+            cu.where(cb.equal(root.get("id"), id));
+
+            return em.createQuery(cu).executeUpdate();
+        });
     }
 }

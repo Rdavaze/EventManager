@@ -7,8 +7,8 @@
                 <img class="circle" src="${pageContext.request.contextPath}/assets/images/mini-agenda.png"
                      id="agenda-icon">
                 <span class="white-text name">
-                <c:out value="${sessionScope.firstname}"/>
-                <c:out value="${sessionScope.name}"/>
+                <c:out value="${sessionScope.user.getPrenom()}"/>
+                <c:out value="${sessionScope.user.getNom()}"/>
             </span>
             </div>
         </li>

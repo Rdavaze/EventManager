@@ -29,7 +29,7 @@ public class LoginController extends Servlet {
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "login"));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/forgot"), "forgot"));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/connect"), "connect"));
-        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/subscribe"), "suscribe"));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/subscribe"), "subscribe"));
     }
 
     public void login(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,7 +49,7 @@ public class LoginController extends Servlet {
         }
     }
 
-    public void suscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void subscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         register(req);
         getServletContext().getRequestDispatcher("/WEB-INF/login/login.jsp").forward(req, resp);
     }

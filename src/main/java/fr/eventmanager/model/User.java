@@ -11,15 +11,14 @@ import java.util.Set;
 @Entity
 @Table(name = User.tableName)
 public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
     public static final String tableName = "User";
-
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 
-    @Column(name = "label", nullable = false, length = 100, unique = true)
+    @Column(name = "email", nullable = false, length = 100, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false, length = 25)

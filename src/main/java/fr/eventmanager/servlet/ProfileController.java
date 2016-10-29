@@ -1,5 +1,10 @@
 package fr.eventmanager.servlet;
 
+import fr.eventmanager.builder.UserBuilder;
+import fr.eventmanager.dao.UserDAO;
+import fr.eventmanager.dao.impl.UserDAOImpl;
+import fr.eventmanager.model.User;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,39 +17,46 @@ import java.io.IOException;
  */
 public class ProfileController extends HttpServlet {
 
+    private UserDAO userDAO;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        this.userDAO = UserDAOImpl.getInstance();
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        setUserInfo(req);
-
         getServletContext().getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(req, resp);
-
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        setUserInfo(req);
+        updateProfile(req);
 
         getServletContext().getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(req, resp);
     }
 
-    /**
-     * Retrieve current user's info and display it in the page
-     *
-     * @param req request
-     */
-    private void setUserInfo(HttpServletRequest req) {
+    private void updateProfile(HttpServletRequest req) throws ServletException, IOException {
 
         HttpSession session = req.getSession(false);
 
-        // TODO : retrieve user's info in the backend
+        User currentUser = (User) session.getAttribute("user");
+
+        User newUser = new UserBuilder()
+                .setEmail(req.getParameter("email"))
+                .setNom(req.getParameter("name"))
+                .setPrenom(req.getParameter("firstname"))
+                .setPassword(req.getParameter("password"))
+                .build();
 
 
-        req.setAttribute("profileFirstName", "John");
-        req.setAttribute("profileName", "Doe");
-        req.setAttribute("profileMail", "johndoe@gmail.com");
-        req.setAttribute("profilePassword", "password");
+        this.userDAO.updateUserInfo(currentUser.getId(), newUser);
+
+        session.setAttribute("user", newUser);
+
     }
 
 }

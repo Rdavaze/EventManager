@@ -21,4 +21,6 @@ public interface UserDAO extends DAO<Integer, User> {
     Set<Event> getUserEvents(Integer id);
 
     Optional<User> findByCredentials(String email, String password);
+
+    void updateUserInfo(Integer id, User newUser);
 }
