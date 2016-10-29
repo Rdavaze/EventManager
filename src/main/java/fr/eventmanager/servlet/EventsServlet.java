@@ -4,7 +4,6 @@ import fr.eventmanager.builder.EventBuilder;
 import fr.eventmanager.dao.EventDAO;
 import fr.eventmanager.dao.impl.EventDAOImpl;
 import fr.eventmanager.model.Event;
-import fr.eventmanager.model.User;
 import fr.eventmanager.utils.HttpMethod;
 import fr.eventmanager.utils.Route;
 
@@ -14,7 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -28,21 +26,13 @@ public class EventsServlet extends Servlet {
         super.init(this);
         this.eventDAO = EventDAOImpl.getInstance();
 
-<<<<<<< HEAD
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "getEvents"));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent"));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent"));
-        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent"));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)"), "getMyEvents"));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents"));
-=======
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "getEvents", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent", true));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)"), "getMyEvents", true));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)"), "browseEvents", false));
->>>>>>> e1fd68e6a416e5ff12e5dcee20399fdeec6ee77a
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents", true));
+
     }
 
     public void getEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
