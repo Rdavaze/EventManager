@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 /**
@@ -73,8 +74,13 @@ public class EventsServlet extends Servlet {
     }
 
     public void browseEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        int index = Integer.parseInt(req.getParameter("index"));
+        Optional<Integer> indexOptional;
+        try {
+            indexOptional = Optional.ofNullable(Integer.parseInt(req.getParameter("index")));
+        } catch (NumberFormatException e) {
+            indexOptional = Optional.empty();
+        }
+        final int index = indexOptional.isPresent() ? indexOptional.get() : 0;
 
         req.setAttribute("events", eventDAO.getPageEvents(index));
 
