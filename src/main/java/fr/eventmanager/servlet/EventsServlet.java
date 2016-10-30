@@ -80,7 +80,7 @@ public class EventsServlet extends Servlet {
         } catch (NumberFormatException e) {
             indexOptional = Optional.empty();
         }
-        final int index = indexOptional.isPresent() ? indexOptional.get() : 0;
+        final int index = indexOptional.isPresent() ? indexOptional.get() : 1;
 
         req.setAttribute("events", eventDAO.getPageEvents(index));
 
