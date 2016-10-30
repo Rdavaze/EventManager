@@ -2,30 +2,42 @@
 <div class="menu">
     <ul id="slide-out" class="side-nav">
         <li class="white-text title">Event Manager</li>
-        <li>
-            <div class="userView">
-                <img class="circle" src="${pageContext.request.contextPath}/assets/images/mini-agenda.png"
-                     id="agenda-icon">
-                <span class="white-text name">
+
+        <c:if test="${logged}">
+            <li>
+                <div class="userView">
+                    <img class="circle" src="${pageContext.request.contextPath}/assets/images/mini-agenda.png"
+                         id="agenda-icon">
+                    <span class="white-text name">
                 <c:out value="${sessionScope.user.getFirstname()}"/>
                 <c:out value="${sessionScope.user.getLastname()}"/>
             </span>
-            </div>
-        </li>
-        <li class="action"><a href="${pageContext.request.contextPath}/events/myEvents">
-            <i class="material-icons">assignment</i>Mon agenda</a>
-        </li>
-        <li class="action"><a href="${pageContext.request.contextPath}/events/browse?index=1">
-            <i class="material-icons">view_list</i>Parcourir les évènements</a>
-        </li>
-        <li class="action"><a href="${pageContext.request.contextPath}/events/create">
-            <i class="material-icons">note_add</i>Créer un évènement</a>
-        </li>
-        <li class="action"><a href="${pageContext.request.contextPath}/profile/">
-            <i class="material-icons">perm_identity</i>Mon profil</a>
-        </li>
-        <li class="disconnect"><a href="${pageContext.request.contextPath}/login/disconnect">
-            <i class="material-icons">power_settings_new</i>Déconnexion</a>
-        </li>
+                </div>
+            </li>
+
+
+            <li class="action"><a href="${pageContext.request.contextPath}/events/myEvents">
+                <i class="material-icons">assignment</i>Mon agenda</a>
+            </li>
+            <li class="action"><a href="${pageContext.request.contextPath}/events/browse?index=1">
+                <i class="material-icons">view_list</i>Parcourir les évènements</a>
+            </li>
+            <li class="action"><a href="${pageContext.request.contextPath}/events/create">
+                <i class="material-icons">note_add</i>Créer un évènement</a>
+            </li>
+            <li class="action"><a href="${pageContext.request.contextPath}/profile/">
+                <i class="material-icons">perm_identity</i>Mon profil</a>
+            </li>
+            <li class="disconnect"><a href="${pageContext.request.contextPath}/login/disconnect">
+                <i class="material-icons">power_settings_new</i>Déconnexion</a>
+            </li>
+        </c:if>
+
+
+        <c:if test="${!logged}">
+            <li class="disconnect"><a href="${pageContext.request.contextPath}/login">
+                <i class="material-icons">power_settings_new</i>Connexion</a>
+            </li>
+        </c:if>
     </ul>
 </div>
