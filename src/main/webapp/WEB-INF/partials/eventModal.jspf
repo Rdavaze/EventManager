@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="modal-content">
 
     <h1 class="event-modal-title" style="text-align: center !important;">Titre</h1>
@@ -11,5 +12,11 @@
     <p class="event-modal-element" id="description">Description</p>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="waves-effect waves-light btn">S'inscrire</button>
+    <c:if test="${logged}">
+        <button type="submit" class="waves-effect waves-light btn">S'inscrire</button>
+    </c:if>
+    <c:if test="${!logged}">
+        <a href="${pageContext.servletContext.contextPath}/login/" class="waves-effect waves-light btn">Se connecter</a>
+    </c:if>
 </div>
+

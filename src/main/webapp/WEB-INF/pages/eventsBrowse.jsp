@@ -22,7 +22,7 @@
                     <span class="event-title"><c:out value="${event.getLabel()}"/></span>
                     <button data-target="modal-event1" class="btn modal-trigger waves-effect waves-light btn-event"><i
                             class="material-icons">library_add</i></button>
-                    <p class="event-element"><c:out value="${event.getDate()}"/></p>
+                    <p class="event-element"><c:out value="${event.getDateBegin()}"/></p>
                     <p class="event-element"><c:out value="${event.getLocation()}"/></p>
                     <p class="event-element">Organisateur</p>
                 </div>
@@ -59,6 +59,9 @@
     </div>
 
 </div>
+
+
+<%@include file="../partials/footer.jspf" %>
 
 <script>
     $(document).ready(function () {

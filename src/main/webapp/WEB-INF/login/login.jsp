@@ -95,9 +95,12 @@
 </div>
 
 <div class="content">
-    <a href="${pageContext.request.contextPath}/events/browse" class="waves-effect waves-light btn" id="button-events">Voir les événements</a>
+    <a href="${pageContext.request.contextPath}/events/browse" class="waves-effect waves-light btn" id="button-events">Voir
+        les événements</a>
 </div>
 
+
+<%@include file="../partials/footer.jspf" %>
 
 <script>
 

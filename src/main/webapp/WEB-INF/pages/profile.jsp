@@ -10,7 +10,7 @@
 
 <div class="profile-page">
     <jsp:include page="../partials/menu.jspf"/>
-    
+
     <div class="profile">
         <h1 id="profile-title">Mon profil</h1>
 
@@ -49,6 +49,7 @@
 
     </div>
 
+    <%@include file="../partials/footer.jspf" %>
 </body>
 
 </html>

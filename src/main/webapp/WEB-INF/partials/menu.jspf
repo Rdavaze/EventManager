@@ -35,7 +35,7 @@
 
 
         <c:if test="${!logged}">
-            <li class="disconnect"><a href="${pageContext.request.contextPath}/login">
+            <li class="disconnect"><a href="${pageContext.request.contextPath}/login/">
                 <i class="material-icons">power_settings_new</i>Connexion</a>
             </li>
         </c:if>
