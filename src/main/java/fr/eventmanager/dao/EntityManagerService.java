@@ -57,16 +57,27 @@ public class EntityManagerService {
                 .setCompany("Sopra Steria")
                 .build();
 
+        final User johnDoe = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
+                .setCompany("OpenJDK")
+                .build();
+
+        final User laurentGuerin = new UserBuilder("laurent.guerin@gmail.com", "password", "Laurent", "Guerin")
+                .setCompany("Teacher")
+                .build();
+
+
         performOperation(em -> {
             em.persist(romainDavaze);
             em.persist(guillaumeChanson);
             em.persist(florineCercle);
+            em.persist(laurentGuerin);
+            em.persist(johnDoe);
         });
 
         performOperation(em -> {
             em.persist(new EventBuilder("Fête de la musique", guillaumeChanson).setVisible(true).build());
             em.persist(new EventBuilder("Laser Game", romainDavaze).build());
-            em.persist(new EventBuilder("Avant-première Harry Potter", florineCercle).addAttendee(romainDavaze).setVisible(true).build());
+            em.persist(new EventBuilder("Avant-première", florineCercle).addAttendee(romainDavaze).setVisible(true).build());
             em.persist(new EventBuilder("Vide-grenier", guillaumeChanson).build());
             em.persist(new EventBuilder("Art to Play", florineCercle).addAttendee(romainDavaze).addAttendee(guillaumeChanson).setVisible(true).build());
             em.persist(new EventBuilder("Fête des fleurs", florineCercle).build());
@@ -78,6 +89,8 @@ public class EntityManagerService {
             em.persist(new EventBuilder("Concours Patisserie", romainDavaze).build());
             em.persist(new EventBuilder("Salons des Vins", romainDavaze).build());
             em.persist(new EventBuilder("Pyjama party", florineCercle).build());
+            em.persist(new EventBuilder("Anniversaire de Guillaume", guillaumeChanson).build());
+
         });
     }
 }
