@@ -31,8 +31,8 @@
                     <label for="event-date-begin" class="active">Date de début</label>
                 </div>
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-time-begin" type="time" class="timepicker" name="time-begin">
-                    <label for="event-time-begin">Heure de début</label>
+                    <input id="event-time-begin" type="time" class="timepicker " name="time-begin">
+                    <label for="event-time-begin" class="active">Heure de début</label>
                 </div>
             </div>
             <div class="row" style="margin-bottom: 0">
@@ -41,8 +41,8 @@
                     <label for="event-date-end" class="active">Date de fin</label>
                 </div>
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-time-end" type="time" class="timepicker" name="time-end">
-                    <label for="event-time-end">Heure de fin</label>
+                    <input id="event-time-end" type="time" class="timepicker " name="time-end">
+                    <label for="event-time-end" class="active">Heure de fin</label>
                 </div>
             </div>
             <div class="row">
