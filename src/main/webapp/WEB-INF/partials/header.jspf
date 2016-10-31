@@ -7,4 +7,6 @@
       href="${pageContext.request.contextPath}/assets/vendors/materialize/sass/components/_primary.scss">
 <link rel="stylesheet"
       href="${pageContext.request.contextPath}/assets/vendors/materialize/sass/components/_variables.scss">
+<link rel="stylesheet"
+      href="${pageContext.request.contextPath}/assets/vendors/materialize/sass/components/_dark.scss">
 <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
