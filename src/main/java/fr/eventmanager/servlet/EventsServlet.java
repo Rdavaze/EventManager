@@ -33,6 +33,7 @@ public class EventsServlet extends Servlet {
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)?"), "getMyEvents", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents", false));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+/delete"), "deleteEvent", true));
 
     }
 
@@ -102,4 +103,18 @@ public class EventsServlet extends Servlet {
         }
         return indexOptional.isPresent() ? indexOptional.get() : 1;
     }
+
+    public void deleteEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String eventID = req.getPathInfo().split("/")[1];
+
+        eventID = eventID.split("/")[0];
+
+        int id = Integer.parseInt(eventID);
+
+        eventDAO.deleteEvent(id);
+
+        resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents");
+    }
+
 }

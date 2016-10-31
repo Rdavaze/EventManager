@@ -20,8 +20,9 @@
             <c:forEach var="event" items="${pageContext.request.getAttribute(\"events\")}" varStatus="loop">
                 <div class="col s4 event">
                     <span class="event-title"><c:out value="${event.getLabel()}"/></span>
-                    <button class="btn waves-effect waves-light delete"><i
-                            class="material-icons">delete</i></button>
+                    <a href="${pageContext.request.contextPath}/events/${event.getId()}/delete"
+                       class="btn waves-effect waves-light delete"><i
+                            class="material-icons">delete</i></a>
                     <p class="event-element"><c:out value="${event.getDateBegin()}"/></p>
                     <p class="event-element"><c:out value="${event.getLocation()}"/></p>
                     <button data-target="${loop.index+1}" class="btn modal-trigger waves-effect waves-light edit"><i

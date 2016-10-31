@@ -72,4 +72,38 @@ public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDA
 
         return results;
     }
+
+    @Override
+    public Event findEventByID(Integer ID) {
+
+        final List<Event> result = getEntityManagerService().performQuery(em -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+
+            CriteriaQuery<Event> cq = cb.createQuery(getEntityClass());
+            Root<Event> root = cq.from(getEntityClass());
+
+            cq.where(cb.equal(root.get(Event_.id), ID));
+
+            TypedQuery<Event> q = em.createQuery(cq);
+            return q.getResultList();
+        });
+
+        return result.get(0);
+    }
+
+    @Override
+    public void deleteEvent(Integer id) {
+
+        getEntityManagerService().performQuery(em -> {
+
+            Event event = findEventByID(id);
+
+            em.getTransaction().begin();
+            em.remove(event);
+            em.getTransaction().commit();
+
+            return null;
+        });
+
+    }
 }
