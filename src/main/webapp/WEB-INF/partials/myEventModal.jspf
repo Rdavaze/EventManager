@@ -7,8 +7,6 @@
                 <input id="event-title" type="text" class="validate" name="label" value="Titre">
                 <label for="event-title">Titre</label>
             </div>
-        </div>
-        <div class="row">
             <div class="input-field col s6 edit-event-value">
                 <input id="event-place" type="text" class="validate" name="location" value="Quelque part">
                 <label for="event-place">Lieu</label>
@@ -25,7 +23,7 @@
                 <label for="event-time-begin">Heure de début</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-bottom: 0">
             <div class="input-field col s6 edit-event-value">
                 <input id="event-date-end" type="date" class="datepicker" name="date-end" value="2016-10-27">
                 <label for="event-date-end">Date de fin</label>
@@ -38,7 +36,8 @@
         <div class="row">
             <div class="input-field col s6 edit-event-value">
                     <textarea id="event-description" maxlength="80" type="text" name="description"
-                              class="validate materialize-textarea" value="Description"></textarea>
+                              class="validate materialize-textarea" value="Description"
+                              style="margin-bottom: 0"></textarea>
                 <label for="event-description">Description</label>
             </div>
         </div>
