@@ -31,7 +31,7 @@ public class EventsServlet extends Servlet {
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent", true));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)"), "getMyEvents", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)?"), "getMyEvents", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents", false));
 
     }
@@ -79,6 +79,10 @@ public class EventsServlet extends Servlet {
     }
 
     public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        final int index = parseEventIndex(req);
+        req.setAttribute("events", eventDAO.getPageEvents(index));
+
         getServletContext().getRequestDispatcher("/WEB-INF/pages/myEvents.jsp").forward(req, resp);
     }
 
