@@ -13,9 +13,26 @@
                 <input id="event-place" type="text" class="validate" name="location" value="Quelque part">
                 <label for="event-place">Lieu</label>
             </div>
+        </div>
+        <div class="row">
             <div class="input-field col s6 edit-event-value">
-                <input id="event-date" type="date" class="datepicker" name="date" value="2016-10-27">
-                <label for="event-date">Date</label>
+                <input id="event-date-begin" type="date" class="datepicker" name="date-begin" value="2016-10-27">
+                <label for="event-date-begin">Date de début</label>
+            </div>
+
+            <div class="input-field col s6 edit-event-value">
+                <input id="event-time-begin" type="time" class="timepicker" name="time-begin">
+                <label for="event-time-begin">Heure de début</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 edit-event-value">
+                <input id="event-date-end" type="date" class="datepicker" name="date-end" value="2016-10-27">
+                <label for="event-date-end">Date de fin</label>
+            </div>
+            <div class="input-field col s6 edit-event-value">
+                <input id="event-time-end" type="time" class="timepicker" name="time-end">
+                <label for="event-time-end">Heure de fin</label>
             </div>
         </div>
         <div class="row">
@@ -36,6 +53,5 @@
             </div>
             <button type="submit" class="waves-effect waves-light btn" id="button-save-event">Enregistrer</button>
         </div>
-
     </form>
 </div>

@@ -121,10 +121,14 @@
         labelYearSelect: 'Sélectionner une année',
         format: 'dd mmmm yyyy'
     });
-
+    $('.timepicker').pickatime({
+        default: 'now',
+        twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
+        donetext: 'OK',
+        autoclose: true
+    });
 
 </script>
-
 
 </body>
 
