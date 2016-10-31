@@ -2,8 +2,10 @@ package fr.eventmanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -151,6 +153,8 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("[%d]:%s", id, label);
+        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+        final Integer nbAttendees = attendees.size();
+        return String.format("%s (%s, %s) : %d attendee%c", label, dateFormat.format(dateBegin), location, nbAttendees, (nbAttendees > 1) ? 's' : ' ');
     }
 }

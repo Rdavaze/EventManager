@@ -17,16 +17,22 @@ public class EventBuilderTest {
 
     @BeforeClass
     public static void setUpClass() {
-        johnDoe = new User("john.doe@gmail.com", "password", "John", "Doe", null);
-        event = new Event(johnDoe, "Premier", "Ceci est un event", null, null, "Nantes", true, null);
+        johnDoe = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
+                .setCompany("OpenJDK")
+                .build();
+
+        event = new EventBuilder("Premier", johnDoe)
+                .setDescription("Ceci est un event")
+                .setLocation("Nantes")
+                .setVisible(true)
+                .build();
     }
 
     @Test
     public void testEventBuilder() {
 
-        Event testEvent = new EventBuilder(johnDoe)
+        Event testEvent = new EventBuilder("Premier", johnDoe)
                 .setDescription("Ceci est un event")
-                .setLabel("Premier")
                 .setLocation("Nantes")
                 .build();
 
