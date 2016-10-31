@@ -23,11 +23,13 @@ public interface EventDAO extends DAO<Integer, Event> {
 
     Set<User> getEventAttendees(Integer id);
 
-    List<Event> getPageEvents(int pageNumber);
+    List<Event> getPageEvents(User user, int pageNumber);
 
     List<Event> getCreatorPageEvents(User creator, int pageNumber) throws MailNotFoundException;
 
     void deleteEvent(Integer id);
 
     Event findEventByID(Integer id);
+
+    void updateEvent(Event event, Integer id);
 }

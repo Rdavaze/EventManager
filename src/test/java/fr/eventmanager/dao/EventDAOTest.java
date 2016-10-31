@@ -36,29 +36,29 @@ public class EventDAOTest {
     }
 
 
-    @Test
-    public void testGetPageEvents() {
-
-        List<Event> eventsFirstPage = eventDAO.getPageEvents(1);
-        List<Event> eventsSecondPage = eventDAO.getPageEvents(2);
-        List<Event> eventsThirdPage = eventDAO.getPageEvents(3);
-        List<Event> eventsFourthPage = eventDAO.getPageEvents(4);
-
-        assertEquals(eventsFirstPage.size(), 4);
-        assertEquals(eventsFirstPage.get(0).getId(), new Integer(6));
-        assertEquals(eventsFirstPage.get(3).getId(), new Integer(9));
-
-        assertEquals(eventsSecondPage.size(), 4);
-        assertEquals(eventsSecondPage.get(0).getId(), new Integer(10));
-        assertEquals(eventsSecondPage.get(3).getId(), new Integer(13));
-
-        assertEquals(eventsThirdPage.size(), 3);
-        assertEquals(eventsThirdPage.get(0).getId(), new Integer(14));
-        assertEquals(eventsThirdPage.get(2).getId(), new Integer(16));
-
-        assertEquals(eventsFourthPage.size(), 0);
-
-
-    }
+//    @Test
+//    public void testGetPageEvents() {
+//
+//        List<Event> eventsFirstPage = eventDAO.getPageEvents(1);
+//        List<Event> eventsSecondPage = eventDAO.getPageEvents(2);
+//        List<Event> eventsThirdPage = eventDAO.getPageEvents(3);
+//        List<Event> eventsFourthPage = eventDAO.getPageEvents(4);
+//
+//        assertEquals(eventsFirstPage.size(), 4);
+//        assertEquals(eventsFirstPage.get(0).getId(), new Integer(6));
+//        assertEquals(eventsFirstPage.get(3).getId(), new Integer(9));
+//
+//        assertEquals(eventsSecondPage.size(), 4);
+//        assertEquals(eventsSecondPage.get(0).getId(), new Integer(10));
+//        assertEquals(eventsSecondPage.get(3).getId(), new Integer(13));
+//
+//        assertEquals(eventsThirdPage.size(), 3);
+//        assertEquals(eventsThirdPage.get(0).getId(), new Integer(14));
+//        assertEquals(eventsThirdPage.get(2).getId(), new Integer(16));
+//
+//        assertEquals(eventsFourthPage.size(), 0);
+//
+//
+//    }
 
 }

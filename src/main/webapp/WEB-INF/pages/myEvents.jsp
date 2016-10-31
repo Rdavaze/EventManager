@@ -52,6 +52,7 @@
 
     <div id="1" class="modal">
         <jsp:include page="../partials/myEventModal.jspf">
+            <jsp:param name="id" value="${pageContext.request.getAttribute(\"events\")[0].getId()}"/>
             <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[0].getLabel()}"/>
             <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[0].getLocation()}"/>
             <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[0].getDescription()}"/>
@@ -64,6 +65,7 @@
     </div>
     <div id="2" class="modal">
         <jsp:include page="../partials/myEventModal.jspf">
+            <jsp:param name="id" value="${pageContext.request.getAttribute(\"events\")[1].getId()}"/>
             <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[1].getLabel()}"/>
             <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[1].getLocation()}"/>
             <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[1].getDescription()}"/>
@@ -76,6 +78,7 @@
     </div>
     <div id="3" class="modal">
         <jsp:include page="../partials/myEventModal.jspf">
+            <jsp:param name="id" value="${pageContext.request.getAttribute(\"events\")[2].getId()}"/>
             <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[2].getLabel()}"/>
             <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[2].getLocation()}"/>
             <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[2].getDescription()}"/>
@@ -88,6 +91,7 @@
     </div>
     <div id="4" class="modal">
         <jsp:include page="../partials/myEventModal.jspf">
+            <jsp:param name="id" value="${pageContext.request.getAttribute(\"events\")[3].getId()}"/>
             <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[3].getLabel()}"/>
             <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[3].getLocation()}"/>
             <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[3].getDescription()}"/>
