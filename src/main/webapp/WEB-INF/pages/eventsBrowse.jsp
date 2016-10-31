@@ -24,7 +24,7 @@
                             class="material-icons">library_add</i></button>
                     <p class="event-element"><c:out value="${event.getDateBegin()}"/></p>
                     <p class="event-element"><c:out value="${event.getLocation()}"/></p>
-                    <p class="event-element"><c:out value="${event.getCreator()}"/></p>
+                    <p class="event-element"><c:out value="${event.getCreator().getFullname()}"/></p>
                 </div>
             </c:forEach>
         </div>
@@ -43,9 +43,6 @@
         </ul>
 
     </div>
-
-
-
 </div>
 
 
