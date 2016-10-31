@@ -7,21 +7,23 @@
         </div>
         <div class="row">
             <div class="input-field col s6 event-modal-element">
-                <input disabled value="<c:out value="${param.date-begin}" />" id="datebegin" type="text" class="validate">
+                <input disabled value="<c:out value="${param.datebegin}" />" id="datebegin" type="text"
+                       class="validate">
                 <label for="datebegin">Date de début</label>
             </div>
             <div class="input-field col s6 event-modal-element">
-                <input disabled value="<c:out value="${param.time-begin}" />" id="timebegin" type="text" class="validate">
+                <input disabled value="<c:out value="${param.timebegin}" />" id="timebegin" type="text"
+                       class="validate">
                 <label for="timebegin">Heure de début</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s6 event-modal-element">
-                <input disabled value="<c:out value="${param.date-end}" />" id="dateend" type="text" class="validate">
+                <input disabled value="<c:out value="${param.dateend}" />" id="dateend" type="text" class="validate">
                 <label for="dateend">Date de fin</label>
             </div>
             <div class="input-field col s6 event-modal-element">
-                <input disabled value="<c:out value="${param.time-end}" />" id="timeend" type="text" class="validate">
+                <input disabled value="<c:out value="${param.timeend}" />" id="timeend" type="text" class="validate">
                 <label for="timeend">Heure de fin</label>
             </div>
             </div>
@@ -37,7 +39,8 @@
         </div>
         <div class="row">
             <div class="input-field col s12 event-modal-element">
-                <textarea disabled value="<c:out value="${param.description}" />" id="description" type="text" class="materialize-textarea"></textarea>
+                <textarea disabled id="description" type="text" class="materialize-textarea"><c:out
+                        value="${param.description}"/></textarea>
                 <label for="description">Description</label>
             </div>
         </div>

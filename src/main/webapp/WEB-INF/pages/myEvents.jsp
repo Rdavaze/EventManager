@@ -23,7 +23,7 @@
                     <a href="${pageContext.request.contextPath}/events/${event.getId()}/delete"
                        class="btn waves-effect waves-light delete"><i
                             class="material-icons">delete</i></a>
-                    <p class="event-element"><c:out value="${event.getDateBegin()}"/></p>
+                    <p class="event-element"><c:out value="${event.parseDateBegin()}"/></p>
                     <p class="event-element"><c:out value="${event.getLocation()}"/></p>
                     <button data-target="${loop.index+1}" class="btn modal-trigger waves-effect waves-light edit"><i
                             class="material-icons left">mode_edit</i>editer
@@ -56,10 +56,10 @@
             <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[0].getLocation()}"/>
             <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[0].getDescription()}"/>
             <jsp:param name="publish" value="${pageContext.request.getAttribute(\"events\")[0].isVisible()}"/>
-            <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[0].getDateBegin()}"/>
-            <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[0].getDateEnd()}"/>
-            <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[0].getDateBegin()}"/>
-            <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[0].getDateEnd()}"/>
+            <jsp:param name="datebegin" value="${pageContext.request.getAttribute(\"events\")[0].parseDateBegin()}"/>
+            <jsp:param name="dateend" value="${pageContext.request.getAttribute(\"events\")[0].parseDateEnd()}"/>
+            <jsp:param name="timebegin" value="${pageContext.request.getAttribute(\"events\")[0].parseTimeBegin()}"/>
+            <jsp:param name="timeend" value="${pageContext.request.getAttribute(\"events\")[0].parseTimeEnd()}"/>
         </jsp:include>
     </div>
     <div id="2" class="modal">
@@ -68,10 +68,10 @@
             <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[1].getLocation()}"/>
             <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[1].getDescription()}"/>
             <jsp:param name="publish" value="${pageContext.request.getAttribute(\"events\")[1].isVisible()}"/>
-            <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[1].getDateBegin()}"/>
-            <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[1].getDateEnd()}"/>
-            <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[1].getDateBegin()}"/>
-            <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[1].getDateEnd()}"/>
+            <jsp:param name="datebegin" value="${pageContext.request.getAttribute(\"events\")[1].parseDateBegin()}"/>
+            <jsp:param name="dateend" value="${pageContext.request.getAttribute(\"events\")[1].parseDateEnd()}"/>
+            <jsp:param name="timebegin" value="${pageContext.request.getAttribute(\"events\")[1].parseTimeBegin()}"/>
+            <jsp:param name="timeend" value="${pageContext.request.getAttribute(\"events\")[1].parseTimeEnd()}"/>
         </jsp:include>
     </div>
     <div id="3" class="modal">
@@ -80,10 +80,10 @@
             <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[2].getLocation()}"/>
             <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[2].getDescription()}"/>
             <jsp:param name="publish" value="${pageContext.request.getAttribute(\"events\")[2].isVisible()}"/>
-            <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[2].getDateBegin()}"/>
-            <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[2].getDateEnd()}"/>
-            <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[2].getDateBegin()}"/>
-            <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[2].getDateEnd()}"/>
+            <jsp:param name="datebegin" value="${pageContext.request.getAttribute(\"events\")[2].parseDateBegin()}"/>
+            <jsp:param name="dateend" value="${pageContext.request.getAttribute(\"events\")[2].parseDateEnd()}"/>
+            <jsp:param name="timebegin" value="${pageContext.request.getAttribute(\"events\")[2].parseTimeBegin()}"/>
+            <jsp:param name="timeend" value="${pageContext.request.getAttribute(\"events\")[2].parseTimeEnd()}"/>
         </jsp:include>
     </div>
     <div id="4" class="modal">
@@ -92,10 +92,10 @@
             <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[3].getLocation()}"/>
             <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[3].getDescription()}"/>
             <jsp:param name="publish" value="${pageContext.request.getAttribute(\"events\")[3].isVisible()}"/>
-            <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[3].getDateBegin()}"/>
-            <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[3].getDateEnd()}"/>
-            <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[3].getDateBegin()}"/>
-            <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[3].getDateEnd()}"/>
+            <jsp:param name="datebegin" value="${pageContext.request.getAttribute(\"events\")[3].parseDateBegin()}"/>
+            <jsp:param name="dateend" value="${pageContext.request.getAttribute(\"events\")[3].parseDateEnd()}"/>
+            <jsp:param name="timebegin" value="${pageContext.request.getAttribute(\"events\")[3].parseTimeBegin()}"/>
+            <jsp:param name="timeend" value="${pageContext.request.getAttribute(\"events\")[3].parseTimeEnd()}"/>
         </jsp:include>
     </div>
 
@@ -112,6 +112,15 @@
         var index = Number($_GET('index'));
 
         $('#page' + index).addClass('active');
+
+        //Time Picker:
+        $('.timepicker').pickatime({
+            default: 'now',
+            twelvehour: true, // change to 12 hour AM/PM clock from 24 hour
+            donetext: 'OK',
+            autoclose: false,
+            vibrate: true // vibrate the device when dragging clock hand
+        });
 
     });
 

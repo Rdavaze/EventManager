@@ -3,6 +3,7 @@ package fr.eventmanager.model;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Locale;
@@ -39,6 +40,14 @@ public class Event implements Serializable {
     @Column(name = "date_end")
     private Date dateEnd;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "time_begin")
+    private Date timeBegin;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "time_end")
+    private Date timeEnd;
+
     @Column(name = "location")
     private String location;
 
@@ -52,7 +61,7 @@ public class Event implements Serializable {
     public Event() {
     }
 
-    public Event(User creator, String label, String description, Date dateBegin, Date dateEnd, String location, boolean visible, Set<User> attendees) {
+    public Event(User creator, String label, String description, Date dateBegin, Date dateEnd, Date timeBegin, Date timeEnd, String location, boolean visible, Set<User> attendees) {
         this.creator = creator;
         this.label = label;
         this.description = description;
@@ -61,6 +70,8 @@ public class Event implements Serializable {
         this.location = location;
         this.visible = visible;
         this.attendees = attendees;
+        this.timeBegin = timeBegin;
+        this.timeEnd = timeEnd;
     }
 
     public Integer getId() {
@@ -131,6 +142,10 @@ public class Event implements Serializable {
         return attendees;
     }
 
+    public void setAttendees(Set<User> attendees) {
+        this.attendees = attendees;
+    }
+
     public boolean addAttendee(User attendee) {
         return this.attendees.add(attendee);
     }
@@ -139,8 +154,20 @@ public class Event implements Serializable {
         return this.attendees.remove(attendee);
     }
 
-    public void setAttendees(Set<User> attendees) {
-        this.attendees = attendees;
+    public Date getTimeBegin() {
+        return timeBegin;
+    }
+
+    public void setTimeBegin(Date timeBegin) {
+        this.timeBegin = timeBegin;
+    }
+
+    public Date getTimeEnd() {
+        return timeEnd;
+    }
+
+    public void setTimeEnd(Date timeEnd) {
+        this.timeEnd = timeEnd;
     }
 
     @Override
@@ -164,4 +191,42 @@ public class Event implements Serializable {
         final Integer nbAttendees = attendees.size();
         return String.format("%s (%s, %s) : %d attendee%c", label, dateFormat.format(dateBegin), location, nbAttendees, (nbAttendees > 1) ? 's' : ' ');
     }
+
+
+    public String parseTimeBegin() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        if (this.getTimeBegin() != null) {
+            return dateFormat.format(this.getTimeBegin());
+        }
+
+
+        return "";
+    }
+
+    public String parseTimeEnd() {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm");
+        if (this.getTimeEnd() != null)
+            return dateFormat.format(this.getTimeEnd());
+
+        return "";
+    }
+
+    public String parseDateBegin() {
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMMM yyyy");
+        if (this.getDateBegin() != null) {
+            return dateFormat.format(this.getDateBegin());
+        }
+
+
+        return "";
+    }
+
+    public String parseDateEnd() {
+        DateFormat dateFormat = new SimpleDateFormat("dd MMMMM yyyy");
+        if (this.getDateEnd() != null)
+            return dateFormat.format(this.getDateEnd());
+
+        return "";
+    }
+
 }
