@@ -2,8 +2,12 @@ package fr.eventmanager.servlet;
 
 import fr.eventmanager.builder.EventBuilder;
 import fr.eventmanager.dao.EventDAO;
+import fr.eventmanager.dao.UserDAO;
 import fr.eventmanager.dao.impl.EventDAOImpl;
+import fr.eventmanager.dao.impl.UserDAOImpl;
+import fr.eventmanager.exception.MailNotFoundException;
 import fr.eventmanager.model.Event;
+import fr.eventmanager.model.User;
 import fr.eventmanager.utils.HttpMethod;
 import fr.eventmanager.utils.Route;
 
@@ -12,9 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
 
@@ -25,36 +27,44 @@ import static fr.eventmanager.utils.DateUtil.getMonthIndex;
  */
 public class EventsServlet extends Servlet {
     private EventDAO eventDAO;
+    private UserDAO userDAO;
 
     @Override
     public void init() throws ServletException {
         super.init(this);
         this.eventDAO = EventDAOImpl.getInstance();
+        this.userDAO = UserDAOImpl.getInstance();
 
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent", false));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/myEvents"), "getMyEvents", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/browse"), "browseEvents", false));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/subscribe/\\d+"), "subscribe", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/unsubscribe/\\d+"), "unsubscribe", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+/delete"), "deleteEvent", true));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/myEvents)?"), "getMyEvents", true));
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/browse)?"), "browseEvents", false));
-
     }
 
     public void getEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int eventID = Integer.parseInt(req.getPathInfo().split("/")[1]);
-        final List<Event> event = new ArrayList<>();
-        event.add(eventDAO.findById(eventID));
+        final Event event = eventDAO.findById(eventID);
 
-        req.setAttribute("events", event);
-        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
+        req.setAttribute("event", event);
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventDetail.jsp").forward(req, resp);
     }
 
     public void createEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventCreate.jsp").forward(req, resp);
     }
 
-    public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, MailNotFoundException {
         final int index = parseEventIndex(req);
-        req.setAttribute("events", eventDAO.getPageEvents(index));
+
+        Optional<User> user = getSessionUser(req.getSession());
+
+        if (user.isPresent())
+            req.setAttribute("events", eventDAO.getCreatorPageEvents(user.get(), index));
+
 
         getServletContext().getRequestDispatcher("/WEB-INF/pages/myEvents.jsp").forward(req, resp);
     }
@@ -62,8 +72,29 @@ public class EventsServlet extends Servlet {
     public void browseEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int index = parseEventIndex(req);
         req.setAttribute("events", eventDAO.getPageEvents(index));
-
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
+    }
+
+    public void subscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final Optional<User> userOptional = getSessionUser(req.getSession());
+        if (userOptional.isPresent()) {
+            final int eventID = Integer.parseInt(req.getPathInfo().split("/")[2]);
+            final Event event = eventDAO.findById(eventID);
+            userDAO.subscribeTo(userOptional.get(), event);
+            resp.sendRedirect(getServletContext().getContextPath() + "/events/" + event.getId());
+        } else {
+            resp.sendRedirect(getServletContext().getContextPath() + req.getPathInfo());
+        }
+    }
+
+    public void unsubscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final Optional<User> userOptional = getSessionUser(req.getSession());
+        if (userOptional.isPresent()) {
+            final int eventID = Integer.parseInt(req.getPathInfo().split("/")[2]);
+            final Event event = eventDAO.findById(eventID);
+            userDAO.unsubscribeFrom(userOptional.get(), event);
+        }
+        resp.sendRedirect(getServletContext().getContextPath() + "/events/browse");
     }
 
     public void postEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -97,6 +128,19 @@ public class EventsServlet extends Servlet {
             indexOptional = Optional.empty();
         }
         return indexOptional.isPresent() ? indexOptional.get() : 1;
+    }
+
+    public void deleteEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        String eventID = req.getPathInfo().split("/")[1];
+
+        eventID = eventID.split("/")[0];
+
+        int id = Integer.parseInt(eventID);
+
+        eventDAO.deleteEvent(id);
+
+        resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents");
     }
 
     private Optional<Date> parseDateTime(String date, String time) {

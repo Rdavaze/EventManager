@@ -1,5 +1,6 @@
 package fr.eventmanager.dao;
 
+import fr.eventmanager.exception.MailNotFoundException;
 import fr.eventmanager.model.Event;
 import fr.eventmanager.model.User;
 
@@ -22,5 +23,11 @@ public interface EventDAO extends DAO<Integer, Event> {
 
     Set<User> getEventAttendees(Integer id);
 
-    List<Event> getPageEvents(int index);
+    List<Event> getPageEvents(int pageNumber);
+
+    List<Event> getCreatorPageEvents(User creator, int pageNumber) throws MailNotFoundException;
+
+    void deleteEvent(Integer id);
+
+    Event findEventByID(Integer id);
 }

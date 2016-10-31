@@ -137,4 +137,19 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
         } catch (MailNotFoundException ignored) {
         }
     }
+
+    @Override
+    public void subscribeTo(User user, Event event) {
+        getEntityManagerService().performOperation(em -> {
+            em.find(Event.class, event.getId()).addAttendee(user);
+        });
+    }
+
+
+    @Override
+    public void unsubscribeFrom(User user, Event event) {
+        getEntityManagerService().performOperation(em -> {
+            em.find(Event.class, event.getId()).removeAttendee(user);
+        });
+    }
 }

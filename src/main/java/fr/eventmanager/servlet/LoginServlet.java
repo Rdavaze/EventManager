@@ -51,7 +51,7 @@ public class LoginServlet extends Servlet {
     public void signin(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             authenticate(req);
-            resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents");
+            resp.sendRedirect(this.getServletContext().getContextPath() + "/events/myEvents?index=1");
         } catch (MailNotFoundException e) {
             resp.sendRedirect(this.getServletContext().getContextPath() + "/login?wrongMail=true");
         } catch (WrongPasswordException e) {

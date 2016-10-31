@@ -62,9 +62,9 @@ public class EventBuilder implements Builder<Event> {
     @Override
     public Event build() {
         // TODO : maybe remove this
-        if (!this.attendees.contains(creator)) {
-            this.attendees.add(creator);
-        }
+        // if (!this.attendees.contains(creator)) {
+        //     this.attendees.add(creator);
+        // }
         return new Event(creator, label, description, dateBegin, dateEnd, location, visible, attendees);
     }
 }

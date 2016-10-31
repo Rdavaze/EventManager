@@ -14,9 +14,8 @@ import java.util.Set;
 @Entity
 @Table(name = Event.tableName)
 public class Event implements Serializable {
-    private static final long serialVersionUID = 1L;
     public static final String tableName = "Event";
-
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, unique = true)
@@ -130,6 +129,14 @@ public class Event implements Serializable {
 
     public Set<User> getAttendees() {
         return attendees;
+    }
+
+    public boolean addAttendee(User attendee) {
+        return this.attendees.add(attendee);
+    }
+
+    public boolean removeAttendee(User attendee) {
+        return this.attendees.remove(attendee);
     }
 
     public void setAttendees(Set<User> attendees) {

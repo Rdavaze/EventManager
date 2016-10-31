@@ -2,7 +2,6 @@ package fr.eventmanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -11,9 +10,8 @@ import java.util.Set;
 @Entity
 @Table(name = User.tableName)
 public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
     static final String tableName = "User";
-
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, unique = true)

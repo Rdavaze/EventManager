@@ -27,4 +27,8 @@ public interface UserDAO extends DAO<Integer, User> {
     boolean passwordExists(String password);
 
     void updatePassword(String email, String password);
+
+    void subscribeTo(User user, Event event);
+
+    void unsubscribeFrom(User user, Event event);
 }

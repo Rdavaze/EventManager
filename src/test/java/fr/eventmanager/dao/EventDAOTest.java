@@ -40,9 +40,9 @@ public class EventDAOTest {
     public void testGetPageEvents() {
 
         List<Event> eventsFirstPage = eventDAO.getPageEvents(1);
-        List<Event> eventsSecondPage = eventDAO.getPageEvents(7);
-        List<Event> eventsThirdPage = eventDAO.getPageEvents(11);
-        List<Event> eventsFourthPage = eventDAO.getPageEvents(15);
+        List<Event> eventsSecondPage = eventDAO.getPageEvents(2);
+        List<Event> eventsThirdPage = eventDAO.getPageEvents(3);
+        List<Event> eventsFourthPage = eventDAO.getPageEvents(4);
 
         assertEquals(eventsFirstPage.size(), 4);
         assertEquals(eventsFirstPage.get(0).getId(), new Integer(3));
