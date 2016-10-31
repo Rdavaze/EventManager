@@ -22,7 +22,7 @@ public interface EventDAO extends DAO<Integer, Event> {
 
     Set<User> getEventAttendees(Integer id);
 
-    List<Event> getPageEvents(int index);
+    List<Event> getPageEvents(int pageNumber);
 
     void deleteEvent(Integer id);
 

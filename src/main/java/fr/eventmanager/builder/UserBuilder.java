@@ -3,7 +3,6 @@ package fr.eventmanager.builder;
 import fr.eventmanager.model.Event;
 import fr.eventmanager.model.User;
 
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 

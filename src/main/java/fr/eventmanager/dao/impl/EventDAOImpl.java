@@ -54,7 +54,7 @@ public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDA
     }
 
     @Override
-    public List<Event> getPageEvents(int index) {
+    public List<Event> getPageEvents(int pageNumber) {
 
         final List<Event> results = getEntityManagerService().performQuery(em -> {
             CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -62,10 +62,8 @@ public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDA
             CriteriaQuery<Event> cq = cb.createQuery(getEntityClass());
             Root<Event> root = cq.from(getEntityClass());
 
-            cq.where(cb.between(root.get(Event_.id), index, index + NBR_EVENTS_DISPLAY + 1));
-
-
             TypedQuery<Event> q = em.createQuery(cq);
+            q.setFirstResult((pageNumber - 1) * NBR_EVENTS_DISPLAY);
             q.setMaxResults(NBR_EVENTS_DISPLAY);
             return q.getResultList();
         });
