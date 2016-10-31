@@ -12,16 +12,16 @@
 
 <div class="events-page">
     <jsp:include page="../partials/menu.jspf"/>
-
     <div class="events">
         <h1 id="events-page-title">Évènements</h1>
 
         <div class="events-content row">
-            <c:forEach var="event" items="${pageContext.request.getAttribute(\"events\")}">
+            <c:forEach var="event" items="${pageContext.request.getAttribute(\"events\")}" varStatus="loop">
                 <div class="col s4 event">
                     <span class="event-title"><c:out value="${event.getLabel()}"/></span>
-                    <button data-target="modal-event1" class="btn modal-trigger waves-effect waves-light btn-event"><i
-                            class="material-icons">library_add</i></button>
+                    <button data-target="${loop.index+1}" class="btn modal-trigger waves-effect waves-light btn-event">
+                        <i
+                                class="material-icons">library_add</i></button>
                     <p class="event-element"><c:out value="${event.getDateBegin()}"/></p>
                     <p class="event-element"><c:out value="${event.getLocation()}"/></p>
                     <p class="event-element"><c:out value="${event.getCreator().getFullname()}"/></p>
@@ -44,6 +44,65 @@
 
     </div>
 </div>
+
+
+<div id="1" class="modal">
+    <jsp:include page="../partials/eventModal.jspf">
+        <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[0].getLabel()}"/>
+        <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[0].getLocation()}"/>
+        <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[0].getDescription()}"/>
+        <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[0].getDateBegin()}"/>
+        <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[0].getDateEnd()}"/>
+        <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[0].getDateBegin()}"/>
+        <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[0].getDateEnd()}"/>
+        <jsp:param name="creator"
+                   value="${pageContext.request.getAttribute(\"events\")[0].getCreator().getFullname()}"/>
+
+    </jsp:include>
+</div>
+<div id="2" class="modal">
+    <jsp:include page="../partials/eventModal.jspf">
+        <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[1].getLabel()}"/>
+        <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[1].getLocation()}"/>
+        <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[1].getDescription()}"/>
+        <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[1].getDateBegin()}"/>
+        <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[1].getDateEnd()}"/>
+        <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[1].getDateBegin()}"/>
+        <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[1].getDateEnd()}"/>
+        <jsp:param name="creator"
+                   value="${pageContext.request.getAttribute(\"events\")[1].getCreator().getFullname()}"/>
+
+    </jsp:include>
+</div>
+<div id="3" class="modal">
+    <jsp:include page="../partials/eventModal.jspf">
+        <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[2].getLabel()}"/>
+        <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[2].getLocation()}"/>
+        <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[2].getDescription()}"/>
+        <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[2].getDateBegin()}"/>
+        <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[2].getDateEnd()}"/>
+        <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[2].getDateBegin()}"/>
+        <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[2].getDateEnd()}"/>
+        <jsp:param name="creator"
+                   value="${pageContext.request.getAttribute(\"events\")[2].getCreator().getFullname()}"/>
+
+    </jsp:include>
+</div>
+<div id="4" class="modal">
+    <jsp:include page="../partials/eventModal.jspf">
+        <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[3].getLabel()}"/>
+        <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[3].getLocation()}"/>
+        <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[3].getDescription()}"/>
+        <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[3].getDateBegin()}"/>
+        <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[3].getDateEnd()}"/>
+        <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[3].getDateBegin()}"/>
+        <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[3].getDateEnd()}"/>
+        <jsp:param name="creator"
+                   value="${pageContext.request.getAttribute(\"events\")[3].getCreator().getFullname()}"/>
+
+    </jsp:include>
+</div>
+--%>
 
 
 <%@include file="../partials/footer.jspf" %>

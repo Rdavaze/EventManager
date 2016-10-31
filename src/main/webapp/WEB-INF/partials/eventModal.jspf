@@ -1,22 +1,58 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="modal-content">
-
-    <h1 class="event-modal-title" style="text-align: center !important;">Titre</h1>
-    <label for="date">Date :</label>
-    <p class="event-modal-element" id="date">Date</p>
-    <label for="date">Lieu :</label>
-    <p class="event-modal-element" id="place">Lieu</p>
-    <label for="date">Organisateur :</label>
-    <p class="event-modal-element" id="owner">Organisateur</p>
-    <label for="date">Description :</label>
-    <p class="event-modal-element" id="description">Description</p>
-</div>
-<div class="modal-footer">
-    <c:if test="${logged}">
-        <button type="submit" class="waves-effect waves-light btn">S'inscrire</button>
-    </c:if>
-    <c:if test="${!logged}">
-        <a href="${pageContext.servletContext.contextPath}/login/" class="waves-effect waves-light btn">Se connecter</a>
-    </c:if>
-</div>
+    <div class="row">
+        <div class="input-field col s12 event-modal-element">
+            <input disabled value="<c:out value="${param.label}" />" id="title" type="text" class="validate">
+            <label for="title">Titre</label>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 event-modal-element">
+                <input disabled value="<c:out value="${param.date-begin}" />" id="datebegin" type="text" class="validate">
+                <label for="datebegin">Date de début</label>
+            </div>
+            <div class="input-field col s6 event-modal-element">
+                <input disabled value="<c:out value="${param.time-begin}" />" id="timebegin" type="text" class="validate">
+                <label for="timebegin">Heure de début</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s6 event-modal-element">
+                <input disabled value="<c:out value="${param.date-end}" />" id="dateend" type="text" class="validate">
+                <label for="dateend">Date de fin</label>
+            </div>
+            <div class="input-field col s6 event-modal-element">
+                <input disabled value="<c:out value="${param.time-end}" />" id="timeend" type="text" class="validate">
+                <label for="timeend">Heure de fin</label>
+            </div>
+            </div>
+        <div class="row">
+            <div class="input-field col s6 event-modal-element">
+                <input disabled value="<c:out value="${param.location}" />" id="place" type="text" class="validate">
+                <label for="place">Lieu</label>
+            </div>
+            <div class="input-field col s6 event-modal-element">
+                <input disabled value="<c:out value="${param.creator}" />" id="owner" type="text" class="validate">
+                <label for="owner">Organisateur</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="input-field col s12 event-modal-element">
+                <textarea disabled value="<c:out value="${param.description}" />" id="description" type="text" class="materialize-textarea"></textarea>
+                <label for="description">Description</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col s4"></div>
+        <div class="col s4">
+            <c:if test="${logged}">
+                <button type="submit" class="waves-effect waves-light btn">S'inscrire</button>
+            </c:if>
+            <c:if test="${!logged}">
+                <a href="${pageContext.servletContext.contextPath}/login/" class="waves-effect waves-light btn">Se
+                    connecter</a>
+            </c:if>
+        </div>
+        <div class="col s4"></div>
+    </div>
 
