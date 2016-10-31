@@ -15,39 +15,39 @@ import static org.junit.Assert.assertEquals;
 public class UserDAOTest {
     private static UserDAO userDAO;
 
-    private static User johnDoe;
+    private static User romain;
 
     @BeforeClass
     public static void setUpClass() {
 
         userDAO = UserDAOImpl.getInstance();
 
-        johnDoe = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
-                .setCompany("OpenJDK")
+        romain = new UserBuilder("romain.davaze@gmail.com", "password", "Romain", "Davaze")
+                .setCompany("Sigma")
                 .build();
     }
 
     @Test
     public void testFindAll() {
         final List<User> users = userDAO.findAll();
-        assertEquals(users.size(), 2);
+        assertEquals(users.size(), 3);
     }
 
     @Test
     public void testFindByCredentials() throws MailNotFoundException, WrongPasswordException {
 
-        User userFoundOnlyMail = userDAO.findByCredentials("john.doe@gmail.com");
-        assertEquals(johnDoe.getEmail(), userFoundOnlyMail.getEmail());
-        assertEquals(johnDoe.getFirstname(), userFoundOnlyMail.getFirstname());
-        assertEquals(johnDoe.getLastname(), userFoundOnlyMail.getLastname());
-        assertEquals(johnDoe.getPassword(), userFoundOnlyMail.getPassword());
+        User userFoundOnlyMail = userDAO.findByCredentials("romain.davaze@gmail.com");
+        assertEquals(romain.getEmail(), userFoundOnlyMail.getEmail());
+        assertEquals(romain.getFirstname(), userFoundOnlyMail.getFirstname());
+        assertEquals(romain.getLastname(), userFoundOnlyMail.getLastname());
+        assertEquals(romain.getPassword(), userFoundOnlyMail.getPassword());
 
 
-        User userFoundMailAndPassword = userDAO.findByCredentials("john.doe@gmail.com", "password");
-        assertEquals(johnDoe.getEmail(), userFoundMailAndPassword.getEmail());
-        assertEquals(johnDoe.getFirstname(), userFoundMailAndPassword.getFirstname());
-        assertEquals(johnDoe.getLastname(), userFoundMailAndPassword.getLastname());
-        assertEquals(johnDoe.getPassword(), userFoundMailAndPassword.getPassword());
+        User userFoundMailAndPassword = userDAO.findByCredentials("romain.davaze@gmail.com", "password");
+        assertEquals(romain.getEmail(), userFoundMailAndPassword.getEmail());
+        assertEquals(romain.getFirstname(), userFoundMailAndPassword.getFirstname());
+        assertEquals(romain.getLastname(), userFoundMailAndPassword.getLastname());
+        assertEquals(romain.getPassword(), userFoundMailAndPassword.getPassword());
 
     }
 
@@ -55,15 +55,15 @@ public class UserDAOTest {
     @Test
     public void testUpdateUser() throws MailNotFoundException {
 
-        User newJohnDoe = johnDoe;
-        newJohnDoe.setFirstname("Johnny");
-        newJohnDoe.setLastname("Doeee");
+        User newRomain = romain;
+        newRomain.setFirstname("Roro");
+        newRomain.setLastname("Dada");
 
-        userDAO.updateUser(userDAO.findByCredentials("john.doe@gmail.com").getId(), newJohnDoe);
+        userDAO.updateUser(userDAO.findByCredentials("romain.davaze@gmail.com").getId(), newRomain);
 
-        User userFound = userDAO.findByCredentials("john.doe@gmail.com");
-        assertEquals(newJohnDoe.getEmail(), userFound.getEmail());
-        assertEquals(newJohnDoe.getFirstname(), userFound.getFirstname());
+        User userFound = userDAO.findByCredentials("romain.davaze@gmail.com");
+        assertEquals(newRomain.getEmail(), userFound.getEmail());
+        assertEquals(newRomain.getFirstname(), userFound.getFirstname());
 
     }
 
@@ -73,7 +73,7 @@ public class UserDAOTest {
 
         String wrongMail = "toto@toto.fr";
 
-        assertEquals(userDAO.emailExists(johnDoe.getEmail()), true);
+        assertEquals(userDAO.emailExists(romain.getEmail()), true);
         assertEquals(userDAO.emailExists(wrongMail), false);
     }
 
@@ -83,7 +83,7 @@ public class UserDAOTest {
 
         String wrongPassword = "titi";
 
-        assertEquals(userDAO.passwordExists(johnDoe.getPassword()), true);
+        assertEquals(userDAO.passwordExists(romain.getPassword()), true);
         assertEquals(userDAO.passwordExists(wrongPassword), false);
     }
 
@@ -91,12 +91,12 @@ public class UserDAOTest {
     @Test
     public void testUpdatePassword() throws MailNotFoundException {
 
-        User newJohnDoe = johnDoe;
+        User newJohnDoe = romain;
         newJohnDoe.setPassword("bonjour");
 
         userDAO.updatePassword(newJohnDoe.getEmail(), newJohnDoe.getPassword());
 
-        User userFound = userDAO.findByCredentials("john.doe@gmail.com");
+        User userFound = userDAO.findByCredentials("romain.davaze@gmail.com");
         assertEquals(newJohnDoe.getPassword(), userFound.getPassword());
 
     }

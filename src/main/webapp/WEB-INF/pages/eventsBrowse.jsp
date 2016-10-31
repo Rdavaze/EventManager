@@ -51,10 +51,10 @@
         <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[0].getLabel()}"/>
         <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[0].getLocation()}"/>
         <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[0].getDescription()}"/>
-        <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[0].parseDateBegin()}"/>
-        <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[0].parseDateEnd()}"/>
-        <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[0].parseTimeBegin()}"/>
-        <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[0].parseTimeEnd()}"/>
+        <jsp:param name="datebegin" value="${pageContext.request.getAttribute(\"events\")[0].parseDateBegin()}"/>
+        <jsp:param name="dateend" value="${pageContext.request.getAttribute(\"events\")[0].parseDateEnd()}"/>
+        <jsp:param name="timebegin" value="${pageContext.request.getAttribute(\"events\")[0].parseTimeBegin()}"/>
+        <jsp:param name="timeend" value="${pageContext.request.getAttribute(\"events\")[0].parseTimeEnd()}"/>
         <jsp:param name="creator"
                    value="${pageContext.request.getAttribute(\"events\")[0].getCreator().getFullname()}"/>
 
@@ -65,10 +65,10 @@
         <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[1].getLabel()}"/>
         <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[1].getLocation()}"/>
         <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[1].getDescription()}"/>
-        <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[1].parseDateBegin()}"/>
-        <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[1].parseDateEnd()}"/>
-        <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[1].parseTimeBegin()}"/>
-        <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[1].parseTimeEnd()}"/>
+        <jsp:param name="datebegin" value="${pageContext.request.getAttribute(\"events\")[1].parseDateBegin()}"/>
+        <jsp:param name="dateend" value="${pageContext.request.getAttribute(\"events\")[1].parseDateEnd()}"/>
+        <jsp:param name="timebegin" value="${pageContext.request.getAttribute(\"events\")[1].parseTimeBegin()}"/>
+        <jsp:param name="timeend" value="${pageContext.request.getAttribute(\"events\")[1].parseTimeEnd()}"/>
         <jsp:param name="creator"
                    value="${pageContext.request.getAttribute(\"events\")[1].getCreator().getFullname()}"/>
 
@@ -79,10 +79,10 @@
         <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[2].getLabel()}"/>
         <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[2].getLocation()}"/>
         <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[2].getDescription()}"/>
-        <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[2].parseDateBegin()}"/>
-        <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[2].parseDateEnd()}"/>
-        <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[2].parseTimeBegin()}"/>
-        <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[2].parseTimeEnd()}"/>
+        <jsp:param name="datebegin" value="${pageContext.request.getAttribute(\"events\")[2].parseDateBegin()}"/>
+        <jsp:param name="dateend" value="${pageContext.request.getAttribute(\"events\")[2].parseDateEnd()}"/>
+        <jsp:param name="timebegin" value="${pageContext.request.getAttribute(\"events\")[2].parseTimeBegin()}"/>
+        <jsp:param name="timeend" value="${pageContext.request.getAttribute(\"events\")[2].parseTimeEnd()}"/>
         <jsp:param name="creator"
                    value="${pageContext.request.getAttribute(\"events\")[2].getCreator().getFullname()}"/>
 
