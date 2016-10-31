@@ -5,9 +5,6 @@
 html {
   overflow: hidden;
   background: url("../images/agenda.png") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
   height: 100%;
 }
@@ -19,18 +16,10 @@ html {
 
 #form-div {
   background-color: rgba(19, 35, 47, 0.9);
-  padding: 2% 4% 2% 4%;
+  padding: 2% 4% 1% 4%;
   width: 50%;
   max-width: 40rem;
   margin: auto;
-
-  //float: left;
-  //left: 50%;
-  //position: absolute;
-  //margin-left: -260px;
-  //-moz-border-radius: 7px;
-  //-webkit-border-radius: 7px;
-
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
   text-align: center;
@@ -161,7 +150,6 @@ textarea {
 
 .field-wrap {
   position: relative;
-  //margin-bottom: 20px;
 }
 
 .top-row:after {

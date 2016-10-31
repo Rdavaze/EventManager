@@ -16,82 +16,86 @@
     <div class="events">
         <h1 id="events-page-title">Mon agenda</h1>
 
-        <div class="events-content">
-            <div class="row">
+        <div class="events-content row">
+            <c:forEach var="event" items="${pageContext.request.getAttribute(\"events\")}" varStatus="loop">
                 <div class="col s4 event">
-                    <span class="event-title">Titre</span>
+                    <span class="event-title"><c:out value="${event.getLabel()}"/></span>
                     <button class="btn waves-effect waves-light delete"><i
                             class="material-icons">delete</i></button>
-                    <p class="event-element">Date</p>
-                    <p class="event-element">Lieu</p>
-                    <button data-target="modal-event1" class="btn modal-trigger waves-effect waves-light edit"><i
+                    <p class="event-element"><c:out value="${event.getDateBegin()}"/></p>
+                    <p class="event-element"><c:out value="${event.getLocation()}"/></p>
+                    <button data-target="${loop.index+1}" class="btn modal-trigger waves-effect waves-light edit"><i
                             class="material-icons left">mode_edit</i>editer
                     </button>
                 </div>
-                <div class="col s4 event">
-                    <span class="event-title">Titre</span>
-                    <button class="btn waves-effect waves-light delete"><i
-                            class="material-icons">delete</i></button>
-                    <p class="event-element">Date</p>
-                    <p class="event-element">Lieu</p>
-                    <button data-target="modal-event2" class="btn modal-trigger waves-effect waves-light edit"><i
-                            class="material-icons left">mode_edit</i>editer
-                    </button>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col s4 event">
-                    <span class="event-title">Titre</span>
-                    <button class="btn waves-effect waves-light delete"><i
-                            class="material-icons">delete</i></button>
-                    <p class="event-element">Date</p>
-                    <p class="event-element">Lieu</p>
-                    <button data-target="modal-event3" class="btn modal-trigger waves-effect waves-light edit"><i
-                            class="material-icons left">mode_edit</i>editer
-                    </button>
-                </div>
-                <div class="col s4 event">
-                    <span class="event-title">Titre</span>
-                    <button class="btn waves-effect waves-light delete"><i
-                            class="material-icons">delete</i></button>
-                    <p class="event-element">Date</p>
-                    <p class="event-element">Lieu</p>
-                    <button data-target="modal-event4" class="btn modal-trigger waves-effect waves-light edit"><i
-                            class="material-icons left">mode_edit</i>editer
-                    </button>
-                </div>
-
-                <%--<p>--%>
-                <%--<c:forEach var="event" items="${pageContext.request.getAttribute(\"events\")}">--%>
-                <%--Event <c:out value="${event.getLabel()}"/> <br>--%>
-                <%--</c:forEach>--%>
-                <%--</p>--%>
-            </div>
+            </c:forEach>
 
         </div>
 
         <ul class="pagination changePage">
             <li class="disabled"><a href="#!"><i class="material-icons chevron">chevron_left</i></a></li>
-            <li class="active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!">4</a></li>
-            <li class="waves-effect"><a href="#!"><i class="material-icons chevron">chevron_right</i></a></li>
+            <li id="page1" class="waves-effect"><a
+                    href="${pageContext.request.contextPath}/events/myEvents?index=1">1</a>
+            </li>
+            <li id="page2" class="waves-effect"><a
+                    href="${pageContext.request.contextPath}/events/myEvents?index=7">2</a>
+            </li>
+            <li id="page3" class="waves-effect"><a
+                    href="${pageContext.request.contextPath}/events/myEvents?index=11">3</a></li>
+            <li id="page4" class="waves-effect"><a
+                    href="${pageContext.request.contextPath}/events/myEvents?index=15">4</a></li>
+            <li class="disabled"><a href="#!"><i class="material-icons chevron">chevron_right</i></a></li>
         </ul>
 
     </div>
 
-    <div id="modal-event1" class="modal">
-        <jsp:include page="../partials/myEventModal.jspf"/>
+    <div id="1" class="modal">
+        <jsp:include page="../partials/myEventModal.jspf">
+            <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[0].getLabel()}"/>
+            <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[0].getLocation()}"/>
+            <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[0].getDescription()}"/>
+            <jsp:param name="publish" value="${pageContext.request.getAttribute(\"events\")[0].isVisible()}"/>
+            <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[0].getDateBegin()}"/>
+            <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[0].getDateEnd()}"/>
+            <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[0].getDateBegin()}"/>
+            <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[0].getDateEnd()}"/>
+        </jsp:include>
     </div>
-    <div id="modal-event2" class="modal">
-        <jsp:include page="../partials/myEventModal.jspf"/>
+    <div id="2" class="modal">
+        <jsp:include page="../partials/myEventModal.jspf">
+            <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[1].getLabel()}"/>
+            <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[1].getLocation()}"/>
+            <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[1].getDescription()}"/>
+            <jsp:param name="publish" value="${pageContext.request.getAttribute(\"events\")[1].isVisible()}"/>
+            <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[1].getDateBegin()}"/>
+            <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[1].getDateEnd()}"/>
+            <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[1].getDateBegin()}"/>
+            <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[1].getDateEnd()}"/>
+        </jsp:include>
     </div>
-    <div id="modal-event3" class="modal">
-        <jsp:include page="../partials/myEventModal.jspf"/>
+    <div id="3" class="modal">
+        <jsp:include page="../partials/myEventModal.jspf">
+            <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[2].getLabel()}"/>
+            <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[2].getLocation()}"/>
+            <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[2].getDescription()}"/>
+            <jsp:param name="publish" value="${pageContext.request.getAttribute(\"events\")[2].isVisible()}"/>
+            <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[2].getDateBegin()}"/>
+            <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[2].getDateEnd()}"/>
+            <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[2].getDateBegin()}"/>
+            <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[2].getDateEnd()}"/>
+        </jsp:include>
     </div>
-    <div id="modal-event4" class="modal">
-        <jsp:include page="../partials/myEventModal.jspf"/>
+    <div id="4" class="modal">
+        <jsp:include page="../partials/myEventModal.jspf">
+            <jsp:param name="label" value="${pageContext.request.getAttribute(\"events\")[3].getLabel()}"/>
+            <jsp:param name="location" value="${pageContext.request.getAttribute(\"events\")[3].getLocation()}"/>
+            <jsp:param name="description" value="${pageContext.request.getAttribute(\"events\")[3].getDescription()}"/>
+            <jsp:param name="publish" value="${pageContext.request.getAttribute(\"events\")[3].isVisible()}"/>
+            <jsp:param name="date-begin" value="${pageContext.request.getAttribute(\"events\")[3].getDateBegin()}"/>
+            <jsp:param name="date-end" value="${pageContext.request.getAttribute(\"events\")[3].getDateEnd()}"/>
+            <jsp:param name="time-begin" value="${pageContext.request.getAttribute(\"events\")[3].getDateBegin()}"/>
+            <jsp:param name="time-end" value="${pageContext.request.getAttribute(\"events\")[3].getDateEnd()}"/>
+        </jsp:include>
     </div>
 
 </div>
@@ -103,7 +107,45 @@
     $(document).ready(function () {
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
+
+        var index = Number($_GET('index'));
+        var id_page;
+
+        switch (index) {
+
+            case 1 :
+                id_page = 1;
+                break;
+            case 7 :
+                id_page = 2;
+                break;
+            case 11 :
+                id_page = 3;
+                break;
+            case 15 :
+                id_page = 4;
+                break;
+        }
+
+        $('#page' + id_page).addClass('active');
+
     });
+
+    function $_GET(param) {
+        var vars = {};
+        window.location.href.replace(location.hash, '').replace(
+                /[?&]+([^=&]+)=?([^&]*)?/gi, // regexp
+                function (m, key, value) { // callback
+                    vars[key] = value !== undefined ? value : '';
+                }
+        );
+
+        if (param) {
+            return vars[param] ? vars[param] : null;
+        }
+        return vars;
+    }
+
 
     $('.datepicker').pickadate({
         monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
@@ -121,10 +163,14 @@
         labelYearSelect: 'Sélectionner une année',
         format: 'dd mmmm yyyy'
     });
-
+    $('.timepicker').pickatime({
+        default: 'now',
+        twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
+        donetext: 'OK',
+        autoclose: true
+    });
 
 </script>
-
 
 </body>
 

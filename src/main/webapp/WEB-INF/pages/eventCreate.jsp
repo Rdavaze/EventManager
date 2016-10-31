@@ -35,7 +35,7 @@
                     <label for="event-time-begin" class="active">Heure de début</label>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" style="margin-bottom: 0">
                 <div class="input-field col s6 create-event-value">
                     <input id="event-date-end" type="date" class="datepicker" name="date-end" required>
                     <label for="event-date-end" class="active">Date de fin</label>
@@ -48,7 +48,7 @@
             <div class="row">
                 <div class="input-field col s12 create-event-value">
                     <textarea id="event-description" type="text" name="description"
-                              class="validate materialize-textarea" length="255"></textarea>
+                              class="validate materialize-textarea" length="255" style="margin-bottom: 0"></textarea>
                     <label for="event-description">Description</label>
                 </div>
             </div>
@@ -62,9 +62,11 @@
                         Oui
                     </label>
                 </div>
+                <button type="submit" class="waves-effect waves-light btn" id="button-create-event"
+                        style="margin-top: 7%">Créer
+                </button>
             </div>
 
-            <button type="submit" class="waves-effect waves-light btn" id="button-create-event">Créer</button>
 
         </form>
     </div>
@@ -99,8 +101,7 @@
         default: 'now',
         twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
         donetext: 'OK',
-        autoclose: false,
-        vibrate: true // vibrate the device when dragging clock hand
+        autoclose: true
     });
 
 </script>
