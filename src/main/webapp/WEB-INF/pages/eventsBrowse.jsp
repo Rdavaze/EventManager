@@ -24,7 +24,7 @@
                             class="material-icons">library_add</i></button>
                     <p class="event-element"><c:out value="${event.getDateBegin()}"/></p>
                     <p class="event-element"><c:out value="${event.getLocation()}"/></p>
-                    <p class="event-element"><c:out value="${event.getOrganisateur()}"/></p>
+                    <p class="event-element"><c:out value="${event.getCreator()}"/></p>
                 </div>
             </c:forEach>
         </div>
@@ -45,18 +45,6 @@
     </div>
 
 
-    <div id="modal-event1" class="modal">
-        <jsp:include page="../partials/eventModal.jspf"/>
-    </div>
-    <div id="modal-event2" class="modal">
-        <jsp:include page="../partials/eventModal.jspf"/>
-    </div>
-    <div id="modal-event3" class="modal">
-        <jsp:include page="../partials/eventModal.jspf"/>
-    </div>
-    <div id="modal-event4" class="modal">
-        <jsp:include page="../partials/eventModal.jspf"/>
-    </div>
 
 </div>
 
