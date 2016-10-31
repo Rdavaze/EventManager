@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -27,7 +28,7 @@ public class EventsServlet extends Servlet {
         super.init(this);
         this.eventDAO = EventDAOImpl.getInstance();
 
-        registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "getEvents", true));
+        //registerRoute(HttpMethod.GET, new Route(Pattern.compile("(/)?"), "getEvents", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+"), "getEvent", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/create"), "createEvent", true));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
@@ -36,10 +37,10 @@ public class EventsServlet extends Servlet {
 
     }
 
-    public void getEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /*public void getEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("events", eventDAO.findAll());
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
-    }
+    }*/
 
     public void getEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int eventID = Integer.parseInt(req.getPathInfo().split("/")[1]);
@@ -55,18 +56,27 @@ public class EventsServlet extends Servlet {
     }
 
     public void postEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String label = req.getParameter("label");
+        final String description = req.getParameter("description");
+        final String location = req.getParameter("location");
+        final boolean visible = "on".equalsIgnoreCase(req.getParameter("visible"));
+
+        // TODO : parse to date
+        System.out.println(req.getParameter("date-begin") + " : " + req.getParameter("time-begin"));
+        System.out.println(req.getParameter("date-end") + " : " + req.getParameter("time-end"));
+
         getSessionUser(req.getSession()).ifPresent(user -> {
             eventDAO.persist(
                     new EventBuilder(user)
-                            .setLabel(req.getParameter("label"))
-                            .setDescription(req.getParameter("description"))
-                            .setLocation(req.getParameter("location"))
-                            .setVisible("on".equalsIgnoreCase(req.getParameter("visible")))
+                            .setLabel(label)
+                            .setDescription(description)
+                            .setLocation(location)
+                            .setVisible(visible)
                             .build()
             );
         });
 
-        resp.sendRedirect(getServletContext().getContextPath() + "/events");
+        resp.sendRedirect(getServletContext().getContextPath() + "/events/browse");
     }
 
     public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -74,16 +84,19 @@ public class EventsServlet extends Servlet {
     }
 
     public void browseEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final int index = parseEventIndex(req);
+        req.setAttribute("events", eventDAO.getPageEvents(index));
+
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
+    }
+
+    private int parseEventIndex(HttpServletRequest req) {
         Optional<Integer> indexOptional;
         try {
             indexOptional = Optional.ofNullable(Integer.parseInt(req.getParameter("index")));
         } catch (NumberFormatException e) {
             indexOptional = Optional.empty();
         }
-        final int index = indexOptional.isPresent() ? indexOptional.get() : 1;
-
-        req.setAttribute("events", eventDAO.getPageEvents(index));
-
-        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
+        return indexOptional.isPresent() ? indexOptional.get() : 1;
     }
 }

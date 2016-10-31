@@ -17,7 +17,7 @@
 
             <div class="row">
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-title" type="text" class="validate" name="label">
+                    <input id="event-title" type="text" class="validate" name="label" length="50" required>
                     <label for="event-title">Titre</label>
                 </div>
             </div>
@@ -29,28 +29,28 @@
             </div>
             <div class="row">
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-date-begin" type="date" class="datepicker" name="date-begin">
-                    <label for="event-date-begin">Date</label>
+                    <input id="event-date-begin" type="date" class="datepicker" name="date-begin" required>
+                    <label for="event-date-begin" class="active">Date de début</label>
                 </div>
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-time-begin" type="time" class="timepicker" name="time-begin">
+                    <input id="event-time-begin" type="time" class="validate" name="time-begin">
                     <label for="event-time-begin">Date</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-date-end" type="date" class="datepicker" name="date-end">
-                    <label for="event-date-end">Date</label>
+                    <input id="event-date-end" type="date" class="datepicker" name="date-end" required>
+                    <label for="event-date-end" class="active">Date de fin</label>
                 </div>
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-time-end" type="time" class="timepicker" name="time-end">
+                    <input id="event-time-end" type="time" class="validate" name="time-end">
                     <label for="event-time-end">Date</label>
                 </div>
             </div>
             <div class="row">
-                <div class="input-field col s6 create-event-value">
-                    <textarea id="event-description" maxlength="80" type="text" name="description"
-                              class="validate materialize-textarea"></textarea>
+                <div class="input-field col s12 create-event-value">
+                    <textarea id="event-description" type="text" name="description"
+                              class="validate materialize-textarea" length="255"></textarea>
                     <label for="event-description">Description</label>
                 </div>
             </div>
@@ -77,6 +77,8 @@
 <%@include file="../partials/footer.jspf" %>
 
 <script>
+    $('#event-title, #event-description').characterCounter();
+
     $('.datepicker').pickadate({
         monthsFull: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
         monthsShort: ['Jan', 'Fev', 'Mar', 'Avr', 'Mai', 'Jun', 'Jul', 'Aou', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -84,7 +86,8 @@
         weekdaysShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
         weekdaysLetter: ['D', 'L', 'M', 'M', 'J', 'V', 'S'],
         today: 'aujourd\'hui',
-        clear: 'effacer',
+        clear: '',
+        close: 'fermer',
         formatSubmit: 'yyyy/mm/dd',
         firstDay: 1,
         labelMonthNext: 'Prochain mois',
