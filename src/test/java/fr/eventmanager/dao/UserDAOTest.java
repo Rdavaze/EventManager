@@ -22,11 +22,8 @@ public class UserDAOTest {
 
         userDAO = UserDAOImpl.getInstance();
 
-        johnDoe = new UserBuilder()
-                .setEmail("john.doe@gmail.com")
-                .setPassword("password")
-                .setFirstname("John")
-                .setLastname("Doe")
+        johnDoe = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
+                .setCompany("OpenJDK")
                 .build();
     }
 

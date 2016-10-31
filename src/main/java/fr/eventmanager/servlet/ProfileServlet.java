@@ -33,23 +33,22 @@ public class ProfileServlet extends Servlet {
         this.getServletContext().getRequestDispatcher("/WEB-INF/pages/profile.jsp").forward(req, resp);
     }
 
-
     public void updateProfile(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (updateProfile(req)) {
+        if (this.processUpdate(req)) {
             resp.sendRedirect(this.getServletContext().getContextPath() + "/profile");
         } else {
             resp.sendRedirect(this.getServletContext().getContextPath() + "/login");
         }
     }
 
-    private boolean updateProfile(HttpServletRequest req) throws ServletException, IOException {
+    private boolean processUpdate(HttpServletRequest req) throws ServletException, IOException {
         getSessionUser(req.getSession()).ifPresent(currUser -> {
-            final User newUser = new UserBuilder()
-                    .setEmail(req.getParameter("email"))
-                    .setFirstname(req.getParameter("firstname"))
-                    .setLastname(req.getParameter("lastname"))
-                    .setPassword(req.getParameter("password"))
-                    .build();
+            final User newUser = new UserBuilder(
+                    req.getParameter("email"),
+                    req.getParameter("password"),
+                    req.getParameter("firstname"),
+                    req.getParameter("lastname")
+            ).setCompany(req.getParameter("company")).build();
 
             this.userDAO.updateUser(currUser.getId(), newUser);
             setSessionUser(req.getSession(), newUser);

@@ -11,44 +11,40 @@ import java.util.Set;
  * Created by guillaume-chs on 26/10/16.
  */
 public class UserBuilder implements Builder<User> {
-    // User parameters
-    private final Set<Event> events;
-    private String email;
-    private String password;
-    private String firstname;
-    private String lastname;
+    // Non-nullable fields
+    private final String email;
+    private final String password;
+    private final String firstname;
+    private final String lastname;
 
-    public UserBuilder() {
+    // Nullable fields
+    private final Set<Event> events;
+    private String company;
+
+    public UserBuilder(String email, String password, String firstname, String lastname) {
+        this.email = email;
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.events = new HashSet<>();
     }
 
-    public UserBuilder setEmail(String email) {
-        this.email = email;
-        return this;
-    }
-
-    public UserBuilder setPassword(String password) {
-        this.password = password;
-        return this;
-    }
-
-    public UserBuilder setFirstname(String firstname) {
-        this.firstname = firstname;
-        return this;
-    }
-
-    public UserBuilder setLastname(String lastname) {
-        this.lastname = lastname;
+    public UserBuilder setCompany(String company) {
+        if (company != null) {
+            this.company = company;
+        }
         return this;
     }
 
     public UserBuilder subscribeTo(Event event) {
-        this.events.add(event);
+        if (event != null) {
+            this.events.add(event);
+        }
         return this;
     }
 
     @Override
     public User build() {
-        return new User(email, password, firstname, lastname, events);
+        return new User(email, password, firstname, lastname, company, events);
     }
 }
