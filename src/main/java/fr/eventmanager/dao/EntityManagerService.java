@@ -45,18 +45,12 @@ public class EntityManagerService {
     }
 
     private synchronized void populate() {
-        final User johnDoe = new UserBuilder()
-                .setEmail("john.doe@gmail.com")
-                .setPassword("password")
-                .setFirstname("John")
-                .setLastname("Doe")
+        final User johnDoe = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
+                .setCompany("OpenJDK")
                 .build();
 
-        final User richardRoe = new UserBuilder()
-                .setEmail("richard.roe@gmail.com")
-                .setPassword("password")
-                .setFirstname("Richard")
-                .setLastname("Roe")
+        final User richardRoe = new UserBuilder("richard.roe@gmail.com", "password", "Richard", "Roe")
+                .setCompany("Sun")
                 .build();
 
         performOperation(em -> {
@@ -65,22 +59,21 @@ public class EntityManagerService {
         });
 
         performOperation(em -> {
-            em.persist(new EventBuilder(johnDoe).setLabel("Premier événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Deuxième événement").build());
-            em.persist(new EventBuilder(richardRoe).setLabel("Troisième événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Quatre événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Cinq événement").build());
-            em.persist(new EventBuilder(richardRoe).setLabel("Sixieme événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Sept événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Huit événement").build());
-            em.persist(new EventBuilder(richardRoe).setLabel("Neuf événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Dix événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Onze événement").build());
-            em.persist(new EventBuilder(richardRoe).setLabel("Douze événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Treize événement").build());
-            em.persist(new EventBuilder(johnDoe).setLabel("Quatorze événement").build());
-            em.persist(new EventBuilder(richardRoe).setLabel("Quinze événement").build());
+            em.persist(new EventBuilder("Premier événement", johnDoe).build());
+            em.persist(new EventBuilder("Deuxième événement", johnDoe).build());
+            em.persist(new EventBuilder("Troisième événement", richardRoe).build());
+            em.persist(new EventBuilder("Quatre événement", johnDoe).build());
+            em.persist(new EventBuilder("Cinq événement", johnDoe).build());
+            em.persist(new EventBuilder("Sixieme événement", richardRoe).build());
+            em.persist(new EventBuilder("Sept événement", johnDoe).build());
+            em.persist(new EventBuilder("Huit événement", johnDoe).build());
+            em.persist(new EventBuilder("Neuf événement", richardRoe).build());
+            em.persist(new EventBuilder("Dix événement", johnDoe).build());
+            em.persist(new EventBuilder("Onze événement", johnDoe).build());
+            em.persist(new EventBuilder("Douze événement", richardRoe).build());
+            em.persist(new EventBuilder("Treize événement", johnDoe).build());
+            em.persist(new EventBuilder("Quatorze événement", johnDoe).build());
+            em.persist(new EventBuilder("Quinze événement", richardRoe).build());
         });
-
     }
 }
