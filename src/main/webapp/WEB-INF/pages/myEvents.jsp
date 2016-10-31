@@ -14,7 +14,7 @@
     <jsp:include page="../partials/menu.jspf"/>
 
     <div class="events">
-        <h1 id="events-page-title">Mon agenda</h1>
+        <h1 id="events-page-title">Mes évènements</h1>
 
         <div class="events-content row">
             <c:forEach var="event" items="${pageContext.request.getAttribute(\"events\")}" varStatus="loop">
