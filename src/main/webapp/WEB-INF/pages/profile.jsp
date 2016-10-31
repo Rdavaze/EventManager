@@ -9,34 +9,42 @@
 <body>
 
 <div class="profile-page">
-    <div class="menu">
-        <jsp:include page="../partials/menu.jspf"/>
-    </div>
+    <jsp:include page="../partials/menu.jspf"/>
+
     <div class="profile">
         <h1 id="profile-title">Mon profil</h1>
 
-        <form id="profile-content">
+        <form id="profile-content" action="${pageContext.request.contextPath}/profile/update" method="post">
             <div class="row ">
                 <div class="input-field col s6 profile-value">
-                    <input id="first-name" type="text" class="validate valid" value="${profileFirstName}">
+                    <input id="first-name" type="text" class="validate valid" name="firstname"
+                           value="${sessionScope.user.getFirstname()}">
                     <label for="first-name">Prénom</label>
                 </div>
                 <div class="input-field col s6 profile-value">
-                    <input id="name" type="text" class="validate valid" value="${profileName}">
+                    <input id="name" type="text" class="validate valid" name="lastname"
+                           value="${sessionScope.user.getLastname()}">
                     <label for="name">Nom</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s6 profile-value">
-                    <input id="mail" type="text" class="validate valid" value="${profileMail}">
+                    <input id="mail" type="text" class="validate valid" name="email"
+                           value="${sessionScope.user.getEmail()}">
                     <label for="mail">Adresse mail</label>
+                </div>
+                <div class="input-field col s6 profile-value">
+                    <input id="password" type="password" class="validate valid" name="password"
+                           value="${sessionScope.user.getPassword()}">
+                    <label for="password">Mot de passe</label>
                 </div>
             </div>
 
             <div class="row">
                 <div class="input-field col s6 profile-value">
-                    <input id="password" type="password" class="validate valid" value="${profilePassword}">
-                    <label for="password">Mot de passe</label>
+                    <input id="company" type="text" class="validate valid" name="company"
+                           value="${sessionScope.user.getCompany()}">
+                    <label for="company">Entreprise</label>
                 </div>
             </div>
 
@@ -46,6 +54,7 @@
 
     </div>
 
+    <%@include file="../partials/footer.jspf" %>
 </body>
 
 </html>

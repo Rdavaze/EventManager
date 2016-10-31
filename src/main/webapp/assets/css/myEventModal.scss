@@ -1,0 +1,38 @@
+.modal {
+  overflow: hidden;
+  max-height: 91% !important;
+  top: 5% !important;
+}
+
+.modal-footer {
+  padding-right: 5% !important;
+  margin-bottom: 3% !important;
+}
+
+.modal-content {
+  background-color: rgba(19, 35, 47, 0.9);
+}
+
+div > label {
+  text-align: left;
+}
+
+#publish {
+  color: #9e9e9e;
+  font-size: 1rem;
+}
+
+#button-save-event {
+  float: right;
+  margin-top: 7%;
+}
+
+.edit-event-value {
+  color: white;
+}
+
+.picker__frame {
+  top: 5% !important;
+  width: 40% !important;
+  height: 20% !important;
+}

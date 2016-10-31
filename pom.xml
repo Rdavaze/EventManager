@@ -44,6 +44,11 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.2.3.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-jpamodelgen</artifactId>
+            <version>5.2.3.Final</version>
+        </dependency>
 
         <!-- H2 Database -->
         <dependency>
@@ -73,6 +78,9 @@
                 <configuration>
                     <source>${java-version}</source>
                     <target>${java-version}</target>
+                    <compilerArguments>
+                        <processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>
+                    </compilerArguments>
                 </configuration>
             </plugin>
             <plugin>

@@ -10,22 +10,23 @@ import java.util.Set;
 /**
  * Created by guillaume-chs on 26/10/16.
  */
-public class EventBuilder {
-    // Event parameters
+public class EventBuilder implements Builder<Event> {
+    // Non-nullable fields
+    private final String label;
+    private final User creator;
+
+    // Nullable fields
     private final Set<User> attendees;
-    private String label;
     private String description;
-    private Date date;
+    private Date dateBegin;
+    private Date dateEnd;
     private String location;
     private boolean visible;
 
-    public EventBuilder() {
+    public EventBuilder(String label, User creator) {
         this.attendees = new HashSet<>();
-    }
-
-    public EventBuilder setLabel(String label) {
         this.label = label;
-        return this;
+        this.creator = creator;
     }
 
     public EventBuilder setDescription(String desc) {
@@ -33,8 +34,13 @@ public class EventBuilder {
         return this;
     }
 
-    public EventBuilder setDate(Date date) {
-        this.date = date;
+    public EventBuilder setDateBegin(Date dateBegin) {
+        this.dateBegin = dateBegin;
+        return this;
+    }
+
+    public EventBuilder setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
         return this;
     }
 
@@ -53,7 +59,12 @@ public class EventBuilder {
         return this;
     }
 
+    @Override
     public Event build() {
-        return new Event(label, description, date, location, visible, attendees);
+        // TODO : maybe remove this
+        // if (!this.attendees.contains(creator)) {
+        //     this.attendees.add(creator);
+        // }
+        return new Event(creator, label, description, dateBegin, dateEnd, location, visible, attendees);
     }
 }

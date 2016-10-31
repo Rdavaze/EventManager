@@ -2,7 +2,6 @@ package fr.eventmanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 
 /**
@@ -11,29 +10,27 @@ import java.util.Set;
 @Entity
 @Table(name = User.tableName)
 public class User implements Serializable {
+    static final String tableName = "User";
     private static final long serialVersionUID = 1L;
-    public static final String tableName = "User";
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 
-    @Column(name = "label", nullable = false, length = 100, unique = true)
+    @Column(name = "email", nullable = false, length = 100, unique = true)
     private String email;
 
     @Column(name = "password", nullable = false, length = 25)
     private String password;
 
-    @Column(name = "prenom", nullable = false, length = 100)
-    private String prenom;
+    @Column(name = "firstname", nullable = false, length = 100)
+    private String firstname;
 
-    @Column(name = "nom", nullable = false, length = 100)
-    private String nom;
+    @Column(name = "lastname", nullable = false, length = 100)
+    private String lastname;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "birthdate")
-    private Date birthdate;
+    @Column(name = "company", length = 100)
+    private String company;
 
     @ManyToMany(mappedBy = "attendees")
     private Set<Event> events;
@@ -41,11 +38,13 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String email, String password, String prenom, String nom) {
+    public User(String email, String password, String firstname, String lastname, String company, Set<Event> events) {
         this.email = email;
         this.password = password;
-        this.prenom = prenom;
-        this.nom = nom;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.events = events;
+        this.company = company;
     }
 
     public int getId() {
@@ -72,28 +71,28 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getPrenom() {
-        return prenom;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getNom() {
-        return nom;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
+    public String getCompany() {
+        return company;
     }
 
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
+    public void setCompany(String company) {
+        this.company = company;
     }
 
     public Set<Event> getEvents() {
@@ -115,13 +114,13 @@ public class User implements Serializable {
 
         if (o instanceof User) {
             final User other = (User) o;
-            return this.id == other.id || this.email.equals(other.email);
+            return this.id.equals(other.id) || this.email.equals(other.email);
         }
         return false;
     }
 
     @Override
     public String toString() {
-        return String.format("[%d]:%s", id, email);
+        return String.format("%s %s (%s) : %s", firstname, lastname.toUpperCase(), company, email);
     }
 }

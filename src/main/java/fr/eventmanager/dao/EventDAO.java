@@ -21,4 +21,10 @@ public interface EventDAO extends DAO<Integer, Event> {
     Set<User> getEventAttendees(Event event);
 
     Set<User> getEventAttendees(Integer id);
+
+    List<Event> getPageEvents(int pageNumber);
+
+    void deleteEvent(Integer id);
+
+    Event findEventByID(Integer id);
 }

@@ -2,8 +2,10 @@ package fr.eventmanager.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -12,13 +14,16 @@ import java.util.Set;
 @Entity
 @Table(name = Event.tableName)
 public class Event implements Serializable {
-    private static final long serialVersionUID = 1L;
     public static final String tableName = "Event";
-
+    private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, unique = true)
     private Integer id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", nullable = false)
+    private User creator;
 
     @Column(name = "label", nullable = false, length = 50, unique = true)
     private String label;
@@ -26,9 +31,13 @@ public class Event implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date")
-    private Date date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_begin")
+    private Date dateBegin;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_end")
+    private Date dateEnd;
 
     @Column(name = "location")
     private String location;
@@ -37,16 +46,18 @@ public class Event implements Serializable {
     private boolean visible = false;
 
     @ManyToMany()
-    @JoinTable(name = "attendees", joinColumns = @JoinColumn(name = "id_event"), inverseJoinColumns = @JoinColumn(name = "id_user"))
+    @JoinTable(name = "attendees", joinColumns = @JoinColumn(name = "event_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> attendees = new HashSet<>();
 
     public Event() {
     }
 
-    public Event(String label, String description, Date date, String location, boolean visible, Set<User> attendees) {
+    public Event(User creator, String label, String description, Date dateBegin, Date dateEnd, String location, boolean visible, Set<User> attendees) {
+        this.creator = creator;
         this.label = label;
         this.description = description;
-        this.date = date;
+        this.dateBegin = dateBegin;
+        this.dateEnd = dateEnd;
         this.location = location;
         this.visible = visible;
         this.attendees = attendees;
@@ -58,6 +69,14 @@ public class Event implements Serializable {
 
     private void setId(Integer id) {
         this.id = id;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
     }
 
     public String getLabel() {
@@ -76,12 +95,20 @@ public class Event implements Serializable {
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateBegin() {
+        return dateBegin;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateBegin(Date dateBegin) {
+        this.dateBegin = dateBegin;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public String getLocation() {
@@ -104,6 +131,14 @@ public class Event implements Serializable {
         return attendees;
     }
 
+    public boolean addAttendee(User attendee) {
+        return this.attendees.add(attendee);
+    }
+
+    public boolean removeAttendee(User attendee) {
+        return this.attendees.remove(attendee);
+    }
+
     public void setAttendees(Set<User> attendees) {
         this.attendees = attendees;
     }
@@ -118,13 +153,15 @@ public class Event implements Serializable {
         if (o == this) return true;
 
         if (o instanceof Event) {
-            return this.id == ((Event) o).id;
+            return this.id.equals(((Event) o).id);
         }
         return false;
     }
 
     @Override
     public String toString() {
-        return String.format("[%d]:%s", id, label);
+        final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, Locale.FRANCE);
+        final Integer nbAttendees = attendees.size();
+        return String.format("%s (%s, %s) : %d attendee%c", label, dateFormat.format(dateBegin), location, nbAttendees, (nbAttendees > 1) ? 's' : ' ');
     }
 }
