@@ -79,12 +79,8 @@ public class EntityManagerService {
             em.persist(new EventBuilder("Laser Game", romainDavaze).build());
             em.persist(new EventBuilder("Avant-première", florineCercle).addAttendee(romainDavaze).setVisible(true).build());
             em.persist(new EventBuilder("Vide-grenier", guillaumeChanson).build());
-            em.persist(new EventBuilder("Art to Play", florineCercle).addAttendee(romainDavaze).addAttendee(guillaumeChanson).setVisible(true).build());
             em.persist(new EventBuilder("Fête des fleurs", florineCercle).build());
             em.persist(new EventBuilder("Shopping à l'Apple Store", romainDavaze).build());
-            em.persist(new EventBuilder("LAN League of Legends", guillaumeChanson).build());
-            em.persist(new EventBuilder("Dédicace FNAC", romainDavaze).build());
-            em.persist(new EventBuilder("Zombie Walk", florineCercle).build());
             em.persist(new EventBuilder("Concert Parov Stelar", guillaumeChanson).build());
             em.persist(new EventBuilder("Concours Patisserie", romainDavaze).build());
             em.persist(new EventBuilder("Salons des Vins", romainDavaze).build());
