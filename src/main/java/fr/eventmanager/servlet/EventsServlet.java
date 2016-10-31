@@ -5,6 +5,7 @@ import fr.eventmanager.dao.EventDAO;
 import fr.eventmanager.dao.UserDAO;
 import fr.eventmanager.dao.impl.EventDAOImpl;
 import fr.eventmanager.dao.impl.UserDAOImpl;
+import fr.eventmanager.exception.MailNotFoundException;
 import fr.eventmanager.model.Event;
 import fr.eventmanager.model.User;
 import fr.eventmanager.utils.HttpMethod;
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Optional;
@@ -56,9 +58,15 @@ public class EventsServlet extends Servlet {
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventCreate.jsp").forward(req, resp);
     }
 
-    public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, MailNotFoundException {
         final int index = parseEventIndex(req);
-        req.setAttribute("events", eventDAO.getPageEvents(index));
+
+        Optional<User> user = getSessionUser(req.getSession());
+
+        if (user.isPresent())
+            req.setAttribute("events", eventDAO.getCreatorPageEvents(user.get(), index));
+
+
         getServletContext().getRequestDispatcher("/WEB-INF/pages/myEvents.jsp").forward(req, resp);
     }
 
@@ -94,23 +102,39 @@ public class EventsServlet extends Servlet {
         final String label = req.getParameter("label");
         final String description = req.getParameter("description");
         final String location = req.getParameter("location");
+        final String timeBegin = req.getParameter("time-begin");
+        final String dateBegin = req.getParameter("date-begin");
+        final String timeEnd = req.getParameter("time-end");
+        final String dateEnd = req.getParameter("date-end");
         final boolean visible = "on".equalsIgnoreCase(req.getParameter("visible"));
 
         final Optional<Date> dateBeginOpt = parseDateTime(req.getParameter("date-begin"), req.getParameter("time-begin"));
         final Optional<Date> dateEndOpt = parseDateTime(req.getParameter("date-begin"), req.getParameter("time-begin"));
 
         getSessionUser(req.getSession()).ifPresent(user -> {
-            EventBuilder eventBuilder = new EventBuilder(label, user)
-                    .setDescription(description)
-                    .setLocation(location)
-                    .setVisible(visible);
-            dateBeginOpt.ifPresent(eventBuilder::setDateBegin);
-            dateEndOpt.ifPresent(eventBuilder::setDateEnd);
+            EventBuilder eventBuilder = null;
+            try {
+                eventBuilder = new EventBuilder(label, user)
+                        .setDescription(description)
+                        .setLocation(location)
+                        .setVisible(visible)
+                        .setDateBegin(parseDate(dateBegin))
+                        .setDateEnd(parseDate(dateEnd))
+                        .setTimeBegin(parseTime(timeBegin))
+                        .setTimeEnd(parseTime(timeEnd));
 
-            eventDAO.persist(eventBuilder.build());
+                eventDAO.persist(eventBuilder.build());
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+//            dateBeginOpt.ifPresent(eventBuilder::setDateBegin);
+//            dateEndOpt.ifPresent(eventBuilder::setDateEnd);
+
+
         });
 
-        resp.sendRedirect(getServletContext().getContextPath() + "/events/browse");
+        resp.sendRedirect(getServletContext().getContextPath() + "/events/browse?index=1");
     }
 
     private int parseEventIndex(HttpServletRequest req) {
@@ -145,5 +169,21 @@ public class EventsServlet extends Servlet {
         } catch (Exception e) {
             return Optional.empty();
         }
+    }
+
+    private Date parseDate(String date) throws ParseException {
+
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMMM yyyy");
+
+        return dateFormat.parse(date);
+    }
+
+    private Date parseTime(String time) throws ParseException {
+        System.out.println(time);
+        final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
+
+
+        System.out.println(dateFormat.parse(time));
+        return dateFormat.parse(time);
     }
 }

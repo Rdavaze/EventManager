@@ -45,35 +45,52 @@ public class EntityManagerService {
     }
 
     private synchronized void populate() {
+        final User romainDavaze = new UserBuilder("romain.davaze@gmail.com", "password", "Romain", "Davaze")
+                .setCompany("Sigma")
+                .build();
+
+        final User guillaumeChanson = new UserBuilder("guillaume.chanson@gmail.com", "password", "Guillaume", "Chanson")
+                .setCompany("Nantes Métropole")
+                .build();
+
+        final User florineCercle = new UserBuilder("florine.cercle@gmail.com", "password", "Florine", "Cerclé")
+                .setCompany("Sopra Steria")
+                .build();
+
         final User johnDoe = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
                 .setCompany("OpenJDK")
                 .build();
 
-        final User richardRoe = new UserBuilder("richard.roe@gmail.com", "password", "Richard", "Roe")
-                .setCompany("Sun")
+        final User laurentGuerin = new UserBuilder("laurent.guerin@gmail.com", "password", "Laurent", "Guerin")
+                .setCompany("Teacher")
                 .build();
 
+
         performOperation(em -> {
+            em.persist(romainDavaze);
+            em.persist(guillaumeChanson);
+            em.persist(florineCercle);
+            em.persist(laurentGuerin);
             em.persist(johnDoe);
-            em.persist(richardRoe);
         });
 
         performOperation(em -> {
-            em.persist(new EventBuilder("Premier événement", johnDoe).setVisible(true).build());
-            em.persist(new EventBuilder("Deuxième événement", johnDoe).build());
-            em.persist(new EventBuilder("Troisième événement", richardRoe).addAttendee(johnDoe).setVisible(true).build());
-            em.persist(new EventBuilder("Quatre événement", johnDoe).build());
-            em.persist(new EventBuilder("Cinq événement", johnDoe).build());
-            em.persist(new EventBuilder("Sixieme événement", richardRoe).build());
-            em.persist(new EventBuilder("Sept événement", johnDoe).build());
-            em.persist(new EventBuilder("Huit événement", johnDoe).setVisible(true).build());
-            em.persist(new EventBuilder("Neuf événement", richardRoe).build());
-            em.persist(new EventBuilder("Dix événement", johnDoe).build());
-            em.persist(new EventBuilder("Onze événement", johnDoe).build());
-            em.persist(new EventBuilder("Douze événement", richardRoe).build());
-            em.persist(new EventBuilder("Treize événement", johnDoe).build());
-            em.persist(new EventBuilder("Quatorze événement", johnDoe).build());
-            em.persist(new EventBuilder("Quinze événement", richardRoe).build());
+            em.persist(new EventBuilder("Fête de la musique", guillaumeChanson).setVisible(true).build());
+            em.persist(new EventBuilder("Laser Game", romainDavaze).build());
+            em.persist(new EventBuilder("Avant-première", florineCercle).addAttendee(romainDavaze).setVisible(true).build());
+            em.persist(new EventBuilder("Vide-grenier", guillaumeChanson).build());
+            em.persist(new EventBuilder("Art to Play", florineCercle).addAttendee(romainDavaze).addAttendee(guillaumeChanson).setVisible(true).build());
+            em.persist(new EventBuilder("Fête des fleurs", florineCercle).build());
+            em.persist(new EventBuilder("Shopping à l'Apple Store", romainDavaze).build());
+            em.persist(new EventBuilder("LAN League of Legends", guillaumeChanson).build());
+            em.persist(new EventBuilder("Dédicace FNAC", romainDavaze).build());
+            em.persist(new EventBuilder("Zombie Walk", florineCercle).build());
+            em.persist(new EventBuilder("Concert Parov Stelar", guillaumeChanson).build());
+            em.persist(new EventBuilder("Concours Patisserie", romainDavaze).build());
+            em.persist(new EventBuilder("Salons des Vins", romainDavaze).build());
+            em.persist(new EventBuilder("Pyjama party", florineCercle).build());
+            em.persist(new EventBuilder("Anniversaire de Guillaume", guillaumeChanson).build());
+
         });
     }
 }

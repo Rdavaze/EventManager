@@ -13,14 +13,14 @@ import org.junit.Test;
 public class ExceptionTest {
     private static UserDAO userDAO;
 
-    private static User johnDoe;
+    private static User romain;
 
     @BeforeClass
     public static void setUpClass() {
         userDAO = UserDAOImpl.getInstance();
 
-        johnDoe = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
-                .setCompany("OpenJDK")
+        romain = new UserBuilder("r)omain.davaze@gmail.com", "password", "Romain", "Davaze")
+                .setCompany("Sigma")
                 .build();
     }
 
@@ -35,7 +35,7 @@ public class ExceptionTest {
     public void testWrongPassword() throws MailNotFoundException, WrongPasswordException {
 
         String wrongPassword = "toto";
-        String email = "john.doe@gmail.com";
+        String email = "romain.davaze@gmail.com";
 
         userDAO.findByCredentials(email, wrongPassword);
 

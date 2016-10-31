@@ -233,6 +233,10 @@ textarea {
   width: 18rem;
 }
 
+input[type=email] {
+  margin-top: 5px !important;
+}
+
 @media only screen and (max-width: 900px) {
   #form-div {
     left: 3%;

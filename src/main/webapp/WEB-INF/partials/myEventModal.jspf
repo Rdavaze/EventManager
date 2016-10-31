@@ -18,33 +18,33 @@
         <div class="row">
             <div class="input-field col s6 edit-event-value">
                 <input id="event-date-begin" type="date" class="datepicker" name="date-begin"
-                       value="<c:out value="${param.date-begin}" />">
+                       value="<c:out value="${param.datebegin}" />">
                 <label for="event-date-begin">Date de début</label>
             </div>
 
             <div class="input-field col s6 edit-event-value">
                 <input id="event-time-begin" type="time" class="timepicker" name="time-begin"
-                       value="<c:out value="${param.time-begin}" />">
+                       value="<c:out value="${param.timebegin}" />">
                 <label for="event-time-begin">Heure de début</label>
             </div>
         </div>
         <div class="row" style="margin-bottom: 0">
             <div class="input-field col s6 edit-event-value">
                 <input id="event-date-end" type="date" class="datepicker" name="date-end"
-                       value="<c:out value="${param.date-end}" />">
+                       value="<c:out value="${param.dateend}" />">
                 <label for="event-date-end">Date de fin</label>
             </div>
             <div class="input-field col s6 edit-event-value">
                 <input id="event-time-end" type="time" class="timepicker" name="time-end"
-                       value="<c:out value="${param.time-end}" />">
+                       value="<c:out value="${param.timeend}" />">
                 <label for="event-time-end">Heure de fin</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field col s6 edit-event-value">
                     <textarea id="event-description" maxlength="80" type="text" name="description"
-                              class="validate materialize-textarea" value="<c:out value="${param.description}" />"
-                              style="margin-bottom: 0"></textarea>
+                              class="validate materialize-textarea"
+                              style="margin-bottom: 0"><c:out value="${param.description}"/></textarea>
                 <label for="event-description">Description</label>
             </div>
         </div>
@@ -59,5 +59,6 @@
             </div>
             <button type="submit" class="waves-effect waves-light btn" id="button-save-event">Enregistrer</button>
         </div>
+
     </form>
 </div>

@@ -1,16 +1,44 @@
 .modal {
   overflow: hidden;
+  max-height: 86%;
+  top: 5%;
 }
 
-.event-modal-title {
-  font-size: 200%;
+.modal-content {
+  background-color: rgba(19, 35, 47, 0.9);
 }
 
-.event-modal-element {
+div > label {
   text-align: left;
 }
 
+input[type=text].validate+label,
+input[type=text]:disabled,
+input[type=date].validate+label,
+input[type=date]:disabled,
+input[type=time].validate+label,
+input[type=time]:disabled,
+textarea.materialize-textarea:disabled,
+textarea.materialize-textarea:disabled+label {
+  color: #9e9e9e !important;
+  border-bottom-color: #9e9e9e !important;
+}
+.event-modal-element {
+  color: #9e9e9e;
+}
+
+.input-field {
+  margin-top: 0 !important;
+}
+
+.row {
+  margin-bottom: 10px;
+}
+
+/*
 .modal-footer {
+  background-color: rgba(19, 35, 47, 0.9) !important;
   padding-right: 5% !important;
   margin-bottom: 3% !important;
 }
+*/
