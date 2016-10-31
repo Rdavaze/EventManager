@@ -1,6 +1,7 @@
 package fr.eventmanager.dao.impl;
 
 import fr.eventmanager.dao.EventDAO;
+import fr.eventmanager.exception.MailNotFoundException;
 import fr.eventmanager.model.Event;
 import fr.eventmanager.model.Event_;
 import fr.eventmanager.model.User;
@@ -61,6 +62,26 @@ public class EventDAOImpl extends AbstractDAO<Integer, Event> implements EventDA
 
             CriteriaQuery<Event> cq = cb.createQuery(getEntityClass());
             Root<Event> root = cq.from(getEntityClass());
+
+            TypedQuery<Event> q = em.createQuery(cq);
+            q.setFirstResult((pageNumber - 1) * NBR_EVENTS_DISPLAY);
+            q.setMaxResults(NBR_EVENTS_DISPLAY);
+            return q.getResultList();
+        });
+
+        return results;
+    }
+
+    @Override
+    public List<Event> getCreatorPageEvents(User creator, int pageNumber) throws MailNotFoundException {
+
+        final List<Event> results = getEntityManagerService().performQuery(em -> {
+            CriteriaBuilder cb = em.getCriteriaBuilder();
+
+            CriteriaQuery<Event> cq = cb.createQuery(getEntityClass());
+            Root<Event> root = cq.from(getEntityClass());
+
+            cq.where(cb.equal(root.get(Event_.creator), creator));
 
             TypedQuery<Event> q = em.createQuery(cq);
             q.setFirstResult((pageNumber - 1) * NBR_EVENTS_DISPLAY);

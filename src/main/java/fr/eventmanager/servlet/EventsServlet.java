@@ -5,6 +5,7 @@ import fr.eventmanager.dao.EventDAO;
 import fr.eventmanager.dao.UserDAO;
 import fr.eventmanager.dao.impl.EventDAOImpl;
 import fr.eventmanager.dao.impl.UserDAOImpl;
+import fr.eventmanager.exception.MailNotFoundException;
 import fr.eventmanager.model.Event;
 import fr.eventmanager.model.User;
 import fr.eventmanager.utils.HttpMethod;
@@ -56,9 +57,15 @@ public class EventsServlet extends Servlet {
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventCreate.jsp").forward(req, resp);
     }
 
-    public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void getMyEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException, MailNotFoundException {
         final int index = parseEventIndex(req);
-        req.setAttribute("events", eventDAO.getPageEvents(index));
+
+        Optional<User> user = getSessionUser(req.getSession());
+
+        if (user.isPresent())
+            req.setAttribute("events", eventDAO.getCreatorPageEvents(user.get(), index));
+
+
         getServletContext().getRequestDispatcher("/WEB-INF/pages/myEvents.jsp").forward(req, resp);
     }
 
