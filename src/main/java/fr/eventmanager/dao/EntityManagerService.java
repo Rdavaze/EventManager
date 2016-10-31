@@ -7,6 +7,7 @@ import fr.eventmanager.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.Date;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
@@ -75,21 +76,95 @@ public class EntityManagerService {
         });
 
         performOperation(em -> {
-            em.persist(new EventBuilder("Fête de la musique", guillaumeChanson).setVisible(true).build());
-            em.persist(new EventBuilder("Laser Game", romainDavaze).build());
-            em.persist(new EventBuilder("Avant-première", florineCercle).addAttendee(romainDavaze).setVisible(true).build());
-            em.persist(new EventBuilder("Vide-grenier", guillaumeChanson).build());
-            em.persist(new EventBuilder("Art to Play", florineCercle).addAttendee(romainDavaze).addAttendee(guillaumeChanson).setVisible(true).build());
-            em.persist(new EventBuilder("Fête des fleurs", florineCercle).build());
-            em.persist(new EventBuilder("Shopping à l'Apple Store", romainDavaze).build());
-            em.persist(new EventBuilder("LAN League of Legends", guillaumeChanson).build());
-            em.persist(new EventBuilder("Dédicace FNAC", romainDavaze).build());
-            em.persist(new EventBuilder("Zombie Walk", florineCercle).build());
-            em.persist(new EventBuilder("Concert Parov Stelar", guillaumeChanson).build());
-            em.persist(new EventBuilder("Concours Patisserie", romainDavaze).build());
-            em.persist(new EventBuilder("Salons des Vins", romainDavaze).build());
-            em.persist(new EventBuilder("Pyjama party", florineCercle).build());
-            em.persist(new EventBuilder("Anniversaire de Guillaume", guillaumeChanson).build());
+            em.persist(new EventBuilder("Fête de la musique", guillaumeChanson)
+                    .setVisible(true)
+                    .setDateBegin(new Date(116, 11, 21))
+                    .setDateEnd(new Date(116, 11, 22))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Nantes")
+                    .setDescription("Fête de la musique à Nantes")
+                    .build());
+            em.persist(new EventBuilder("Laser Game", romainDavaze)
+                    .setDateBegin(new Date(116, 12, 23))
+                    .setDateEnd(new Date(116, 12, 23))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Saint-Herblain")
+                    .setDescription("On va bien s'amuser !")
+                    .build());
+            em.persist(new EventBuilder("Avant-première", florineCercle)
+                    .addAttendee(romainDavaze)
+                    .setVisible(true)
+                    .setDateBegin(new Date(116, 11, 1))
+                    .setDateEnd(new Date(116, 11, 1))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Gaumont")
+                    .setDescription("Avant-première Harry Potter")
+                    .build());
+            em.persist(new EventBuilder("Vide-grenier", guillaumeChanson)
+                    .setDateBegin(new Date(116, 11, 12))
+                    .setDateEnd(new Date(116, 11, 12))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Bouffay")
+                    .setDescription("Venez dénichez de objets rares !")
+                    .build());
+            em.persist(new EventBuilder("Fête des fleurs", florineCercle)
+                    .setDateBegin(new Date(117, 06, 20))
+                    .setDateEnd(new Date(117, 06, 21))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Dans un champ de fleurs")
+                    .setDescription("Plus belle journée de l'année où il n'y a jamais rien eu d'autre que du soleil")
+                    .build());
+            em.persist(new EventBuilder("Shopping à l'Apple Store", romainDavaze)
+                    .setDateBegin(new Date(116, 12, 25))
+                    .setDateEnd(new Date(116, 12, 25))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Apple Store")
+                    .setDescription("Romain doit s'acheter un macbook pro")
+                    .build());
+            em.persist(new EventBuilder("Concert Parov Stelar", guillaumeChanson)
+                    .setDateBegin(new Date(116, 11, 230))
+                    .setDateEnd(new Date(116, 11, 30))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .build());
+            em.persist(new EventBuilder("Concours Patisserie", romainDavaze)
+                    .setDateBegin(new Date(117, 01, 12))
+                    .setDateEnd(new Date(117, 01, 12))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Chez Romain")
+                    .setDescription("Concours de gateau !")
+                    .build());
+            em.persist(new EventBuilder("Salons des Vins", romainDavaze)
+                    .setDateBegin(new Date(117, 04, 01))
+                    .setDateEnd(new Date(117, 04, 01))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Beaujoire")
+                    .setDescription("Dégustation de vin")
+                    .build());
+            em.persist(new EventBuilder("Pyjama party", florineCercle)
+                    .setDateBegin(new Date(116, 12, 1))
+                    .setDateEnd(new Date(116, 12, 2))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Chez Florine")
+                    .setDescription("On va bien s'amuser !")
+                    .build());
+            em.persist(new EventBuilder("Anniversaire de Guillaume", guillaumeChanson)
+                    .setDateBegin(new Date(116, 10, 31))
+                    .setDateEnd(new Date(116, 11, 1))
+                    .setTimeBegin(new Date(116, 11, 22, 11, 21))
+                    .setTimeEnd(new Date(116, 11, 22, 10, 20))
+                    .setLocation("Chez Guillaume")
+                    .setDescription("Bon anniversaire Guillaume !")
+                    .build());
 
         });
     }

@@ -43,6 +43,7 @@ public class EventsServlet extends Servlet {
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/subscribe/\\d+"), "subscribe", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/unsubscribe/\\d+"), "unsubscribe", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+/delete"), "deleteEvent", true));
+        registerRoute(HttpMethod.POST, new Route(Pattern.compile("/update/\\d+"), "updateEvent", true));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
     }
 
@@ -72,7 +73,14 @@ public class EventsServlet extends Servlet {
 
     public void browseEvents(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int index = parseEventIndex(req);
-        req.setAttribute("events", eventDAO.getPageEvents(index));
+        final Optional<User> userOptional = getSessionUser(req.getSession());
+        if (userOptional.isPresent()) {
+            req.setAttribute("events", eventDAO.getPageEvents(userOptional.get(), index));
+
+        } else {
+            req.setAttribute("events", eventDAO.getPageEventsAnonymous(index));
+        }
+
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
     }
 
@@ -137,6 +145,42 @@ public class EventsServlet extends Servlet {
         resp.sendRedirect(getServletContext().getContextPath() + "/events/browse?index=1");
     }
 
+    public void updateEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final String label = req.getParameter("label");
+        final String description = req.getParameter("description");
+        final String location = req.getParameter("location");
+        final String timeBegin = req.getParameter("time-begin");
+        final String dateBegin = req.getParameter("date-begin");
+        final String timeEnd = req.getParameter("time-end");
+        final String dateEnd = req.getParameter("date-end");
+        final boolean visible = "on".equalsIgnoreCase(req.getParameter("visible"));
+
+        final int eventID = Integer.parseInt(req.getPathInfo().split("/")[2]);
+
+        getSessionUser(req.getSession()).ifPresent(user -> {
+            EventBuilder eventBuilder = null;
+            try {
+                eventBuilder = new EventBuilder(label, user)
+                        .setDescription(description)
+                        .setLocation(location)
+                        .setVisible(visible)
+                        .setDateBegin(parseDate(dateBegin))
+                        .setDateEnd(parseDate(dateEnd))
+                        .setTimeBegin(parseTime(timeBegin))
+                        .setTimeEnd(parseTime(timeEnd));
+
+                eventDAO.updateEvent(eventBuilder.build(), eventID);
+
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+
+        });
+
+        resp.sendRedirect(getServletContext().getContextPath() + "/events/myEvents?index=1");
+    }
+
     private int parseEventIndex(HttpServletRequest req) {
         Optional<Integer> indexOptional;
         try {
@@ -174,8 +218,10 @@ public class EventsServlet extends Servlet {
     private Date parseDate(String date) throws ParseException {
 
         final SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMMM yyyy");
-
+        if (!date.equals(""))
         return dateFormat.parse(date);
+
+        return new Date();
     }
 
     private Date parseTime(String time) throws ParseException {
@@ -183,7 +229,9 @@ public class EventsServlet extends Servlet {
         final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm");
 
 
-        System.out.println(dateFormat.parse(time));
-        return dateFormat.parse(time);
+        if (!time.equals(""))
+            return dateFormat.parse(time);
+
+        return new Date();
     }
 }
