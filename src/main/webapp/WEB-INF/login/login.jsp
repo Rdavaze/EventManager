@@ -11,7 +11,7 @@
 </div>
 
 
-<div class="form" id="form-main">
+<div class="form content" id="form-main">
     <div id="form-div">
 
         <ul class="tab-group">
@@ -94,10 +94,13 @@
     </div>
 </div>
 
-<div>
-    <button type="submit" class="waves-effect waves-light btn" id="button-events">Voir les événements</button>
+<div class="content">
+    <a href="${pageContext.request.contextPath}/events/browse" class="waves-effect waves-light btn" id="button-events">Voir
+        les événements</a>
 </div>
 
+
+<%@include file="../partials/footer.jspf" %>
 
 <script>
 

@@ -30,9 +30,13 @@ public class Event implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @Temporal(TemporalType.DATE)
-    @Column(name = "date")
-    private Date date;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_begin")
+    private Date dateBegin;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "date_end")
+    private Date dateEnd;
 
     @Column(name = "location")
     private String location;
@@ -47,11 +51,12 @@ public class Event implements Serializable {
     public Event() {
     }
 
-    public Event(User creator, String label, String description, Date date, String location, boolean visible, Set<User> attendees) {
+    public Event(User creator, String label, String description, Date dateBegin, Date dateEnd, String location, boolean visible, Set<User> attendees) {
         this.creator = creator;
         this.label = label;
         this.description = description;
-        this.date = date;
+        this.dateBegin = dateBegin;
+        this.dateEnd = dateEnd;
         this.location = location;
         this.visible = visible;
         this.attendees = attendees;
@@ -89,12 +94,20 @@ public class Event implements Serializable {
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getDateBegin() {
+        return dateBegin;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDateBegin(Date dateBegin) {
+        this.dateBegin = dateBegin;
+    }
+
+    public Date getDateEnd() {
+        return dateEnd;
+    }
+
+    public void setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
     }
 
     public String getLocation() {

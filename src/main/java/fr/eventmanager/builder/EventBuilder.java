@@ -16,7 +16,8 @@ public class EventBuilder implements Builder<Event> {
     private final User creator;
     private String label;
     private String description;
-    private Date date;
+    private Date dateBegin;
+    private Date dateEnd;
     private String location;
     private boolean visible;
 
@@ -35,8 +36,13 @@ public class EventBuilder implements Builder<Event> {
         return this;
     }
 
-    public EventBuilder setDate(Date date) {
-        this.date = date;
+    public EventBuilder setDateBegin(Date dateBegin) {
+        this.dateBegin = dateBegin;
+        return this;
+    }
+
+    public EventBuilder setDateEnd(Date dateEnd) {
+        this.dateEnd = dateEnd;
         return this;
     }
 
@@ -60,6 +66,6 @@ public class EventBuilder implements Builder<Event> {
         if (!this.attendees.contains(creator)) {
             this.attendees.add(creator);
         }
-        return new Event(creator, label, description, date, location, visible, attendees);
+        return new Event(creator, label, description, dateBegin, dateEnd, location, visible, attendees);
     }
 }

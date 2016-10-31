@@ -26,9 +26,25 @@
                     <input id="event-place" type="text" class="validate" name="location">
                     <label for="event-place">Lieu</label>
                 </div>
+            </div>
+            <div class="row">
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-date" type="date" class="datepicker" name="date">
-                    <label for="event-date">Date</label>
+                    <input id="event-date-begin" type="date" class="datepicker" name="date-begin">
+                    <label for="event-date-begin">Date</label>
+                </div>
+                <div class="input-field col s6 create-event-value">
+                    <input id="event-time-begin" type="time" class="validate" name="time-begin">
+                    <label for="event-time-begin">Date</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s6 create-event-value">
+                    <input id="event-date-end" type="date" class="datepicker" name="date-end">
+                    <label for="event-date-end">Date</label>
+                </div>
+                <div class="input-field col s6 create-event-value">
+                    <input id="event-time-end" type="time" class="validate" name="time-end">
+                    <label for="event-time-end">Date</label>
                 </div>
             </div>
             <div class="row">
@@ -41,7 +57,8 @@
             <div class="row">
                 <div class="switch col s6 create-event-value">
                     <label>
-                        <p id="publish">Publier </p> Non
+                        <p id="publish">Publier </p>
+                        Non
                         <input type="checkbox" name="visible">
                         <span class="lever"></span>
                         Oui
@@ -51,12 +68,13 @@
 
             <button type="submit" class="waves-effect waves-light btn" id="button-create-event">Créer</button>
 
-
         </form>
     </div>
 
-
 </div>
+
+
+<%@include file="../partials/footer.jspf" %>
 
 <script>
     $('.datepicker').pickadate({

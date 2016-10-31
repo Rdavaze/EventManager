@@ -38,5 +38,7 @@
 </div>
 
 
+<%@include file="../partials/footer.jspf" %>
+
 </body>
 </html>

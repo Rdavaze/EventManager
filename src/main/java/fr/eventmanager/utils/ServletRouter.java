@@ -6,6 +6,7 @@ import fr.eventmanager.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -48,7 +49,9 @@ public class ServletRouter {
 
         if (routeOptional.isPresent()) {
             final Route route = routeOptional.get();
-            if (route.isInternal() && !servlet.isSessionLogged(req.getSession())) {
+            final Boolean isLogged = servlet.isSessionLogged(req.getSession());
+            req.setAttribute(UserSession.LOGGED_ATTR_NAME, isLogged);
+            if (route.isInternal() && !isLogged) {
                 throw new NotLoggedInException("You must be logged in to access " + path);
             }
 
