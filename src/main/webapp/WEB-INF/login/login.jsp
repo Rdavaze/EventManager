@@ -87,7 +87,8 @@
 </div>
 
 <div class="content">
-    <a href="${pageContext.request.contextPath}/events/browse" class="waves-effect waves-light btn" id="button-events">Voir
+    <a href="${pageContext.request.contextPath}/events/browse?index=1" class="waves-effect waves-light btn"
+       id="button-events">Voir
         les événements</a>
 </div>
 

@@ -25,6 +25,8 @@ public interface EventDAO extends DAO<Integer, Event> {
 
     List<Event> getPageEvents(User user, int pageNumber);
 
+    List<Event> getPageEventsAnonymous(int pageNumber);
+
     List<Event> getCreatorPageEvents(User creator, int pageNumber) throws MailNotFoundException;
 
     void deleteEvent(Integer id);
