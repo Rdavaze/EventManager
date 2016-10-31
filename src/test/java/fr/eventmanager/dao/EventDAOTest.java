@@ -1,8 +1,10 @@
 package fr.eventmanager.dao;
 
 
+import fr.eventmanager.builder.UserBuilder;
 import fr.eventmanager.dao.impl.EventDAOImpl;
 import fr.eventmanager.model.Event;
+import fr.eventmanager.model.User;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -13,9 +15,15 @@ import static org.junit.Assert.assertEquals;
 public class EventDAOTest {
     private static EventDAO eventDAO;
 
+    private static User romain;
+
     @BeforeClass
     public static void setUpClass() {
         eventDAO = EventDAOImpl.getInstance();
+
+        romain = new UserBuilder("romain.davaze@gmail.com", "password", "Romain", "Davaze")
+                .setCompany("Sigma")
+                .build();
     }
 
     @Test
@@ -39,10 +47,10 @@ public class EventDAOTest {
 //    @Test
 //    public void testGetPageEvents() {
 //
-//        List<Event> eventsFirstPage = eventDAO.getPageEvents(1);
-//        List<Event> eventsSecondPage = eventDAO.getPageEvents(2);
-//        List<Event> eventsThirdPage = eventDAO.getPageEvents(3);
-//        List<Event> eventsFourthPage = eventDAO.getPageEvents(4);
+//        List<Event> eventsFirstPage = eventDAO.getPageEvents(romain,1);
+//        List<Event> eventsSecondPage = eventDAO.getPageEvents(romain,2);
+//        List<Event> eventsThirdPage = eventDAO.getPageEvents(romain,3);
+//        List<Event> eventsFourthPage = eventDAO.getPageEvents(romain,4);
 //
 //        assertEquals(eventsFirstPage.size(), 4);
 //        assertEquals(eventsFirstPage.get(0).getId(), new Integer(6));

@@ -76,11 +76,12 @@ public class EventsServlet extends Servlet {
         final Optional<User> userOptional = getSessionUser(req.getSession());
         if (userOptional.isPresent()) {
             req.setAttribute("events", eventDAO.getPageEvents(userOptional.get(), index));
-            getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
+
         } else {
-            resp.sendRedirect(getServletContext().getContextPath() + req.getPathInfo());
+            req.setAttribute("events", eventDAO.getPageEventsAnonymous(index));
         }
 
+        getServletContext().getRequestDispatcher("/WEB-INF/pages/eventsBrowse.jsp").forward(req, resp);
     }
 
     public void subscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
