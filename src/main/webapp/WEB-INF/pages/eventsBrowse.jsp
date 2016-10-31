@@ -33,12 +33,12 @@
             <li class="disabled"><a href="#!"><i class="material-icons chevron">chevron_left</i></a></li>
             <li id="page1" class="waves-effect"><a href="${pageContext.request.contextPath}/events/browse?index=1">1</a>
             </li>
-            <li id="page2" class="waves-effect"><a href="${pageContext.request.contextPath}/events/browse?index=7">2</a>
+            <li id="page2" class="waves-effect"><a href="${pageContext.request.contextPath}/events/browse?index=2">2</a>
             </li>
             <li id="page3" class="waves-effect"><a
-                    href="${pageContext.request.contextPath}/events/browse?index=11">3</a></li>
+                    href="${pageContext.request.contextPath}/events/browse?index=3">3</a></li>
             <li id="page4" class="waves-effect"><a
-                    href="${pageContext.request.contextPath}/events/browse?index=15">4</a></li>
+                    href="${pageContext.request.contextPath}/events/browse?index=4">4</a></li>
             <li class="disabled"><a href="#!"><i class="material-icons chevron">chevron_right</i></a></li>
         </ul>
 
@@ -57,25 +57,8 @@
         $('.modal-trigger').leanModal();
 
         var index = Number($_GET('index'));
-        var id_page;
 
-        switch (index) {
-
-            case 1 :
-                id_page = 1;
-                break;
-            case 7 :
-                id_page = 2;
-                break;
-            case 11 :
-                id_page = 3;
-                break;
-            case 15 :
-                id_page = 4;
-                break;
-        }
-
-        $('#page' + id_page).addClass('active');
+        $('#page' + index).addClass('active');
 
     });
 
