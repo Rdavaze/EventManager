@@ -2,36 +2,24 @@
   box-sizing: border-box;
 }
 
-
 html {
   overflow: hidden;
   background: url("../images/agenda.png") no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
   background-size: cover;
   height: 100%;
 }
 
-#form-main {
+.content {
   width: 100%;
-  float: left;
-  padding-top: 0px;
-  position: relative;
   margin-left: 5%;
-  transform: translateY(-50%);
 }
 
 #form-div {
   background-color: rgba(19, 35, 47, 0.9);
-  padding: 2% 4% 2% 4%;
-  width: 30%;
-  float: left;
-  left: 50%;
-  position: absolute;
-  margin-left: -260px;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
+  padding: 2% 4% 1% 4%;
+  width: 50%;
+  max-width: 40rem;
+  margin: auto;
   border-radius: 4px;
   box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
   text-align: center;
@@ -44,12 +32,15 @@ a {
   -webkit-transition: .5s ease;
   transition: .5s ease;
 }
+
 a:hover {
   color: #179b77;
 }
+
 .forgot a {
   color: rgb(26, 177, 136);
 }
+
 .forgot a:hover {
   color: rgba(255, 255, 255, .5);
 }
@@ -59,11 +50,13 @@ a:hover {
   padding: 0;
   margin: 0 0 1% 0;
 }
+
 .tab-group:after {
   content: "";
   display: table;
   clear: both;
 }
+
 .tab-group > li > a {
   display: block;
   text-decoration: none;
@@ -80,10 +73,12 @@ a:hover {
   transition: .5s ease;
   border-radius: 2px;
 }
+
 .tab-group > li > a:hover {
   background: #179b77;
   color: #ffffff;
 }
+
 .tab-group .active a {
   background: #1ab188;
   color: #ffffff;
@@ -92,7 +87,6 @@ a:hover {
 .tab-content > div:last-child {
   display: none;
 }
-
 
 label {
   position: absolute;
@@ -106,6 +100,7 @@ label {
   pointer-events: none;
   font-size: 22px;
 }
+
 label .req {
   margin: 2px;
   color: #1ab188;
@@ -117,6 +112,7 @@ label.active {
   left: 2px;
   font-size: 14px;
 }
+
 label.active .req {
   opacity: 0;
 }
@@ -141,6 +137,7 @@ input, textarea {
   -webkit-transition: border-color .25s ease, box-shadow .25s ease;
   transition: border-color .25s ease, box-shadow .25s ease;
 }
+
 input:focus, textarea:focus {
   outline: 0;
   border-color: #1ab188;
@@ -153,7 +150,6 @@ textarea {
 
 .field-wrap {
   position: relative;
-  //margin-bottom: 20px;
 }
 
 .top-row:after {
@@ -161,12 +157,14 @@ textarea {
   display: table;
   clear: both;
 }
+
 .top-row > div {
   float: left;
   width: 48%;
   margin-right: 4%;
 
 }
+
 .top-row > div:last-child {
   margin: 0;
   font-size: 1rem;
@@ -188,6 +186,7 @@ textarea {
   -webkit-appearance: none;
 
 }
+
 .button:hover, .button:focus {
   background: #179b77;
 }
@@ -200,11 +199,6 @@ textarea {
 .forgot {
   bottom: 2%;
   left: 5%;
-  position: absolute;
-}
-
-#login {
-  padding-bottom: 8%;
 }
 
 #app-title {
@@ -216,7 +210,6 @@ textarea {
   font-size: 400%;
   font-family: 'Indie Flower', cursive;
 }
-
 
 #wrong-credentials {
   background-color: rgba(160, 179, 176, 0.25);
@@ -231,15 +224,16 @@ textarea {
 }
 
 #button-subscribe {
-  margin-top: 8%
+  margin-top: 8%;
 }
 
 #button-events {
-  margin-left: 40%;
-  margin-top: 29%;
+  display: block;
+  margin: 3rem auto;
+  width: 18rem;
 }
 
-@media only screen and (max-width: 580px) {
+@media only screen and (max-width: 900px) {
   #form-div {
     left: 3%;
     margin-right: 3%;

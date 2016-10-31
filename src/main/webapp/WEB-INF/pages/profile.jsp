@@ -33,13 +33,18 @@
                            value="${sessionScope.user.getEmail()}">
                     <label for="mail">Adresse mail</label>
                 </div>
-            </div>
-
-            <div class="row">
                 <div class="input-field col s6 profile-value">
                     <input id="password" type="password" class="validate valid" name="password"
                            value="${sessionScope.user.getPassword()}">
                     <label for="password">Mot de passe</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="input-field col s6 profile-value">
+                    <input id="company" type="text" class="validate valid" name="company"
+                           value="${sessionScope.user.getCompany()}">
+                    <label for="company">Entreprise</label>
                 </div>
             </div>
 

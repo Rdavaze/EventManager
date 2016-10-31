@@ -85,6 +85,7 @@ public class UserDAOImpl extends AbstractDAO<Integer, User> implements UserDAO {
             currentUser.setLastname(newUser.getLastname());
             currentUser.setEmail(newUser.getEmail());
             currentUser.setPassword(newUser.getPassword());
+            currentUser.setCompany(newUser.getCompany());
 
             em.getTransaction().commit();
 

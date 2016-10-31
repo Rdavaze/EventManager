@@ -11,21 +11,16 @@ import org.junit.Test;
  * Created by Romain on 30/10/2016.
  */
 public class ExceptionTest {
-
     private static UserDAO userDAO;
 
     private static User johnDoe;
 
     @BeforeClass
     public static void setUpClass() {
-
         userDAO = UserDAOImpl.getInstance();
 
-        johnDoe = new UserBuilder()
-                .setEmail("john.doe@gmail.com")
-                .setPassword("password")
-                .setFirstname("John")
-                .setLastname("Doe")
+        johnDoe = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
+                .setCompany("OpenJDK")
                 .build();
     }
 

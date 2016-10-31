@@ -31,18 +31,22 @@ public class User implements Serializable {
     @Column(name = "lastname", nullable = false, length = 100)
     private String lastname;
 
+    @Column(name = "company", length = 100)
+    private String company;
+
     @ManyToMany(mappedBy = "attendees")
     private Set<Event> events;
 
     public User() {
     }
 
-    public User(String email, String password, String firstname, String lastname, Set<Event> events) {
+    public User(String email, String password, String firstname, String lastname, String company, Set<Event> events) {
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.events = events;
+        this.company = company;
     }
 
     public int getId() {
@@ -85,6 +89,14 @@ public class User implements Serializable {
         this.lastname = lastname;
     }
 
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
     public Set<Event> getEvents() {
         return events;
     }
@@ -111,6 +123,6 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("[%d]:%s", id, email);
+        return String.format("%s %s (%s) : %s", firstname, lastname.toUpperCase(), company, email);
     }
 }

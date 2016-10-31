@@ -15,18 +15,13 @@ public class UserBuilderTest {
 
     @BeforeClass
     public static void setUpClass() {
-
-        johnDoe = new User("john.doe@gmail.com", "password", "John", "Doe", null);
+        johnDoe = new User("john.doe@gmail.com", "password", "John", "Doe", "OpenJDK", null);
     }
 
     @Test
     public void testUserBuilder() {
-
-        User userTest = new UserBuilder()
-                .setEmail("john.doe@gmail.com")
-                .setPassword("password")
-                .setFirstname("John")
-                .setLastname("Doe")
+        User userTest = new UserBuilder("john.doe@gmail.com", "password", "John", "Doe")
+                .setCompany("OpenJDK")
                 .build();
 
         assertEquals(johnDoe.getPassword(), userTest.getPassword());
