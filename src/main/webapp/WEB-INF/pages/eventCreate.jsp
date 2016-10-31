@@ -33,7 +33,7 @@
                     <label for="event-date-begin">Date</label>
                 </div>
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-time-begin" type="time" class="validate" name="time-begin">
+                    <input id="event-time-begin" type="time" class="timepicker" name="time-begin">
                     <label for="event-time-begin">Date</label>
                 </div>
             </div>
@@ -43,7 +43,7 @@
                     <label for="event-date-end">Date</label>
                 </div>
                 <div class="input-field col s6 create-event-value">
-                    <input id="event-time-end" type="time" class="validate" name="time-end">
+                    <input id="event-time-end" type="time" class="timepicker" name="time-end">
                     <label for="event-time-end">Date</label>
                 </div>
             </div>
@@ -92,6 +92,14 @@
         labelMonthSelect: 'Sélectionner un mois',
         labelYearSelect: 'Sélectionner une année',
         format: 'dd mmmm yyyy'
+    });
+
+    $('.timepicker').pickatime({
+        default: 'now',
+        twelvehour: false, // change to 12 hour AM/PM clock from 24 hour
+        donetext: 'OK',
+        autoclose: false,
+        vibrate: true // vibrate the device when dragging clock hand
     });
 
 </script>
