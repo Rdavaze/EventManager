@@ -153,11 +153,6 @@ public class LoginServlet extends Servlet {
             return true;
 
         } catch (MailNotFoundException | WrongPasswordException e) {
-            final User user = new UserBuilder()
-                    .setEmail(email)
-                    .setPassword(password)
-                    .build();
-            setSessionUser(session, user);
             setSessionLogged(session, false);
             System.out.println("Logging failed");
             throw e;
@@ -179,6 +174,7 @@ public class LoginServlet extends Servlet {
         final String password = req.getParameter("subscribe-password");
         final String firstname = req.getParameter("subscribe-firstname");
         final String lastname = req.getParameter("subscribe-lastname");
+        final String company = req.getParameter("subscribe-company");
 
         try {
             final User user = this.userDAO.findByCredentials(email);
@@ -191,11 +187,8 @@ public class LoginServlet extends Servlet {
         } catch (MailNotFoundException ignored) {
         }
 
-        final User user = new UserBuilder()
-                .setEmail(email)
-                .setPassword(password)
-                .setFirstname(firstname)
-                .setLastname(lastname)
+        final User user = new UserBuilder(email, password, firstname, lastname)
+                .setCompany(company)
                 .build();
         userDAO.persist(user);
         setSessionUser(session, user);
