@@ -59,14 +59,14 @@ public class EntityManagerService {
         });
 
         performOperation(em -> {
-            em.persist(new EventBuilder("Premier événement", johnDoe).build());
+            em.persist(new EventBuilder("Premier événement", johnDoe).setVisible(true).build());
             em.persist(new EventBuilder("Deuxième événement", johnDoe).build());
-            em.persist(new EventBuilder("Troisième événement", richardRoe).build());
+            em.persist(new EventBuilder("Troisième événement", richardRoe).addAttendee(johnDoe).setVisible(true).build());
             em.persist(new EventBuilder("Quatre événement", johnDoe).build());
             em.persist(new EventBuilder("Cinq événement", johnDoe).build());
             em.persist(new EventBuilder("Sixieme événement", richardRoe).build());
             em.persist(new EventBuilder("Sept événement", johnDoe).build());
-            em.persist(new EventBuilder("Huit événement", johnDoe).build());
+            em.persist(new EventBuilder("Huit événement", johnDoe).setVisible(true).build());
             em.persist(new EventBuilder("Neuf événement", richardRoe).build());
             em.persist(new EventBuilder("Dix événement", johnDoe).build());
             em.persist(new EventBuilder("Onze événement", johnDoe).build());

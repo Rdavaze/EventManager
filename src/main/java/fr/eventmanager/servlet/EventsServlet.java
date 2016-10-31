@@ -39,13 +39,16 @@ public class EventsServlet extends Servlet {
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/myEvents"), "getMyEvents", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/browse"), "browseEvents", false));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/subscribe/\\d+"), "subscribe", true));
+        registerRoute(HttpMethod.GET, new Route(Pattern.compile("/unsubscribe/\\d+"), "unsubscribe", true));
         registerRoute(HttpMethod.GET, new Route(Pattern.compile("/\\d+/delete"), "deleteEvent", true));
         registerRoute(HttpMethod.POST, new Route(Pattern.compile("/create"), "postEvent", true));
     }
 
     public void getEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         final int eventID = Integer.parseInt(req.getPathInfo().split("/")[1]);
-        req.setAttribute("event", eventDAO.findById(eventID));
+        final Event event = eventDAO.findById(eventID);
+
+        req.setAttribute("event", event);
         getServletContext().getRequestDispatcher("/WEB-INF/pages/eventDetail.jsp").forward(req, resp);
     }
 
@@ -70,16 +73,21 @@ public class EventsServlet extends Servlet {
         if (userOptional.isPresent()) {
             final int eventID = Integer.parseInt(req.getPathInfo().split("/")[2]);
             final Event event = eventDAO.findById(eventID);
-
-            System.out.println(event.getAttendees());
-
             userDAO.subscribeTo(userOptional.get(), event);
-
-            System.out.println(event.getAttendees());
             resp.sendRedirect(getServletContext().getContextPath() + "/events/" + event.getId());
         } else {
             resp.sendRedirect(getServletContext().getContextPath() + req.getPathInfo());
         }
+    }
+
+    public void unsubscribe(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final Optional<User> userOptional = getSessionUser(req.getSession());
+        if (userOptional.isPresent()) {
+            final int eventID = Integer.parseInt(req.getPathInfo().split("/")[2]);
+            final Event event = eventDAO.findById(eventID);
+            userDAO.unsubscribeFrom(userOptional.get(), event);
+        }
+        resp.sendRedirect(getServletContext().getContextPath() + "/events/browse");
     }
 
     public void postEvent(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

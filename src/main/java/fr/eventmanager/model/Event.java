@@ -132,8 +132,12 @@ public class Event implements Serializable {
         return attendees;
     }
 
-    public boolean addAttendees(User attendee) {
+    public boolean addAttendee(User attendee) {
         return this.attendees.add(attendee);
+    }
+
+    public boolean removeAttendee(User attendee) {
+        return this.attendees.remove(attendee);
     }
 
     public void setAttendees(Set<User> attendees) {
