@@ -20,6 +20,8 @@ public class EventBuilder implements Builder<Event> {
     private String description;
     private Date dateBegin;
     private Date dateEnd;
+    private Date timeBegin;
+    private Date timeEnd;
     private String location;
     private boolean visible;
 
@@ -36,6 +38,16 @@ public class EventBuilder implements Builder<Event> {
 
     public EventBuilder setDateBegin(Date dateBegin) {
         this.dateBegin = dateBegin;
+        return this;
+    }
+
+    public EventBuilder setTimeBegin(Date timeBegin) {
+        this.timeBegin = timeBegin;
+        return this;
+    }
+
+    public EventBuilder setTimeEnd(Date timeEnd) {
+        this.timeEnd = timeEnd;
         return this;
     }
 
@@ -65,6 +77,6 @@ public class EventBuilder implements Builder<Event> {
         // if (!this.attendees.contains(creator)) {
         //     this.attendees.add(creator);
         // }
-        return new Event(creator, label, description, dateBegin, dateEnd, location, visible, attendees);
+        return new Event(creator, label, description, dateBegin, dateEnd, timeBegin, timeEnd, location, visible, attendees);
     }
 }
